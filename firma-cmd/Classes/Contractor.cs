@@ -9,9 +9,11 @@ namespace jpk_check
     public class Contractor : JPKpodmiot
     {
         public Contractor()
-        { }
+        {
+        }
 
-        public Contractor(string nip, string name, string countryCode, string voivodeship, string county, string community, string city, string street, string buldingNo, string postalCode, string postOffice)
+        public Contractor(string nip, string name, string countryCode, string voivodeship, string county,
+            string community, string city, string street, string buldingNo, string postalCode, string postOffice)
         {
             this.nip = nip;
             pelnaNazwa = name;
@@ -23,7 +25,7 @@ namespace jpk_check
             ulica = street;
             nrDomu = buldingNo;
             kodPocztowy = postalCode;
-            poczta = postOffice;    
+            poczta = postOffice;
         }
 
         public bool add()
@@ -65,15 +67,42 @@ namespace jpk_check
             List<Contractor> list = new List<Contractor>();
 
             XDocument doc = XDocument.Load(path);
+
+            int i = 1;
             foreach (XElement elem in doc.Element("Contractors").Elements("Contractor"))
             {
-                Contractor contractor = new Contractor();
-                contractor.pelnaNazwa=elem.Attribute("FullName").Value;
+                Contractor contractor = get(elem);
                 list.Add(contractor);
-                Console.WriteLine(contractor.pelnaNazwa);
+                contractor.print(i);
+                i++;
             }
 
             return list;
         }
+
+        public Contractor get(XElement contractorElement)
+        {
+            Contractor contractor = new Contractor();
+            contractor.pelnaNazwa = contractorElement.Attribute("FullName").Value;
+            contractor.nip = contractorElement.Attribute("NIP").Value;
+            contractor.kodKraju = contractorElement.Attribute("CountryCode").Value;
+            contractor.wojewodztwo = contractorElement.Attribute("Voivodeship").Value;
+            contractor.powiat = contractorElement.Attribute("County").Value;
+            contractor.gmina = contractorElement.Attribute("Community").Value;
+            contractor.miejscowosc = contractorElement.Attribute("City").Value;
+            contractor.ulica = contractorElement.Attribute("Street").Value;
+            contractor.nrDomu = contractorElement.Attribute("BuldingNo").Value;
+            contractor.kodPocztowy = contractorElement.Attribute("PostalCode").Value;
+            contractor.poczta = contractorElement.Attribute("PostOffice").Value;
+
+            return contractor;
+        }
+
+        void print(int i)
+        {
+            Console.WriteLine(i + "\t" + pelnaNazwa + "\t" + nip + "\t" + kodKraju + "\t" + kodPocztowy + "\t" +
+                              miejscowosc + "\t" + ulica + "\t" + nrDomu);
+        }
+
     }
 }
