@@ -6,15 +6,23 @@
       <e p="firma-cmd" t="IncludeRecursive">
         <e p="Classes" t="Include">
           <e p="Contractor.cs" t="Include" />
-          <e p="IdentyfikatorPodmiotu.cs" t="Include" />
-          <e p="JPK_VAT.cs" t="Include" />
-          <e p="KodFormularza.cs" t="Include" />
-          <e p="Naglowek.cs" t="Include" />
-          <e p="Podmiot.cs" t="Include" />
-          <e p="SprzedazCtrl.cs" t="Include" />
-          <e p="SprzedazWiersz.cs" t="Include" />
-          <e p="ZakupCtrl.cs" t="Include" />
-          <e p="ZakupWiersz.cs" t="Include" />
+          <e p="InvoiceHeader.cs" t="Include" />
+          <e p="InvoiceItem.cs" t="Include" />
+          <e p="InvoiceStatus.cs" t="Include" />
+          <e p="JPK_VAT" t="Include">
+            <e p="IdentyfikatorPodmiotu.cs" t="Include" />
+            <e p="Invoice.cs" t="Include" />
+            <e p="JPK_VAT.cs" t="Include" />
+            <e p="KodFormularza.cs" t="Include" />
+            <e p="Naglowek.cs" t="Include" />
+            <e p="Podmiot.cs" t="Include" />
+            <e p="SprzedazCtrl.cs" t="Include" />
+            <e p="SprzedazWiersz.cs" t="Include" />
+            <e p="ZakupCtrl.cs" t="Include" />
+            <e p="ZakupWiersz.cs" t="Include" />
+          </e>
+          <e p="PaymentMethod.cs" t="Include" />
+          <e p="VAT.cs" t="Include" />
         </e>
         <e p="Program.cs" t="Include" />
         <e p="Properties" t="Include">

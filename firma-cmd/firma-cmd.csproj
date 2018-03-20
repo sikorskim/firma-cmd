@@ -41,15 +41,21 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Classes\Contractor.cs" />
-    <Compile Include="Classes\IdentyfikatorPodmiotu.cs" />
-    <Compile Include="Classes\KodFormularza.cs" />
-    <Compile Include="Classes\Naglowek.cs" />
-    <Compile Include="Classes\Podmiot.cs" />
-    <Compile Include="Classes\JPK_VAT.cs" />
-    <Compile Include="Classes\SprzedazCtrl.cs" />
-    <Compile Include="Classes\SprzedazWiersz.cs" />
-    <Compile Include="Classes\ZakupCtrl.cs" />
-    <Compile Include="Classes\ZakupWiersz.cs" />
+    <Compile Include="Classes\Invoice\Invoice.cs" />
+    <Compile Include="Classes\Invoice\InvoiceHeader.cs" />
+    <Compile Include="Classes\Invoice\InvoiceItem.cs" />
+    <Compile Include="Classes\Invoice\InvoiceStatus.cs" />
+    <Compile Include="Classes\Invoice\PaymentMethod.cs" />
+    <Compile Include="Classes\JPK_VAT\IdentyfikatorPodmiotu.cs" />
+    <Compile Include="Classes\JPK_VAT\JPK_VAT.cs" />
+    <Compile Include="Classes\JPK_VAT\KodFormularza.cs" />
+    <Compile Include="Classes\JPK_VAT\Naglowek.cs" />
+    <Compile Include="Classes\JPK_VAT\Podmiot.cs" />
+    <Compile Include="Classes\JPK_VAT\SprzedazCtrl.cs" />
+    <Compile Include="Classes\JPK_VAT\SprzedazWiersz.cs" />
+    <Compile Include="Classes\JPK_VAT\ZakupCtrl.cs" />
+    <Compile Include="Classes\JPK_VAT\ZakupWiersz.cs" />
+    <Compile Include="Classes\VAT.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

@@ -8,17 +8,17 @@ namespace jpk_check
 {
     public class Contractor
     {
-        public string nip { get; set; }
-        public string pelnaNazwa { get; set; }
-        public string kodKraju { get; set; }
-        public string wojewodztwo { get; set; }
-        public string powiat { get; set; }
-        public string gmina { get; set; }
-        public string miejscowosc { get; set; }
-        public string ulica { get; set; }
-        public string nrDomu { get; set; }
-        public string kodPocztowy { get; set; }
-        public string poczta { get; set; }  
+        public string NIP { get; set; }
+        public string FullName { get; set; }
+        public string CountryCode { get; set; }
+        public string Voivodeship { get; set; }
+        public string County { get; set; }
+        public string Community { get; set; }
+        public string City { get; set; }
+        public string Street { get; set; }
+        public string BuldingNo { get; set; }
+        public string PostalCode { get; set; }
+        public string PostOffice { get; set; }  
         
         public Contractor()
         {
@@ -27,17 +27,17 @@ namespace jpk_check
         public Contractor(string nip, string name, string countryCode, string voivodeship, string county,
             string community, string city, string street, string buldingNo, string postalCode, string postOffice)
         {
-            this.nip = nip;
-            pelnaNazwa = name;
-            kodKraju = countryCode;
-            wojewodztwo = voivodeship;
-            powiat = county;
-            gmina = community;
-            miejscowosc = city;
-            ulica = street;
-            nrDomu = buldingNo;
-            kodPocztowy = postalCode;
-            poczta = postOffice;
+            this.NIP = nip;
+            FullName = name;
+            CountryCode = countryCode;
+            Voivodeship = voivodeship;
+            County = county;
+            Community = community;
+            City = city;
+            Street = street;
+            BuldingNo = buldingNo;
+            PostalCode = postalCode;
+            PostOffice = postOffice;
         }
 
         public bool add()
@@ -53,17 +53,17 @@ namespace jpk_check
             }
 
             XElement contractor = new XElement("Contractor");
-            contractor.Add(new XAttribute("NIP", nip));
-            contractor.Add(new XAttribute("FullName", pelnaNazwa));
-            contractor.Add(new XAttribute("CountryCode", kodKraju));
-            contractor.Add(new XAttribute("Voivodeship", wojewodztwo));
-            contractor.Add(new XAttribute("County", powiat));
-            contractor.Add(new XAttribute("Community", gmina));
-            contractor.Add(new XAttribute("City", miejscowosc));
-            contractor.Add(new XAttribute("Street", ulica));
-            contractor.Add(new XAttribute("BuldingNo", nrDomu));
-            contractor.Add(new XAttribute("PostalCode", kodPocztowy));
-            contractor.Add(new XAttribute("PostOffice", poczta));
+            contractor.Add(new XAttribute("NIP", NIP));
+            contractor.Add(new XAttribute("FullName", FullName));
+            contractor.Add(new XAttribute("CountryCode", CountryCode));
+            contractor.Add(new XAttribute("Voivodeship", Voivodeship));
+            contractor.Add(new XAttribute("County", County));
+            contractor.Add(new XAttribute("Community", Community));
+            contractor.Add(new XAttribute("City", City));
+            contractor.Add(new XAttribute("Street", Street));
+            contractor.Add(new XAttribute("BuldingNo", BuldingNo));
+            contractor.Add(new XAttribute("PostalCode", PostalCode));
+            contractor.Add(new XAttribute("PostOffice", PostOffice));
 
 
             XElement root = XElement.Load(path);
@@ -95,25 +95,25 @@ namespace jpk_check
         public Contractor get(XElement contractorElement)
         {
             Contractor contractor = new Contractor();
-            contractor.pelnaNazwa = contractorElement.Attribute("FullName").Value;
-            contractor.nip = contractorElement.Attribute("NIP").Value;
-            contractor.kodKraju = contractorElement.Attribute("CountryCode").Value;
-            contractor.wojewodztwo = contractorElement.Attribute("Voivodeship").Value;
-            contractor.powiat = contractorElement.Attribute("County").Value;
-            contractor.gmina = contractorElement.Attribute("Community").Value;
-            contractor.miejscowosc = contractorElement.Attribute("City").Value;
-            contractor.ulica = contractorElement.Attribute("Street").Value;
-            contractor.nrDomu = contractorElement.Attribute("BuldingNo").Value;
-            contractor.kodPocztowy = contractorElement.Attribute("PostalCode").Value;
-            contractor.poczta = contractorElement.Attribute("PostOffice").Value;
+            contractor.FullName = contractorElement.Attribute("FullName").Value;
+            contractor.NIP = contractorElement.Attribute("NIP").Value;
+            contractor.CountryCode = contractorElement.Attribute("CountryCode").Value;
+            contractor.Voivodeship = contractorElement.Attribute("Voivodeship").Value;
+            contractor.County = contractorElement.Attribute("County").Value;
+            contractor.Community = contractorElement.Attribute("Community").Value;
+            contractor.City = contractorElement.Attribute("City").Value;
+            contractor.Street = contractorElement.Attribute("Street").Value;
+            contractor.BuldingNo = contractorElement.Attribute("BuldingNo").Value;
+            contractor.PostalCode = contractorElement.Attribute("PostalCode").Value;
+            contractor.PostOffice = contractorElement.Attribute("PostOffice").Value;
 
             return contractor;
         }
 
         void print(int i)
         {
-            Console.WriteLine(i + "\t" + pelnaNazwa + "\t" + nip + "\t" + kodKraju + "\t" + kodPocztowy + "\t" +
-                              miejscowosc + "\t" + ulica + "\t" + nrDomu);
+            Console.WriteLine(i + "\t" + FullName + "\t" + NIP + "\t" + CountryCode + "\t" + PostalCode + "\t" +
+                              City + "\t" + Street + "\t" + BuldingNo);
         }
 
     }
