@@ -41,10 +41,15 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Classes\Contractor.cs" />
-    <Compile Include="Classes\JPKheader.cs" />
-    <Compile Include="Classes\JPKpodmiot.cs" />
-    <Compile Include="Classes\JPK.cs" />
-    <Compile Include="Classes\JPKsprzedazWiersz.cs" />
+    <Compile Include="Classes\IdentyfikatorPodmiotu.cs" />
+    <Compile Include="Classes\KodFormularza.cs" />
+    <Compile Include="Classes\Naglowek.cs" />
+    <Compile Include="Classes\Podmiot.cs" />
+    <Compile Include="Classes\JPK_VAT.cs" />
+    <Compile Include="Classes\SprzedazCtrl.cs" />
+    <Compile Include="Classes\SprzedazWiersz.cs" />
+    <Compile Include="Classes\ZakupCtrl.cs" />
+    <Compile Include="Classes\ZakupWiersz.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

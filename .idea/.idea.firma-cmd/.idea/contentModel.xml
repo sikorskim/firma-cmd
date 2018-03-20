@@ -6,15 +6,21 @@
       <e p="firma-cmd" t="IncludeRecursive">
         <e p="Classes" t="Include">
           <e p="Contractor.cs" t="Include" />
-          <e p="JPK.cs" t="Include" />
-          <e p="JPKheader.cs" t="Include" />
-          <e p="JPKpodmiot.cs" t="Include" />
-          <e p="JPKsprzedazWiersz.cs" t="Include" />
+          <e p="IdentyfikatorPodmiotu.cs" t="Include" />
+          <e p="JPK_VAT.cs" t="Include" />
+          <e p="KodFormularza.cs" t="Include" />
+          <e p="Naglowek.cs" t="Include" />
+          <e p="Podmiot.cs" t="Include" />
+          <e p="SprzedazCtrl.cs" t="Include" />
+          <e p="SprzedazWiersz.cs" t="Include" />
+          <e p="ZakupCtrl.cs" t="Include" />
+          <e p="ZakupWiersz.cs" t="Include" />
         </e>
         <e p="Program.cs" t="Include" />
         <e p="Properties" t="Include">
           <e p="AssemblyInfo.cs" t="Include" />
         </e>
+        <e p="app.config" t="Include" />
         <e p="bin" t="ExcludeRecursive" />
         <e p="firma-cmd.csproj" t="IncludeRecursive" />
         <e p="obj" t="ExcludeRecursive" />
