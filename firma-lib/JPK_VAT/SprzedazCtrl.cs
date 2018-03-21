@@ -1,6 +1,6 @@
-﻿namespace jpk_check
+﻿namespace firma_lib
 {
-    public class ZakupCtrl
+    public class SprzedazCtrl
     {
         public int LiczbaWierszySprzedazy{ get; set; }
         public decimal PodatekNalezny { get; set; }

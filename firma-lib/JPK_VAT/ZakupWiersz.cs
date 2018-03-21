@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace jpk_check
+namespace firma_lib
 {
     public class ZakupWiersz
     {

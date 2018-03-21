@@ -1,5 +1,5 @@
-﻿namespace jpk_check
-{
+﻿namespace firma_lib
+{ 
     public class InvoiceStatus
     {
         public int Id { get; set; }

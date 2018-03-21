@@ -4,7 +4,7 @@ using System.ComponentModel;
 using System.IO;
 using System.Xml.Linq;
 
-namespace jpk_check
+namespace firma_lib
 {
     public class Contractor
     {
