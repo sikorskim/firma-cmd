@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 namespace firmamvc.Migrations
 {
-    public partial class migr0 : Migration
+    public partial class initial : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -104,7 +104,8 @@ namespace firmamvc.Migrations
                 {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    Name = table.Column<string>(nullable: true)
+                    Name = table.Column<string>(nullable: true),
+                    ShortName = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
                 {
@@ -268,6 +269,7 @@ namespace firmamvc.Migrations
                     Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
                     Name = table.Column<string>(nullable: true),
+                    Price = table.Column<decimal>(nullable: false),
                     UnitOfMeasureId = table.Column<int>(nullable: false),
                     VATId = table.Column<int>(nullable: false)
                 },

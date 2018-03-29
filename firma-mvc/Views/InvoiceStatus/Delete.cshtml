@@ -1,4 +1,4 @@
-﻿@model firma_mvc.Invoice
+﻿@model firma_mvc.InvoiceStatus
 
 @{
     ViewData["Title"] = "Delete";
@@ -8,20 +8,14 @@
 
 <h3>Are you sure you want to delete this?</h3>
 <div>
-    <h4>Invoice</h4>
+    <h4>InvoiceStatus</h4>
     <hr />
     <dl class="dl-horizontal">
         <dt>
-            @Html.DisplayNameFor(model => model.InvoiceHeader)
+            @Html.DisplayNameFor(model => model.Name)
         </dt>
         <dd>
-            @Html.DisplayFor(model => model.InvoiceHeader.Id)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.InvoiceStatus)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.InvoiceStatus.Id)
+            @Html.DisplayFor(model => model.Name)
         </dd>
     </dl>
     

@@ -11,8 +11,8 @@ using System;
 namespace firmamvc.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20180329122115_migr2")]
-    partial class migr2
+    [Migration("20180329181833_initial")]
+    partial class initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
