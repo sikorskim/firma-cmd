@@ -1,0 +1,87 @@
+﻿@model firma_mvc.Contractor
+
+@{
+    ViewData["Title"] = "Delete";
+}
+
+<h2>Delete</h2>
+
+<h3>Are you sure you want to delete this?</h3>
+<div>
+    <h4>Contractor</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.NIP)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.NIP)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.FullName)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.FullName)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.CountryCode)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.CountryCode)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Voivodeship)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Voivodeship)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.County)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.County)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Community)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Community)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.City)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.City)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Street)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Street)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.BuldingNo)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.BuldingNo)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.PostalCode)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.PostalCode)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.PostOffice)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.PostOffice)
+        </dd>
+    </dl>
+    
+    <form asp-action="Delete">
+        <input type="hidden" asp-for="Id" />
+        <input type="submit" value="Delete" class="btn btn-default" /> |
+        <a asp-action="Index">Back to List</a>
+    </form>
+</div>
