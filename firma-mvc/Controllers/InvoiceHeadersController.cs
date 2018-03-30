@@ -42,16 +42,20 @@ namespace firma_mvc.Controllers
             {
                 return NotFound();
             }
-
+            
             return View(invoiceHeader);
         }
-
+        
         // GET: InvoiceHeaders/Create
         public IActionResult Create()
         {
-            ViewData["ContractorId"] = new SelectList(_context.Contractor, "Id", "Id");
-            ViewData["PaymentMethodId"] = new SelectList(_context.PaymentMethod, "Id", "Id");
-            return View();
+            InvoiceHeader invoiceHeader = new InvoiceHeader();
+            invoiceHeader.Number = getNumber();
+            invoiceHeader.DateOfIssue=DateTime.Now;
+            
+            ViewData["ContractorId"] = new SelectList(_context.Contractor, "Id", "Name");
+            ViewData["PaymentMethodId"] = new SelectList(_context.PaymentMethod, "Id", "Name");
+            return View(invoiceHeader);
         }
 
         // POST: InvoiceHeaders/Create
@@ -67,8 +71,8 @@ namespace firma_mvc.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["ContractorId"] = new SelectList(_context.Contractor, "Id", "Id", invoiceHeader.ContractorId);
-            ViewData["PaymentMethodId"] = new SelectList(_context.PaymentMethod, "Id", "Id", invoiceHeader.PaymentMethodId);
+            ViewData["ContractorId"] = new SelectList(_context.Contractor, "Id", "Name", invoiceHeader.ContractorId);
+            ViewData["PaymentMethodId"] = new SelectList(_context.PaymentMethod, "Id", "Name", invoiceHeader.PaymentMethodId);
             return View(invoiceHeader);
         }
 
@@ -161,6 +165,25 @@ namespace firma_mvc.Controllers
         private bool InvoiceHeaderExists(int id)
         {
             return _context.InvoiceHeader.Any(e => e.Id == id);
+        }
+        
+        public string getNumber()
+        {
+            string number=string.Empty;            
+            
+            try
+            {
+                string lastNumber = _context.InvoiceHeader.Last(p => p.DateOfIssue.Year == DateTime.Now.Year).Number;                
+                int nextNumber = Int32.Parse(lastNumber.Substring(0, lastNumber.IndexOf('/')));
+                nextNumber++;
+                number = nextNumber.ToString()+"/" + DateTime.Now.Year;
+            }
+            catch (Exception ex)
+            {
+                number = "1/" + DateTime.Now.Year;
+            }
+            
+            return number;
         }
     }
 }

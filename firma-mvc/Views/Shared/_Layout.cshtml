@@ -33,6 +33,12 @@
                     <li><a asp-area="" asp-controller="Home" asp-action="Index">Home</a></li>
                     <li><a asp-area="" asp-controller="Home" asp-action="About">About</a></li>
                     <li><a asp-area="" asp-controller="Home" asp-action="Contact">Contact</a></li>
+                    <li><a asp-area="" asp-controller="Invoices" asp-action="Index">Faktura</a></li>
+                    <li><a asp-area="" asp-controller="InvoiceHeaders" asp-action="Index">Faktura nagłówek</a></li>
+                    <li><a asp-area="" asp-controller="InvoiceItems" asp-action="Index">Faktura pozycja</a></li>
+                    <li><a asp-area="" asp-controller="InvoiceStatus" asp-action="Index">Faktura status</a></li>
+                    <li><a asp-area="" asp-controller="Items" asp-action="Index">Przedmiot</a></li>
+                    <li><a asp-area="" asp-controller="UnitOfMeasures" asp-action="Index">Jednostka miary</a></li>
                 </ul>
                 @await Html.PartialAsync("_LoginPartial")
             </div>

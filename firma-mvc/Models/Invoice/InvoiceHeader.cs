@@ -2,6 +2,9 @@
 using System;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Linq;
+using System.Runtime.InteropServices.ComTypes;
+using firma_mvc.Data;
 
 namespace firma_mvc
 {
@@ -26,5 +29,8 @@ namespace firma_mvc
         public decimal TotalValue { get; set; }
         [DisplayName("Wartość brutto")]
         public decimal TotalValueInclVat { get; set; }
+
+        public InvoiceHeader()
+        {}
     }
 }

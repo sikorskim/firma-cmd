@@ -12,6 +12,7 @@ namespace firma_mvc
         public int Id { get; set; }
         public string NIP { get; set; }
         public string FullName { get; set; }
+        public string Name { get; set; }
         public string CountryCode { get; set; }
         public string Voivodeship { get; set; }
         public string County { get; set; }
