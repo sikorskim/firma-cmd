@@ -72,7 +72,7 @@ namespace firma_mvc.Controllers
                 _context.Add(invoice);
                 await _context.SaveChangesAsync();
 //                return RedirectToAction(nameof(Index));
-                return RedirectToAction("Create", "InvoiceItems", invoice.Id);
+                return RedirectToAction("Create", "InvoiceItems", new {InvoiceId=invoice.Id});
             }
             ViewData["ContractorId"] = new SelectList(_context.Contractor, "Id", "Name", invoice.ContractorId);
             ViewData["PaymentMethodId"] = new SelectList(_context.PaymentMethod, "Id", "Name", invoice.PaymentMethodId);

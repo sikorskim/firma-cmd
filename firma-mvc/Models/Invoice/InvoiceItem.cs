@@ -7,7 +7,6 @@ namespace firma_mvc
     {
         public int Id { get; set; }
         public int InvoiceId { get; set; }
-        [ForeignKey("InvoiceId")]
         public int ItemId { get; set; }                
         [DisplayName("Ilość")]
         public int Quantity { get; set; }
@@ -16,7 +15,10 @@ namespace firma_mvc
         public virtual Invoice Invoice { get; set; }
         [ForeignKey("ItemId")]
         public virtual Item Item { get; set; }
-        
+
+        public InvoiceItem()
+        {}
+
         public InvoiceItem(int invoiceId)
         {
             InvoiceId = invoiceId;

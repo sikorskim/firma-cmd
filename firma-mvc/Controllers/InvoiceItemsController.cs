@@ -50,8 +50,10 @@ namespace firma_mvc.Controllers
         public IActionResult Create(int InvoiceId)
         {
             InvoiceItem invoiceItem = new InvoiceItem(InvoiceId);
+            ViewBag.InvoiceId = InvoiceId;
             ViewData["ItemId"] = new SelectList(_context.Item, "Id", "Name");
-            return View(invoiceItem);
+            Console.WriteLine(invoiceItem.InvoiceId);
+            return View();
         }
 
         // POST: InvoiceItems/Create
@@ -59,15 +61,14 @@ namespace firma_mvc.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,InvoiceId,ItemId,Quantity")] InvoiceItem invoiceItem)
+        public async Task<IActionResult> Create([Bind("Id,ItemId,InvoiceId,Quantity")] InvoiceItem invoiceItem)
         {
             if (ModelState.IsValid)
             {
                 _context.Add(invoiceItem);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
-            }
-            ViewData["InvoiceId"] = new SelectList(_context.Invoice, "Id", "Id", invoiceItem.InvoiceId);
+            }            
             ViewData["ItemId"] = new SelectList(_context.Item, "Id", "Name", invoiceItem.ItemId);
             return View(invoiceItem);
         }
