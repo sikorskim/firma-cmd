@@ -1,17 +1,43 @@
-﻿using System.Collections.Generic;
+﻿using Microsoft.EntityFrameworkCore;
+using System;
+using System.Collections.Generic;
+using System.ComponentModel;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Linq;
+using System.Runtime.InteropServices.ComTypes;
+using firma_mvc.Data;
 
 namespace firma_mvc
 {
     public class Invoice
     {
         public int Id { get; set; }
-        public int InvoiceHeaderId { get; set; }
-        [ForeignKey("InvoiceHeaderId")]
-        public virtual InvoiceHeader InvoiceHeader { get; set; }
+        [DisplayName("Numer faktury")]
+        public string Number { get; set; }
+        [DisplayName("Data wystawienia")]
+        public DateTime DateOfIssue { get; set; }
+        public int ContractorId { get; set; }
+        [DisplayName("Kontrahent")]
+        [ForeignKey("ContractorId")]
+        public virtual Contractor Contractor { get; set; }
+        public int PaymentMethodId { get; set; }
+        [DisplayName("Forma płatności")]
+        [ForeignKey("PaymentMethodId")]
+        public virtual PaymentMethod PaymentMethod { get; set; }
+        [DisplayName("Ilość pozycji")]
+        public int ItemsCount { get; set; }
+        [DisplayName("Wartość netto")]
+        public decimal TotalValue { get; set; }
+        [DisplayName("Wartość brutto")]
+        public decimal TotalValueInclVat { get; set; }
         public int InvoiceStatusId { get; set; }
+        [DisplayName("Status")]
         [ForeignKey("InvoiceStatusId")]
         public virtual InvoiceStatus InvoiceStatus{get; set; }
         public List<InvoiceItem> InvoiceItems { get; set; }
+        
+        
+        public Invoice()
+        {}
     }
 }

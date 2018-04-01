@@ -1,6 +1,7 @@
 # Firma
 
 *recent changes*
+- InvoiceHeader merged with Invoice class
 - invoice number generator added
 - project migration to ASP.NET Core
 - project migration to .NET Core 2.0
