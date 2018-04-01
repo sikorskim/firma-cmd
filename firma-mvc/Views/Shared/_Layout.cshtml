@@ -33,11 +33,17 @@
                     <li><a asp-area="" asp-controller="Home" asp-action="Index">Home</a></li>
                     <li><a asp-area="" asp-controller="Home" asp-action="About">About</a></li>
                     <li><a asp-area="" asp-controller="Home" asp-action="Contact">Contact</a></li>
-                    <li><a asp-area="" asp-controller="Invoices" asp-action="Index">Faktura</a></li>                    
-                    <li><a asp-area="" asp-controller="InvoiceItems" asp-action="Index">Faktura pozycja</a></li>
-                    <li><a asp-area="" asp-controller="InvoiceStatus" asp-action="Index">Faktura status</a></li>
-                    <li><a asp-area="" asp-controller="Items" asp-action="Index">Przedmiot</a></li>
-                    <li><a asp-area="" asp-controller="UnitOfMeasures" asp-action="Index">Jednostka miary</a></li>
+                    <li><a asp-area="" asp-controller="Invoices" asp-action="Index">Faktura</a></li>                                        
+                    <li class="dropdown">
+                        <a class="dropdown-toggle" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                            Settings
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+                            <li><a asp-area="" asp-controller="InvoiceStatus" asp-action="Index">Faktura status</a></li>
+                            <li><a asp-area="" asp-controller="Items" asp-action="Index">Przedmiot</a></li>
+                            <li><a asp-area="" asp-controller="UnitOfMeasures" asp-action="Index">Jednostka miary</a></li>
+                        </ul>
+                    </li>
                 </ul>
                 @await Html.PartialAsync("_LoginPartial")
             </div>

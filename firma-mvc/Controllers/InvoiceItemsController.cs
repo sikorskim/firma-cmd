@@ -47,11 +47,11 @@ namespace firma_mvc.Controllers
         }
 
         // GET: InvoiceItems/Create
-        public IActionResult Create()
+        public IActionResult Create(int InvoiceId)
         {
-            ViewData["InvoiceId"] = new SelectList(_context.Invoice, "Id", "Id");
-            ViewData["ItemId"] = new SelectList(_context.Item, "Id", "Id");
-            return View();
+            InvoiceItem invoiceItem = new InvoiceItem(InvoiceId);
+            ViewData["ItemId"] = new SelectList(_context.Item, "Id", "Name");
+            return View(invoiceItem);
         }
 
         // POST: InvoiceItems/Create
@@ -68,7 +68,7 @@ namespace firma_mvc.Controllers
                 return RedirectToAction(nameof(Index));
             }
             ViewData["InvoiceId"] = new SelectList(_context.Invoice, "Id", "Id", invoiceItem.InvoiceId);
-            ViewData["ItemId"] = new SelectList(_context.Item, "Id", "Id", invoiceItem.ItemId);
+            ViewData["ItemId"] = new SelectList(_context.Item, "Id", "Name", invoiceItem.ItemId);
             return View(invoiceItem);
         }
 

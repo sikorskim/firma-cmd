@@ -13,13 +13,14 @@ namespace firma_mvc
         [DisplayName("Nazwa")]
         public string Name { get; set; }
         public int UnitOfMeasureId { get; set; }
-        [DisplayName("Jednostka miary")]
-        [ForeignKey("UnitOfMeasureId")]
-        public virtual UnitOfMeasure UnitOfMeasure { get; set; }
-        public int VATId { get; set; }
-        [ForeignKey("VATId")]
-        public virtual VAT VAT { get; set; }
+        [DisplayName("Jednostka miary")]                
+        public int VATId { get; set; }        
         public decimal Price { get; set; }
         //public virtual decimal PriceBrutto { get { return Price + VAT.Value; } }
+        
+        [ForeignKey("VATId")]
+        public virtual VAT VAT { get; set; }
+        [ForeignKey("UnitOfMeasureId")]
+        public virtual UnitOfMeasure UnitOfMeasure { get; set; }
     }
 }

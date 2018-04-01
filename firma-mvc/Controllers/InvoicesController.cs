@@ -63,13 +63,16 @@ namespace firma_mvc.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Number,DateOfIssue,ContractorId,PaymentMethodId,ItemsCount,TotalValue,TotalValueInclVat")] Invoice invoice)
+        public async Task<IActionResult> Create([Bind("Id,Number,DateOfIssue,ContractorId,PaymentMethodId,ItemsCount,TotalValue,TotalValueInclVat,InvoiceStatusId")] Invoice invoice)
         {
+            invoice.InvoiceStatusId = _context.InvoiceStatus.Single(p => p.Name == "nowa").Id;
+            
             if (ModelState.IsValid)
             {
                 _context.Add(invoice);
                 await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+//                return RedirectToAction(nameof(Index));
+                return RedirectToAction("Create", "InvoiceItems", invoice.Id);
             }
             ViewData["ContractorId"] = new SelectList(_context.Contractor, "Id", "Name", invoice.ContractorId);
             ViewData["PaymentMethodId"] = new SelectList(_context.PaymentMethod, "Id", "Name", invoice.PaymentMethodId);

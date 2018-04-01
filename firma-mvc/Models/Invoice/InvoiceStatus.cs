@@ -6,6 +6,6 @@ namespace firma_mvc
     {
         public int Id { get; set; }
         [DisplayName("Nazwa")]
-        public string Name { get; set; }
+        public string Name { get; set; }                
     }
 }
