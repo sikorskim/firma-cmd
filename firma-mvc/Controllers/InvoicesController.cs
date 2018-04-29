@@ -19,14 +19,14 @@ namespace firma_mvc.Controllers
             _context = context;
         }
 
-        // GET: InvoiceHeaders
+        // GET: Invoice
         public async Task<IActionResult> Index()
         {
-            var applicationDbContext = _context.InvoiceHeader.Include(i => i.Contractor).Include(i => i.PaymentMethod);
+            var applicationDbContext = _context.Invoice.Include(i => i.Contractor).Include(i => i.PaymentMethod);            
             return View(await applicationDbContext.ToListAsync());
         }
 
-        // GET: InvoiceHeaders/Details/5
+        // GET: Invoice/Details/5
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -34,16 +34,16 @@ namespace firma_mvc.Controllers
                 return NotFound();
             }
 
-            var invoiceHeader = await _context.InvoiceHeader
+            var invoice = await _context.Invoice
                 .Include(i => i.Contractor)
                 .Include(i => i.PaymentMethod)
                 .SingleOrDefaultAsync(m => m.Id == id);
-            if (invoiceHeader == null)
+            if (invoice == null)
             {
                 return NotFound();
             }
             
-            return View(invoiceHeader);
+            return View(invoice);
         }
         
         // GET: InvoiceHeaders/Create
@@ -87,7 +87,7 @@ namespace firma_mvc.Controllers
                 return NotFound();
             }
 
-            var invoiceHeader = await _context.InvoiceHeader.SingleOrDefaultAsync(m => m.Id == id);
+            var invoiceHeader = await _context.Invoice.SingleOrDefaultAsync(m => m.Id == id);
             if (invoiceHeader == null)
             {
                 return NotFound();
@@ -142,7 +142,7 @@ namespace firma_mvc.Controllers
                 return NotFound();
             }
 
-            var invoiceHeader = await _context.InvoiceHeader
+            var invoiceHeader = await _context.Invoice
                 .Include(i => i.Contractor)
                 .Include(i => i.PaymentMethod)
                 .SingleOrDefaultAsync(m => m.Id == id);
@@ -159,15 +159,15 @@ namespace firma_mvc.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var invoiceHeader = await _context.InvoiceHeader.SingleOrDefaultAsync(m => m.Id == id);
-            _context.InvoiceHeader.Remove(invoiceHeader);
+            var invoiceHeader = await _context.Invoice.SingleOrDefaultAsync(m => m.Id == id);
+            _context.Invoice.Remove(invoiceHeader);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
         private bool InvoiceHeaderExists(int id)
         {
-            return _context.InvoiceHeader.Any(e => e.Id == id);
+            return _context.Invoice.Any(e => e.Id == id);
         }
         
         public string getNumber()
@@ -176,7 +176,7 @@ namespace firma_mvc.Controllers
             
             try
             {
-                string lastNumber = _context.InvoiceHeader.Last(p => p.DateOfIssue.Year == DateTime.Now.Year).Number;                
+                string lastNumber = _context.Invoice.Last(p => p.DateOfIssue.Year == DateTime.Now.Year).Number;                
                 int nextNumber = Int32.Parse(lastNumber.Substring(0, lastNumber.IndexOf('/')));
                 nextNumber++;
                 number = nextNumber.ToString()+"/" + DateTime.Now.Year;
@@ -187,6 +187,20 @@ namespace firma_mvc.Controllers
             }
             
             return number;
+        }
+        
+        int countItems(int invoiceId)
+        {
+            try
+            {
+            int count = _context.InvoiceItem.Where(p=>p.InvoiceId==invoiceId).Count();
+            Console.WriteLine(count);
+            return count;
+            }
+            catch (Exception e)
+            {
+                return 0;
+            }
         }
     }
 }

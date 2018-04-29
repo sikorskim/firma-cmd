@@ -53,7 +53,7 @@ namespace firma_mvc.Controllers
             ViewBag.InvoiceId = InvoiceId;
             ViewData["ItemId"] = new SelectList(_context.Item, "Id", "Name");
             Console.WriteLine(invoiceItem.InvoiceId);
-            return View();
+            return View(invoiceItem);
         }
 
         // POST: InvoiceItems/Create

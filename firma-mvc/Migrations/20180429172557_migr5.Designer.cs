@@ -11,9 +11,10 @@ using System;
 namespace firmamvc.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20180429172557_migr5")]
+    partial class migr5
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -64,6 +65,8 @@ namespace firmamvc.Migrations
                     b.Property<DateTime>("DateOfIssue");
 
                     b.Property<int>("InvoiceStatusId");
+
+                    b.Property<int>("ItemsCount");
 
                     b.Property<string>("Number");
 
