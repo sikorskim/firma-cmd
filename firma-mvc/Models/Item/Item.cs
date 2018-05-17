@@ -4,6 +4,7 @@ using System.ComponentModel;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Threading.Tasks;
+using firma_mvc.Data;
 
 namespace firma_mvc
 {
@@ -16,13 +17,32 @@ namespace firma_mvc
         public int UnitOfMeasureId { get; set; }
         [DisplayName("Wartość VAT")]
         public int VATId { get; set; }
-        [DisplayName("Wartość")]
+        [DisplayName("Wartość netto")]
         public decimal Price { get; set; }
-        //public virtual decimal PriceBrutto { get { return Price + VAT.Value; } }
+        [DisplayName("Wartość brutto")]
+        public virtual decimal PriceBrutto
+        {
+            get { return getBruttoPrice(); }
+        }
         
         [ForeignKey("VATId")]
         public virtual VAT VAT { get; set; }
         [ForeignKey("UnitOfMeasureId")]
         public virtual UnitOfMeasure UnitOfMeasure { get; set; }
+        
+        
+        private readonly ApplicationDbContext _context;
+        
+        decimal getBruttoPrice()
+        {
+//            try
+//            {
+            return Price;// + _context.VAT.Single(p=>p.Id==VATId).Value / 100 * Price;
+//            }
+//            catch (Exception e)
+//            {
+//                return 0;
+//            }
+        }
     }
 }

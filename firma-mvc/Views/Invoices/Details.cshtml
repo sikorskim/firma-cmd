@@ -54,6 +54,10 @@
         </dd>
     </dl>
 </div>
+
+@await Html.PartialAsync("InvoiceItemsPartial", Model.InvoiceItems)
+<a asp-area="" asp-controller="InvoiceItems" asp-action="Create" asp-route-InvoiceId="@Model.Id" class="btn btn-default">Dodaj pozycję</a>
+
 <div>
     <a asp-action="Edit" asp-route-id="@Model.Id">Edit</a> |
     <a asp-action="Index">Back to List</a>

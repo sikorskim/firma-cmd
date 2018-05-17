@@ -22,7 +22,7 @@ namespace firma_mvc.Controllers
         // GET: Invoice
         public async Task<IActionResult> Index()
         {
-            var applicationDbContext = _context.Invoice.Include(i => i.Contractor).Include(i => i.PaymentMethod);            
+            var applicationDbContext = _context.Invoice.Include(i => i.Contractor).Include(i => i.PaymentMethod).Include(i=>i.InvoiceItems);            
             return View(await applicationDbContext.ToListAsync());
         }
 
@@ -37,6 +37,7 @@ namespace firma_mvc.Controllers
             var invoice = await _context.Invoice
                 .Include(i => i.Contractor)
                 .Include(i => i.PaymentMethod)
+                .Include(i=>i.InvoiceItems)
                 .SingleOrDefaultAsync(m => m.Id == id);
             if (invoice == null)
             {
@@ -52,10 +53,6 @@ namespace firma_mvc.Controllers
             Invoice invoice = new Invoice();
             invoice.Number = getNumber();
             invoice.DateOfIssue=DateTime.Now;
-
-            invoice.InvoiceItems = new List<InvoiceItem>();
-            InvoiceItem invoiceItem = _context.InvoiceItem.FirstOrDefault();
-            invoice.InvoiceItems.Add(invoiceItem);
 
             ViewData["ContractorId"] = new SelectList(_context.Contractor, "Id", "Name");
             ViewData["PaymentMethodId"] = new SelectList(_context.PaymentMethod, "Id", "Name");
@@ -76,7 +73,7 @@ namespace firma_mvc.Controllers
                 _context.Add(invoice);
                 await _context.SaveChangesAsync();
 //                return RedirectToAction(nameof(Index));
-                return RedirectToAction("Create", "InvoiceItems", new {InvoiceId=invoice.Id});
+                return RedirectToAction("Details", "Invoices", new {id=invoice.Id});                
             }
             ViewData["ContractorId"] = new SelectList(_context.Contractor, "Id", "Name", invoice.ContractorId);
             ViewData["PaymentMethodId"] = new SelectList(_context.PaymentMethod, "Id", "Name", invoice.PaymentMethodId);
