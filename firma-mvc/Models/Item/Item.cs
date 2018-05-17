@@ -12,9 +12,11 @@ namespace firma_mvc
         public int Id { get; set; }
         [DisplayName("Nazwa")]
         public string Name { get; set; }
+        [DisplayName("Jednostka miary")]
         public int UnitOfMeasureId { get; set; }
-        [DisplayName("Jednostka miary")]                
-        public int VATId { get; set; }        
+        [DisplayName("Wartość VAT")]
+        public int VATId { get; set; }
+        [DisplayName("Wartość")]
         public decimal Price { get; set; }
         //public virtual decimal PriceBrutto { get { return Price + VAT.Value; } }
         

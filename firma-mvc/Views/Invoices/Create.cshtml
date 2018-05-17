@@ -1,12 +1,10 @@
 ﻿@model firma_mvc.Invoice
 
 @{
-    ViewData["Title"] = "Create";
+    ViewData["Title"] = "Nowa faktura";
 }
 
-<h2>Create</h2>
-
-<h4>Invoice</h4>
+<h2>Nowa faktura</h2>
 <hr />
 <div class="row">
     <div class="col-md-4">
@@ -24,11 +22,11 @@
             </div>
             <div class="form-group">
                 <label asp-for="ContractorId" class="control-label"></label>
-                <select asp-for="ContractorId" class ="form-control" asp-items="ViewBag.ContractorId"></select>
+                <select asp-for="ContractorId" class="form-control" asp-items="ViewBag.ContractorId"></select>
             </div>
             <div class="form-group">
                 <label asp-for="PaymentMethodId" class="control-label"></label>
-                <select asp-for="PaymentMethodId" class ="form-control" asp-items="ViewBag.PaymentMethodId"></select>
+                <select asp-for="PaymentMethodId" class="form-control" asp-items="ViewBag.PaymentMethodId"></select>
             </div>
             <div class="form-group">
                 <label asp-for="ItemsCount" class="control-label"></label>
@@ -46,19 +44,16 @@
                 <span asp-validation-for="TotalValueInclVat" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-default" />
+                <input type="submit" value="Wystaw fakturę" class="btn btn-default" />
             </div>
-            
-            <p>
-                <a asp-area="" asp-controller="InvoiceItems" asp-action="Create" asp-route-InvoiceId="@Model.Id" class="btn btn-default">Dodaj pozycję</a>
-            </p>
-            
         </form>
     </div>
 </div>
 
+@await Html.PartialAsync("InvoiceItemsPartial", Model.InvoiceItems)
+
 <div>
-    <a asp-action="Index">Back to List</a>
+    <a asp-action="Index">Wstecz</a>
 </div>
 
 @section Scripts {

@@ -7,7 +7,7 @@ namespace firma_mvc
     public class VAT
     {        
         public int Id { get; set; }
-        [DisplayName("Wartość")]
+        [DisplayName("Wartość VAT")]
         public decimal Value { get; set; }
 
         public VAT()

@@ -61,6 +61,7 @@ namespace firmamvc.Migrations
                     County = table.Column<string>(nullable: true),
                     FullName = table.Column<string>(nullable: true),
                     NIP = table.Column<string>(nullable: true),
+                    Name = table.Column<string>(nullable: true),
                     PostOffice = table.Column<string>(nullable: true),
                     PostalCode = table.Column<string>(nullable: true),
                     Street = table.Column<string>(nullable: true),
@@ -232,14 +233,14 @@ namespace firmamvc.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "InvoiceHeader",
+                name: "Invoice",
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
                     ContractorId = table.Column<int>(nullable: false),
                     DateOfIssue = table.Column<DateTime>(nullable: false),
-                    ItemsCount = table.Column<int>(nullable: false),
+                    InvoiceStatusId = table.Column<int>(nullable: false),
                     Number = table.Column<string>(nullable: true),
                     PaymentMethodId = table.Column<int>(nullable: false),
                     TotalValue = table.Column<decimal>(nullable: false),
@@ -247,15 +248,21 @@ namespace firmamvc.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_InvoiceHeader", x => x.Id);
+                    table.PrimaryKey("PK_Invoice", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_InvoiceHeader_Contractor_ContractorId",
+                        name: "FK_Invoice_Contractor_ContractorId",
                         column: x => x.ContractorId,
                         principalTable: "Contractor",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_InvoiceHeader_PaymentMethod_PaymentMethodId",
+                        name: "FK_Invoice_InvoiceStatus_InvoiceStatusId",
+                        column: x => x.InvoiceStatusId,
+                        principalTable: "InvoiceStatus",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_Invoice_PaymentMethod_PaymentMethodId",
                         column: x => x.PaymentMethodId,
                         principalTable: "PaymentMethod",
                         principalColumn: "Id",
@@ -286,32 +293,6 @@ namespace firmamvc.Migrations
                         name: "FK_Item_VAT_VATId",
                         column: x => x.VATId,
                         principalTable: "VAT",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "Invoice",
-                columns: table => new
-                {
-                    Id = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    InvoiceHeaderId = table.Column<int>(nullable: false),
-                    InvoiceStatusId = table.Column<int>(nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Invoice", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_Invoice_InvoiceHeader_InvoiceHeaderId",
-                        column: x => x.InvoiceHeaderId,
-                        principalTable: "InvoiceHeader",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_Invoice_InvoiceStatus_InvoiceStatusId",
-                        column: x => x.InvoiceStatusId,
-                        principalTable: "InvoiceStatus",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -383,9 +364,9 @@ namespace firmamvc.Migrations
                 filter: "[NormalizedUserName] IS NOT NULL");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Invoice_InvoiceHeaderId",
+                name: "IX_Invoice_ContractorId",
                 table: "Invoice",
-                column: "InvoiceHeaderId");
+                column: "ContractorId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Invoice_InvoiceStatusId",
@@ -393,13 +374,8 @@ namespace firmamvc.Migrations
                 column: "InvoiceStatusId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_InvoiceHeader_ContractorId",
-                table: "InvoiceHeader",
-                column: "ContractorId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_InvoiceHeader_PaymentMethodId",
-                table: "InvoiceHeader",
+                name: "IX_Invoice_PaymentMethodId",
+                table: "Invoice",
                 column: "PaymentMethodId");
 
             migrationBuilder.CreateIndex(
@@ -456,22 +432,19 @@ namespace firmamvc.Migrations
                 name: "Item");
 
             migrationBuilder.DropTable(
-                name: "InvoiceHeader");
+                name: "Contractor");
 
             migrationBuilder.DropTable(
                 name: "InvoiceStatus");
+
+            migrationBuilder.DropTable(
+                name: "PaymentMethod");
 
             migrationBuilder.DropTable(
                 name: "UnitOfMeasure");
 
             migrationBuilder.DropTable(
                 name: "VAT");
-
-            migrationBuilder.DropTable(
-                name: "Contractor");
-
-            migrationBuilder.DropTable(
-                name: "PaymentMethod");
         }
     }
 }

@@ -30,30 +30,25 @@
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
-                    <li><a asp-area="" asp-controller="Home" asp-action="Index">Home</a></li>
-                    <li><a asp-area="" asp-controller="Home" asp-action="About">About</a></li>
-                    <li><a asp-area="" asp-controller="Home" asp-action="Contact">Contact</a></li>
-                    <li><a asp-area="" asp-controller="Invoices" asp-action="Index">Faktura</a></li>                                        
-                    <li class="dropdown">
-                        <a class="dropdown-toggle" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-                            Settings
-                        </a>
-                        <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
-                            <li><a asp-area="" asp-controller="InvoiceStatus" asp-action="Index">Faktura status</a></li>
-                            <li><a asp-area="" asp-controller="Items" asp-action="Index">Przedmiot</a></li>
-                            <li><a asp-area="" asp-controller="UnitOfMeasures" asp-action="Index">Jednostka miary</a></li>
-                        </ul>
-                    </li>
+                    @*<li><a asp-area="" asp-controller="Home" asp-action="Index">Home</a></li>
+        <li><a asp-area="" asp-controller="Home" asp-action="About">About</a></li>
+        <li><a asp-area="" asp-controller="Home" asp-action="Contact">Contact</a></li>*@
+                    <li><a asp-area="" asp-controller="Invoices" asp-action="Index">Sprzedaż</a></li>
+                    <li><a asp-area="" asp-controller="Invoices" asp-action="Index">Zakupy</a></li>
+                    <li><a asp-area="" asp-controller="Invoices" asp-action="Index">Rejestr VAT</a></li>
+                    <li><a asp-area="" asp-controller="Invoices" asp-action="Index">Księga podatkowa</a></li>
+                    <li><a asp-area="" asp-controller="Contractors" asp-action="Index">Kontrahenci</a></li>
+
+                    @await Html.PartialAsync("_LoginPartial")
                 </ul>
-                @await Html.PartialAsync("_LoginPartial")
-            </div>
+</div>
         </div>
     </nav>
     <div class="container body-content">
         @RenderBody()
         <hr />
         <footer>
-            <p>&copy; 2018 - firma_mvc</p>
+            <p>&copy; 2018 - Computerman Firma</p>
         </footer>
     </div>
 

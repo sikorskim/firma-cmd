@@ -7,6 +7,7 @@ using System.Linq;
 using System.Runtime.InteropServices.ComTypes;
 using System.Threading;
 using firma_mvc.Data;
+using System.ComponentModel.DataAnnotations;
 
 namespace firma_mvc
 {
@@ -16,8 +17,11 @@ namespace firma_mvc
         [DisplayName("Numer faktury")]
         public string Number { get; set; }
         [DisplayName("Data wystawienia")]
+        [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
         public DateTime DateOfIssue { get; set; }
-        public int ContractorId { get; set; }      
+        [DisplayName("Kontrahent")]
+        public int ContractorId { get; set; }
+        [DisplayName("Forma płatności")]
         public int PaymentMethodId { get; set; }     
         [DisplayName("Ilość pozycji")]
         public virtual int ItemsCount
@@ -25,9 +29,12 @@ namespace firma_mvc
             get { return countItems(); }
         }
         [DisplayName("Wartość netto")]
-        public decimal TotalValue { get; set; }
+        public decimal TotalValue {
+            get { countTotalNettPrice(); }
+            }
         [DisplayName("Wartość brutto")]
         public decimal TotalValueInclVat { get; set; }
+        [DisplayName("Status")]
         public int InvoiceStatusId { get; set; }
         
         [ForeignKey("ContractorId")]            
@@ -47,14 +54,26 @@ namespace firma_mvc
         {
             try
             {
-                int count = _context.InvoiceItem.Where(p=>p.InvoiceId==Id).Count();
-                Console.WriteLine(count);
+                int count = InvoiceItems.Count();
                 return count;
             }
             catch (Exception e)
             {
                 return 0;
-            }                        
+            }
+        }
+
+        decimal countTotalNettPrice()
+        {
+            try
+            {
+                decimal count = InvoiceItems.Sum(p=>p.Item.Price);
+                return count;
+            }
+            catch (Exception e)
+            {
+                return 0;
+            }
         }
     }
 }
