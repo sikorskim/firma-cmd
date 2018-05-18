@@ -22,7 +22,7 @@ namespace firma_mvc.Controllers
         // GET: Invoice
         public async Task<IActionResult> Index()
         {
-            var applicationDbContext = _context.Invoice.Include(i => i.Contractor).Include(i => i.PaymentMethod).Include(i=>i.InvoiceItems);            
+            var applicationDbContext = _context.Invoice.Include(i => i.Contractor).Include(i => i.PaymentMethod).Include(i=>i.InvoiceItems).Include(i=>i.InvoiceStatus);            
             return View(await applicationDbContext.ToListAsync());
         }
 
@@ -38,6 +38,7 @@ namespace firma_mvc.Controllers
                 .Include(i => i.Contractor)
                 .Include(i => i.PaymentMethod)
                 .Include(i=>i.InvoiceItems)
+                .Include(i=>i.InvoiceStatus)
                 .SingleOrDefaultAsync(m => m.Id == id);
             if (invoice == null)
             {
@@ -52,7 +53,7 @@ namespace firma_mvc.Controllers
         {
             Invoice invoice = new Invoice();
             invoice.Number = getNumber();
-            invoice.DateOfIssue=DateTime.Now;
+            invoice.DateOfIssue=DateTime.Now;         
 
             ViewData["ContractorId"] = new SelectList(_context.Contractor, "Id", "Name");
             ViewData["PaymentMethodId"] = new SelectList(_context.PaymentMethod, "Id", "Name");
@@ -64,7 +65,7 @@ namespace firma_mvc.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Number,DateOfIssue,ContractorId,PaymentMethodId,ItemsCount,TotalValue,TotalValueInclVat,InvoiceStatusId")] Invoice invoice)
+        public async Task<IActionResult> Create([Bind("Id,Number,DateOfIssue,ContractorId,PaymentMethodId,InvoiceStatusId")] Invoice invoice)
         {
             invoice.InvoiceStatusId = _context.InvoiceStatus.Single(p => p.Name == "nowa").Id;
             

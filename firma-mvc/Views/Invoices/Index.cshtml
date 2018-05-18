@@ -12,53 +12,65 @@
 <table class="table">
     <thead>
         <tr>
-                <th>
-                    @Html.DisplayNameFor(model => model.Number)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.DateOfIssue)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.ItemsCount)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.TotalValue)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.TotalValueInclVat)
-                </th>
+            <th>
+                #
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Number)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.DateOfIssue)
+            </th>
+            @*<th>
+            @Html.DisplayNameFor(model => model.TotalValueInclVat)
+        </th>*@
+            <th>
+                @Html.DisplayNameFor(model => model.Contractor.NIP)
+            </th>
             <th>
                 @Html.DisplayNameFor(model => model.Contractor)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.PaymentMethod)
+                @Html.DisplayNameFor(model => model.TotalValue)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.InvoiceStatus.Name)
             </th>
             <th></th>
         </tr>
     </thead>
     <tbody>
+        @{
+            int i = 1;
+         }
 @foreach (var item in Model) {
         <tr>
+            <td>
+                @i
+            </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Number)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.DateOfIssue)
             </td>
+            @*<td>
+            @Html.DisplayFor(modelItem => item.ItemsCount)
+        </td>*@
+            @*<td>
+            @Html.DisplayFor(modelItem => item.TotalValueInclVat)
+        </td>*@
             <td>
-                @Html.DisplayFor(modelItem => item.ItemsCount)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.TotalValue)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.TotalValueInclVat)
+                @Html.DisplayFor(modelItem => item.Contractor.NIP)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Contractor.Name)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.PaymentMethod.Name)
+                @Html.DisplayFor(modelItem => item.TotalValue)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.InvoiceStatus.Name)
             </td>
             <td>
                 <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
@@ -66,6 +78,7 @@
                 <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
             </td>
         </tr>
+    i++;
 }
     </tbody>
 </table>

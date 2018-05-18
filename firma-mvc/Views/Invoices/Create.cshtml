@@ -29,28 +29,11 @@
                 <select asp-for="PaymentMethodId" class="form-control" asp-items="ViewBag.PaymentMethodId"></select>
             </div>
             <div class="form-group">
-                <label asp-for="ItemsCount" class="control-label"></label>
-                <input asp-for="ItemsCount" class="form-control" />
-                <span asp-validation-for="ItemsCount" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="TotalValue" class="control-label"></label>
-                <input asp-for="TotalValue" class="form-control" />
-                <span asp-validation-for="TotalValue" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="TotalValueInclVat" class="control-label"></label>
-                <input asp-for="TotalValueInclVat" class="form-control" />
-                <span asp-validation-for="TotalValueInclVat" class="text-danger"></span>
-            </div>
-            <div class="form-group">
                 <input type="submit" value="Zapisz" class="btn btn-default" />
             </div>
         </form>
     </div>
 </div>
-
-@await Html.PartialAsync("InvoiceItemsPartial", Model.InvoiceItems)
 
 <div>
     <a asp-action="Index">Wstecz</a>

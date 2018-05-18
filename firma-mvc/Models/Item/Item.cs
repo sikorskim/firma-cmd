@@ -24,25 +24,24 @@ namespace firma_mvc
         {
             get { return getBruttoPrice(); }
         }
-        
+
         [ForeignKey("VATId")]
         public virtual VAT VAT { get; set; }
         [ForeignKey("UnitOfMeasureId")]
         public virtual UnitOfMeasure UnitOfMeasure { get; set; }
-        
-        
-        private readonly ApplicationDbContext _context;
-        
+
+
+
         decimal getBruttoPrice()
         {
-//            try
-//            {
+            //            try
+            //            {
             return Price;// + _context.VAT.Single(p=>p.Id==VATId).Value / 100 * Price;
-//            }
-//            catch (Exception e)
-//            {
-//                return 0;
-//            }
+                         //            }
+                         //            catch (Exception e)
+                         //            {
+                         //                return 0;
+                         //            }
         }
     }
 }

@@ -34,14 +34,19 @@ namespace firma_mvc
             get { return countTotalNettPrice(); }
         }
         [DisplayName("Wartość brutto")]
-        public decimal TotalValueInclVat { get; set; }
+        public decimal TotalValueInclVat
+        {
+            get { return countTotalNettPrice(); }
+        }
         [DisplayName("Status")]
         public int InvoiceStatusId { get; set; }
-        
+
+        [DisplayName("Kontrahent")]
         [ForeignKey("ContractorId")]            
         public virtual Contractor Contractor { get; set; }    
         [ForeignKey("InvoiceStatusId")]
         public virtual InvoiceStatus InvoiceStatus {get; set; }
+        [DisplayName("Forma płatności")]
         [ForeignKey("PaymentMethodId")]
         public virtual PaymentMethod PaymentMethod { get; set; }
         public virtual ICollection<InvoiceItem> InvoiceItems { get; set; }
@@ -50,14 +55,14 @@ namespace firma_mvc
 
         public Invoice()
         {
-            try
-            {
-                InvoiceItems = _context.InvoiceItem.Where(p => p.InvoiceId == Id).ToList();
-            }
-            catch (Exception)
-            {
-                InvoiceItems=new List<InvoiceItem>();
-            }
+            //try
+            //{
+            //    InvoiceItems = _context.InvoiceItem.Where(p => p.InvoiceId == Id).ToList();
+            //}
+            //catch (Exception)
+            //{
+            //    InvoiceItems=new List<InvoiceItem>();
+            //}            
         }
         
         int countItems()

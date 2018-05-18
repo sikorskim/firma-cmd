@@ -5,7 +5,7 @@ namespace firma_mvc
     public class InvoiceStatus
     {
         public int Id { get; set; }
-        [DisplayName("Nazwa")]
+        [DisplayName("Status")]
         public string Name { get; set; }                
     }
 }

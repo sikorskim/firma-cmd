@@ -11,8 +11,8 @@ using System;
 namespace firmamvc.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20180517110443_initial")]
-    partial class initial
+    [Migration("20180518112927_migr0")]
+    partial class migr0
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -69,10 +69,6 @@ namespace firmamvc.Migrations
                     b.Property<string>("Number");
 
                     b.Property<int>("PaymentMethodId");
-
-                    b.Property<decimal>("TotalValue");
-
-                    b.Property<decimal>("TotalValueInclVat");
 
                     b.HasKey("Id");
 
