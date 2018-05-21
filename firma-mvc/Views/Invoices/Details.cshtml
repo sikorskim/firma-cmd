@@ -4,24 +4,26 @@
     ViewData["Title"] = "Details";
 }
 
-<h2>Faktura</h2>
+<p>
+    <h2>Faktura</h2>
+</p>
 
 <div>
     <h4>Nr @Html.DisplayFor(model => model.Number) z dnia @Html.DisplayFor(model => model.DateOfIssue)</h4>
     <hr />
     <dl class="dl-horizontal">
         @*<dt>
-            @Html.DisplayNameFor(model => model.Number)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.Number)
-        </dd>*@
+                @Html.DisplayNameFor(model => model.Number)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.Number)
+            </dd>*@
         @*<dt>
-            @Html.DisplayNameFor(model => model.DateOfIssue)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.DateOfIssue)
-        </dd>*@
+                @Html.DisplayNameFor(model => model.DateOfIssue)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.DateOfIssue)
+            </dd>*@
         <dt>
             @Html.DisplayNameFor(model => model.Contractor.NIP)
         </dt>
@@ -67,8 +69,6 @@
     </dl>
 </div>
 
-@*@await Html.PartialAsync("InvoiceItemsPartial", Model.InvoiceItems)*@
-
 <table class="table">
     <thead>
         <tr>
@@ -99,7 +99,7 @@
             <th>
                 @Html.DisplayName("Wartość brutto")
             </th>
-            <th></th>
+            @*<th></th>*@
         </tr>
     </thead>
     <tbody>
@@ -109,40 +109,40 @@
                 int i = 1;
                 foreach (var item in Model.InvoiceItems)
                 {
-        <tr>
-            <td>
-                @i
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Item.Name)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Quantity)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Item.UnitOfMeasure.ShortName)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Item.Price)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Item.VAT.Value)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Item.PriceBrutto)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.TotalPrice)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.TotalPriceBrutto)
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
-            </td>
-        </tr>
+                    <tr>
+                        <td>
+                            @i
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Item.Name)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Quantity)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Item.UnitOfMeasure.ShortName)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Item.Price)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Item.VAT.Value)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Item.PriceBrutto)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.TotalPrice)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.TotalPriceBrutto)
+                        </td>
+                        @*<td>
+                                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
+                                <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
+                                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                            </td>*@
+                    </tr>
                     i++;
                 }
             }
@@ -150,7 +150,8 @@
     </tbody>
 </table>
 
-<a asp-area="" asp-controller="InvoiceItems" asp-action="Create" asp-route-InvoiceId="@Model.Id" class="btn btn-default">Dodaj pozycję</a>
+@*<a asp-area="" asp-controller="InvoiceItems" asp-action="Create" asp-route-InvoiceId="@Model.Id" class="btn btn-default">Dodaj pozycję</a>*@
+@Html.ActionLink("Dodaj pozycję", "Create","InvoiceItems", new { id = Model.Id }, htmlAttributes: new { @class = "btn btn-outline-success" })
 
 <div>
     <a asp-action="Edit" asp-route-id="@Model.Id">Edit</a> |

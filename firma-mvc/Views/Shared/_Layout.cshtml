@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@ViewData["Title"] - firma_mvc</title>
+    <title>@ViewData["Title"] - Computerman Firma</title>
 
     <environment include="Development">
         <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.css" />
@@ -17,38 +17,50 @@
     </environment>
 </head>
 <body>
-    <nav class="navbar navbar-inverse navbar-fixed-top">
-        <div class="container">
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                    <span class="sr-only">Toggle navigation</span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                <a asp-area="" asp-controller="Home" asp-action="Index" class="navbar-brand">firma_mvc</a>
-            </div>
-            <div class="navbar-collapse collapse">
-                <ul class="nav navbar-nav">
-                    @*<li><a asp-area="" asp-controller="Home" asp-action="Index">Home</a></li>
-        <li><a asp-area="" asp-controller="Home" asp-action="About">About</a></li>
-        <li><a asp-area="" asp-controller="Home" asp-action="Contact">Contact</a></li>*@
-                    <li><a asp-area="" asp-controller="Invoices" asp-action="Index">Sprzedaż</a></li>
-                    <li><a asp-area="" asp-controller="Invoices" asp-action="Index">Zakupy</a></li>
-                    <li><a asp-area="" asp-controller="TaxBooks" asp-action="Index">Księga</a></li>
-                    <li><a asp-area="" asp-controller="Contractors" asp-action="Index">Kontrahenci</a></li>
+    <nav class="navbar fixed-top navbar-expand-lg navbar-dark bg-dark">
+        <a class="navbar-brand" href="#">
+            <img src="~/Content/logo.png" width="30" height="30" class="d-inline-block align-top" alt="">
+            Computerman Firma
+        </a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
 
-                    @await Html.PartialAsync("_LoginPartial")
+
+        <div class="collapse navbar-collapse" id="navbarText">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item">@Html.ActionLink("Sprzedaż", "Index", "Invoices", null, htmlAttributes: new { @class = "nav-link" })</li>
+                <li class="nav-item">@Html.ActionLink("Zakupy", "Index", "Invoices", null, htmlAttributes: new { @class = "nav-link" })</li>
+                <li class="nav-item">@Html.ActionLink("Księga", "Index", "TaxBooks", null, htmlAttributes: new { @class = "nav-link" })</li>
+                <li class="nav-item">@Html.ActionLink("Kontrahenci", "Index", "Contractors", null, htmlAttributes: new { @class = "nav-link" })</li>
+            </ul>
+
+            <div class="collapse navbar-collapse justify-content-end" id="navbarCollapse">
+                <ul class="navbar-nav">
+                    <li class="nav-item dropdown navbar-right">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            Ustawienia
+                        </a>
+                        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                            @Html.ActionLink("Statusy faktury", "Index", "InvoiceStatus", null, htmlAttributes: new { @class = "dropdown-item" })
+                            @Html.ActionLink("Towary i usługi", "Index", "Items", null, htmlAttributes: new { @class = "dropdown-item" })
+                            @Html.ActionLink("Jednostki miar", "Index", "UnitOfMeasures", null, htmlAttributes: new { @class = "dropdown-item" })
+                        </div>
+                    </li>
                 </ul>
-</div>
+            </div>
+            @await Html.PartialAsync("_LoginPartial")
         </div>
     </nav>
+
     <div class="container body-content">
         @RenderBody()
-        <hr />
-        <footer>
-            <p>&copy; 2018 - Computerman Firma</p>
-        </footer>
+        <div class="sticky-footer">
+            <hr />
+            <footer>
+                <p>&copy; @DateTime.Now.Year - Computerman Firma</p>
+            </footer>
+        </div>
     </div>
 
     <environment include="Development">
