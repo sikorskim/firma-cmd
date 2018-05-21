@@ -20,28 +20,24 @@ namespace firma_mvc
         [DisplayName("Wartość netto")]
         public decimal Price { get; set; }
         [DisplayName("Wartość brutto")]
-        public virtual decimal PriceBrutto
-        {
+        public virtual decimal PriceBrutto {
             get { return getBruttoPrice(); }
         }
-
         [ForeignKey("VATId")]
         public virtual VAT VAT { get; set; }
         [ForeignKey("UnitOfMeasureId")]
         public virtual UnitOfMeasure UnitOfMeasure { get; set; }
 
-
-
         decimal getBruttoPrice()
         {
-            //            try
-            //            {
-            return Price;// + _context.VAT.Single(p=>p.Id==VATId).Value / 100 * Price;
-                         //            }
-                         //            catch (Exception e)
-                         //            {
-                         //                return 0;
-                         //            }
+            //try
+            //{
+                return Price + VAT.Value * Price / 100;
+            //}
+            //catch (Exception e)
+            //{
+            //    return 0;
+            //}
         }
     }
 }

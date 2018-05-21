@@ -26,13 +26,6 @@ namespace firma_mvc.Controllers
             return View(await applicationDbContext.ToListAsync());
         }
 
-        // GET: InvoiceItemsPartial
-        public async Task<IActionResult> InvoiceItemsPartial()
-        {
-            var applicationDbContext = _context.InvoiceItem.Include(i => i.Invoice).Include(i => i.Item);
-            return PartialView(await applicationDbContext.ToListAsync());
-        }
-
         // GET: InvoiceItems/Details/5
         public async Task<IActionResult> Details(int? id)
         {

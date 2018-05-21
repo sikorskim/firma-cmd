@@ -36,7 +36,7 @@ namespace firma_mvc
         [DisplayName("Wartość brutto")]
         public decimal TotalValueInclVat
         {
-            get { return countTotalNettPrice(); }
+            get { return countTotalPriceBrutto(); }
         }
         [DisplayName("Status")]
         public int InvoiceStatusId { get; set; }
@@ -54,16 +54,7 @@ namespace firma_mvc
         private readonly ApplicationDbContext _context;
 
         public Invoice()
-        {
-            //try
-            //{
-            //    InvoiceItems = _context.InvoiceItem.Where(p => p.InvoiceId == Id).ToList();
-            //}
-            //catch (Exception)
-            //{
-            //    InvoiceItems=new List<InvoiceItem>();
-            //}            
-        }
+        {}
         
         int countItems()
         {
@@ -79,14 +70,12 @@ namespace firma_mvc
 
         decimal countTotalNettPrice()
         {
-            try
-            {
-                return InvoiceItems.Sum(p=>p.Item.Price);
-            }
-            catch (Exception e)
-            {
-                return 0;
-            }
+                return InvoiceItems.Sum(p=>p.TotalPrice);
+        }
+
+        decimal countTotalPriceBrutto()
+        {
+            return InvoiceItems.Sum(p => p.TotalPriceBrutto);
         }
     }
 }

@@ -1,5 +1,11 @@
 # Firma
 
+*TO DO*
+- invoice viewmodel for invoices index
+- remove try-catch block from InvoiceItem/getTotal methods
+
+
+
 *recent changes*
 - InvoiceHeader merged with Invoice class
 - invoice number generator added

@@ -76,16 +76,28 @@
                 @Html.DisplayName("#")
             </th>
             <th>
-                @*@Html.DisplayNameFor(model => model.Item.Name)*@
+                @Html.DisplayName("Nazwa")
             </th>
             <th>
-                @*@Html.DisplayNameFor(model => model.Quantity)*@
+                @Html.DisplayName("Ilość")
             </th>
             <th>
-                @*@Html.DisplayNameFor(model => model.Item.Price)*@
+                @Html.DisplayName("Jednostka")
             </th>
             <th>
-                @*@Html.DisplayNameFor(model => model.Item.PriceBrutto)*@
+                @Html.DisplayName("Wartość jednostkowa")
+            </th>
+            <th>
+                @Html.DisplayName("VAT")
+            </th>
+            <th>
+                @Html.DisplayName("Wartość jednostkowa brutto")
+            </th>
+            <th>
+                @Html.DisplayName("Wartość")
+            </th>
+            <th>
+                @Html.DisplayName("Wartość brutto")
             </th>
             <th></th>
         </tr>
@@ -97,28 +109,40 @@
                 int i = 1;
                 foreach (var item in Model.InvoiceItems)
                 {
-                    <tr>
-                        <td>
-                            @i
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.Item.Name)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.Quantity)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.Item.Price)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.Item.PriceBrutto)
-                        </td>
-                        <td>
-                            <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-                            <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
-                            <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
-                        </td>
-                    </tr>
+        <tr>
+            <td>
+                @i
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Item.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Quantity)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Item.UnitOfMeasure.ShortName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Item.Price)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Item.VAT.Value)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Item.PriceBrutto)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.TotalPrice)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.TotalPriceBrutto)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+            </td>
+        </tr>
                     i++;
                 }
             }

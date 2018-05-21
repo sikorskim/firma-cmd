@@ -22,7 +22,7 @@ namespace firma_mvc.Controllers
         // GET: Invoice
         public async Task<IActionResult> Index()
         {
-            var applicationDbContext = _context.Invoice.Include(i => i.Contractor).Include(i => i.PaymentMethod).Include(i=>i.InvoiceItems).Include(i=>i.InvoiceStatus);            
+            var applicationDbContext = _context.Invoice.Include(i => i.Contractor).Include(i => i.PaymentMethod).Include(i=>i.InvoiceItems).Include(i=>i.InvoiceStatus);
             return View(await applicationDbContext.ToListAsync());
         }
 
@@ -42,6 +42,14 @@ namespace firma_mvc.Controllers
                 .SingleOrDefaultAsync(m => m.Id == id);
 
             invoice.InvoiceItems = _context.InvoiceItem.Where(p => p.InvoiceId == id).Include(i => i.Item).ToList();
+            foreach (InvoiceItem invoiceItem in invoice.InvoiceItems)
+            {
+                Item item = invoiceItem.Item;
+                item.VAT = _context.VAT.Single(p => p.Id == item.VATId);
+                item.UnitOfMeasure = _context.UnitOfMeasure.Single(p => p.Id == item.UnitOfMeasureId);
+            }
+
+            //invoice.TotalValue=invoice.get
 
             if (invoice == null)
             {
