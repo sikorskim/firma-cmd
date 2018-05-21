@@ -10,22 +10,22 @@ using firma_mvc.Data;
 
 namespace firma_mvc.Controllers
 {
-    public class TaxBookController : Controller
+    public class TaxBooksController : Controller
     {
         private readonly ApplicationDbContext _context;
 
-        public TaxBookController(ApplicationDbContext context)
+        public TaxBooksController(ApplicationDbContext context)
         {
             _context = context;
         }
 
-        // GET: TaxBookItems
+        // GET: TaxBooks
         public async Task<IActionResult> Index()
         {
             return View(await _context.TaxBookItem.ToListAsync());
         }
 
-        // GET: TaxBookItems/Details/5
+        // GET: TaxBooks/Details/5
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -33,39 +33,39 @@ namespace firma_mvc.Controllers
                 return NotFound();
             }
 
-            var taxBookItem = await _context.TaxBookItem
+            var taxBook = await _context.TaxBookItem
                 .SingleOrDefaultAsync(m => m.Id == id);
-            if (taxBookItem == null)
+            if (taxBook == null)
             {
                 return NotFound();
             }
 
-            return View(taxBookItem);
+            return View(taxBook);
         }
 
-        // GET: TaxBookItems/Create
+        // GET: TaxBooks/Create
         public IActionResult Create()
         {
             return View();
         }
 
-        // POST: TaxBookItems/Create
+        // POST: TaxBooks/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Number,Date,InvoiceNumber,Name,NIP,Address,Description,SellValue,OtherIncome,GoodsBuys,BuysSideEffects,Salary,OtherCosts,Column15,CostDescription,ResearchCostValue,Comments")] TaxBook taxBookItem)
+        public async Task<IActionResult> Create([Bind("Id,Number,Date,InvoiceNumber,Name,NIP,Address,Description,SellValue,OtherIncome,GoodsBuys,BuysSideEffects,Salary,OtherCosts,Column15,CostDescription,ResearchCostValue,Comments")] TaxBook taxBook)
         {
             if (ModelState.IsValid)
             {
-                _context.Add(taxBookItem);
+                _context.Add(taxBook);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            return View(taxBookItem);
+            return View(taxBook);
         }
 
-        // GET: TaxBookItems/Edit/5
+        // GET: TaxBooks/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -73,22 +73,22 @@ namespace firma_mvc.Controllers
                 return NotFound();
             }
 
-            var taxBookItem = await _context.TaxBookItem.SingleOrDefaultAsync(m => m.Id == id);
-            if (taxBookItem == null)
+            var taxBook = await _context.TaxBookItem.SingleOrDefaultAsync(m => m.Id == id);
+            if (taxBook == null)
             {
                 return NotFound();
             }
-            return View(taxBookItem);
+            return View(taxBook);
         }
 
-        // POST: TaxBookItems/Edit/5
+        // POST: TaxBooks/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Number,Date,InvoiceNumber,Name,NIP,Address,Description,SellValue,OtherIncome,GoodsBuys,BuysSideEffects,Salary,OtherCosts,Column15,CostDescription,ResearchCostValue,Comments")] TaxBook taxBookItem)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,Number,Date,InvoiceNumber,Name,NIP,Address,Description,SellValue,OtherIncome,GoodsBuys,BuysSideEffects,Salary,OtherCosts,Column15,CostDescription,ResearchCostValue,Comments")] TaxBook taxBook)
         {
-            if (id != taxBookItem.Id)
+            if (id != taxBook.Id)
             {
                 return NotFound();
             }
@@ -97,12 +97,12 @@ namespace firma_mvc.Controllers
             {
                 try
                 {
-                    _context.Update(taxBookItem);
+                    _context.Update(taxBook);
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!TaxBookItemExists(taxBookItem.Id))
+                    if (!TaxBookExists(taxBook.Id))
                     {
                         return NotFound();
                     }
@@ -113,10 +113,10 @@ namespace firma_mvc.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            return View(taxBookItem);
+            return View(taxBook);
         }
 
-        // GET: TaxBookItems/Delete/5
+        // GET: TaxBooks/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -124,28 +124,28 @@ namespace firma_mvc.Controllers
                 return NotFound();
             }
 
-            var taxBookItem = await _context.TaxBookItem
+            var taxBook = await _context.TaxBookItem
                 .SingleOrDefaultAsync(m => m.Id == id);
-            if (taxBookItem == null)
+            if (taxBook == null)
             {
                 return NotFound();
             }
 
-            return View(taxBookItem);
+            return View(taxBook);
         }
 
-        // POST: TaxBookItems/Delete/5
+        // POST: TaxBooks/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var taxBookItem = await _context.TaxBookItem.SingleOrDefaultAsync(m => m.Id == id);
-            _context.TaxBookItem.Remove(taxBookItem);
+            var taxBook = await _context.TaxBookItem.SingleOrDefaultAsync(m => m.Id == id);
+            _context.TaxBookItem.Remove(taxBook);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
-        private bool TaxBookItemExists(int id)
+        private bool TaxBookExists(int id)
         {
             return _context.TaxBookItem.Any(e => e.Id == id);
         }
