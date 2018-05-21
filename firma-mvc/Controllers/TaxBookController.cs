@@ -10,23 +10,22 @@ using firma_mvc.Data;
 
 namespace firma_mvc.Controllers
 {
-    public class ItemsController : Controller
+    public class TaxBookController : Controller
     {
         private readonly ApplicationDbContext _context;
 
-        public ItemsController(ApplicationDbContext context)
+        public TaxBookController(ApplicationDbContext context)
         {
             _context = context;
         }
 
-        // GET: Items
+        // GET: TaxBookItems
         public async Task<IActionResult> Index()
         {
-            var applicationDbContext = _context.Item.Include(i => i.UnitOfMeasure).Include(i => i.VAT);
-            return View(await applicationDbContext.ToListAsync());
+            return View(await _context.TaxBookItem.ToListAsync());
         }
 
-        // GET: Items/Details/5
+        // GET: TaxBookItems/Details/5
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -34,45 +33,39 @@ namespace firma_mvc.Controllers
                 return NotFound();
             }
 
-            var item = await _context.Item
-                .Include(i => i.UnitOfMeasure)
-                .Include(i => i.VAT)
+            var taxBookItem = await _context.TaxBookItem
                 .SingleOrDefaultAsync(m => m.Id == id);
-            if (item == null)
+            if (taxBookItem == null)
             {
                 return NotFound();
             }
 
-            return View(item);
+            return View(taxBookItem);
         }
 
-        // GET: Items/Create
+        // GET: TaxBookItems/Create
         public IActionResult Create()
         {
-            ViewData["UnitOfMeasureId"] = new SelectList(_context.UnitOfMeasure, "Id", "ShortName");
-            ViewData["VATId"] = new SelectList(_context.VAT, "Id", "Value");
             return View();
         }
 
-        // POST: Items/Create
+        // POST: TaxBookItems/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Name,UnitOfMeasureId,VATId,Price")] Item item)
+        public async Task<IActionResult> Create([Bind("Id,Number,Date,InvoiceNumber,Name,NIP,Address,Description,SellValue,OtherIncome,GoodsBuys,BuysSideEffects,Salary,OtherCosts,Column15,CostDescription,ResearchCostValue,Comments")] TaxBook taxBookItem)
         {
             if (ModelState.IsValid)
             {
-                _context.Add(item);
+                _context.Add(taxBookItem);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["UnitOfMeasureId"] = new SelectList(_context.UnitOfMeasure, "Id", "ShortName", item.UnitOfMeasureId);
-            ViewData["VATId"] = new SelectList(_context.VAT, "Id", "Value", item.VATId);
-            return View(item);
+            return View(taxBookItem);
         }
 
-        // GET: Items/Edit/5
+        // GET: TaxBookItems/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -80,24 +73,22 @@ namespace firma_mvc.Controllers
                 return NotFound();
             }
 
-            var item = await _context.Item.SingleOrDefaultAsync((System.Linq.Expressions.Expression<Func<Item, bool>>)(m => m.Id == id));
-            if (item == null)
+            var taxBookItem = await _context.TaxBookItem.SingleOrDefaultAsync(m => m.Id == id);
+            if (taxBookItem == null)
             {
                 return NotFound();
             }
-            ViewData["UnitOfMeasureId"] = new SelectList(_context.UnitOfMeasure, "Id", "Id", item.UnitOfMeasureId);
-            ViewData["VATId"] = new SelectList(_context.VAT, "Id", "Id", item.VATId);
-            return View(item);
+            return View(taxBookItem);
         }
 
-        // POST: Items/Edit/5
+        // POST: TaxBookItems/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Name,UnitOfMeasureId,VATId,Price")] Item item)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,Number,Date,InvoiceNumber,Name,NIP,Address,Description,SellValue,OtherIncome,GoodsBuys,BuysSideEffects,Salary,OtherCosts,Column15,CostDescription,ResearchCostValue,Comments")] TaxBook taxBookItem)
         {
-            if (id != item.Id)
+            if (id != taxBookItem.Id)
             {
                 return NotFound();
             }
@@ -106,12 +97,12 @@ namespace firma_mvc.Controllers
             {
                 try
                 {
-                    _context.Update(item);
+                    _context.Update(taxBookItem);
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!ItemExists(item.Id))
+                    if (!TaxBookItemExists(taxBookItem.Id))
                     {
                         return NotFound();
                     }
@@ -122,12 +113,10 @@ namespace firma_mvc.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["UnitOfMeasureId"] = new SelectList(_context.UnitOfMeasure, "Id", "Id", item.UnitOfMeasureId);
-            ViewData["VATId"] = new SelectList(_context.VAT, "Id", "Id", item.VATId);
-            return View(item);
+            return View(taxBookItem);
         }
 
-        // GET: Items/Delete/5
+        // GET: TaxBookItems/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -135,32 +124,30 @@ namespace firma_mvc.Controllers
                 return NotFound();
             }
 
-            var item = await _context.Item
-                .Include(i => i.UnitOfMeasure)
-                .Include(i => i.VAT)
+            var taxBookItem = await _context.TaxBookItem
                 .SingleOrDefaultAsync(m => m.Id == id);
-            if (item == null)
+            if (taxBookItem == null)
             {
                 return NotFound();
             }
 
-            return View(item);
+            return View(taxBookItem);
         }
 
-        // POST: Items/Delete/5
+        // POST: TaxBookItems/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var item = await _context.Item.SingleOrDefaultAsync((System.Linq.Expressions.Expression<Func<Item, bool>>)(m => m.Id == id));
-            _context.Item.Remove((Item)item);
+            var taxBookItem = await _context.TaxBookItem.SingleOrDefaultAsync(m => m.Id == id);
+            _context.TaxBookItem.Remove(taxBookItem);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
-        private bool ItemExists(int id)
+        private bool TaxBookItemExists(int id)
         {
-            return _context.Item.Any((System.Linq.Expressions.Expression<Func<Item, bool>>)(e => e.Id == id));
+            return _context.TaxBookItem.Any(e => e.Id == id);
         }
     }
 }

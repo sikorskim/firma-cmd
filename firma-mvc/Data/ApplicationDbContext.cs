@@ -33,5 +33,7 @@ namespace firma_mvc.Data
         public DbSet<Item> Item { get; set; }
         public DbSet<UnitOfMeasure> UnitOfMeasure { get; set; }
         public DbSet<VAT> VAT { get; set; }
+
+        public DbSet<TaxBook> TaxBookItem { get; set; }
     }
 }

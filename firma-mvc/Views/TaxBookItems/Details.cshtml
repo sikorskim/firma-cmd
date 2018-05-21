@@ -1,0 +1,120 @@
+﻿@model firma_mvc.TaxBookItem
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>TaxBookItem</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Number)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Number)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Date)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Date)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.InvoiceNumber)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.InvoiceNumber)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Name)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Name)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.NIP)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.NIP)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Address)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Address)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Description)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Description)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.SellValue)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.SellValue)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.OtherIncome)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.OtherIncome)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.GoodsBuys)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.GoodsBuys)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.BuysSideEffects)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.BuysSideEffects)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Salary)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Salary)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.OtherCosts)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.OtherCosts)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Column15)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Column15)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.CostDescription)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.CostDescription)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.ResearchCostValue)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.ResearchCostValue)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Comments)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Comments)
+        </dd>
+    </dl>
+</div>
+<div>
+    <a asp-action="Edit" asp-route-id="@Model.Id">Edit</a> |
+    <a asp-action="Index">Back to List</a>
+</div>
