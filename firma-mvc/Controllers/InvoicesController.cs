@@ -40,6 +40,9 @@ namespace firma_mvc.Controllers
                 .Include(i=>i.InvoiceItems)
                 .Include(i=>i.InvoiceStatus)
                 .SingleOrDefaultAsync(m => m.Id == id);
+
+            invoice.InvoiceItems = _context.InvoiceItem.Where(p => p.InvoiceId == id).Include(i => i.Item).ToList();
+
             if (invoice == null)
             {
                 return NotFound();
