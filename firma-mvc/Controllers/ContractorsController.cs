@@ -54,7 +54,7 @@ namespace firma_mvc.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,NIP,FullName,Name,CountryCode,Voivodeship,County,Community,City,Street,BuldingNo,PostalCode,PostOffice")] Contractor contractor)
+        public async Task<IActionResult> Create([Bind("Id,NIP,FullName,Name,CountryCode,Voivodeship,County,Community,City,Street,BuldingNo,PostalCode,PostOffice,Email,Phone")] Contractor contractor)
         {
             if (ModelState.IsValid)
             {
@@ -86,7 +86,7 @@ namespace firma_mvc.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,NIP,FullName,Name,CountryCode,Voivodeship,County,Community,City,Street,BuldingNo,PostalCode,PostOffice")] Contractor contractor)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,NIP,FullName,Name,CountryCode,Voivodeship,County,Community,City,Street,BuldingNo,PostalCode,PostOffice,Email,Phone")] Contractor contractor)
         {
             if (id != contractor.Id)
             {

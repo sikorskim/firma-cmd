@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -10,8 +11,10 @@ namespace firma_mvc
     {
         public int Id { get; set; }
         [DisplayName("Data nabycia")]
+        [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
         public DateTime DateOfBuy { get; set; }
         [DisplayName("Data przyjęcia do użytkowania")]
+        [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
         public DateTime DateOfUseStart { get; set; }
         [DisplayName("Nazwa środka trwałego")]
         public string Name { get; set; }
@@ -26,6 +29,7 @@ namespace firma_mvc
         [DisplayName("Zaktualizowana wartość początkowa")]
         public decimal UpdatedOriginalValue { get; set; }
         [DisplayName("Data likwidacji")]
+        [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
         public DateTime LiquidationDate { get; set; }
         [DisplayName("Przyczyna likwidacji")]
         public string LiquidationReason { get; set; }

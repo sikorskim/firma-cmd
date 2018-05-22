@@ -1,16 +1,18 @@
 ﻿@model IEnumerable<firma_mvc.TaxBook>
 
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Księga przychodów i rozchodów";
 }
 
-<h2>Index</h2>
+<p>
+    <h2>Księga przychodów i rozchodów</h2>
+</p>
 
 <p>
-    <a asp-action="Create">Create New</a>
+    <a asp-action="Create">Dodaj</a>
 </p>
-<table class="table">
-    <thead>
+<table class="table table-responsive table-hover">
+    <thead class="thead-light">
         <tr>
                 <th>
                     @Html.DisplayNameFor(model => model.Number)

@@ -15,7 +15,7 @@ namespace firma_mvc
         public string Name { get; set; }
         [DisplayName("Jednostka miary")]
         public int UnitOfMeasureId { get; set; }
-        [DisplayName("Wartość VAT")]
+        [DisplayName("VAT")]
         public int VATId { get; set; }
         [DisplayName("Wartość netto")]
         public decimal Price { get; set; }
@@ -24,8 +24,10 @@ namespace firma_mvc
             get { return getBruttoPrice(); }
         }
         [ForeignKey("VATId")]
+        [DisplayName("VAT")]
         public virtual VAT VAT { get; set; }
         [ForeignKey("UnitOfMeasureId")]
+        [DisplayName("Jednostka miary")]
         public virtual UnitOfMeasure UnitOfMeasure { get; set; }
 
         decimal getBruttoPrice()

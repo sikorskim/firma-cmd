@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -15,6 +16,7 @@ namespace firma_mvc
         [DisplayName("L.p.")]
         public int Number { get; set; }
         [DisplayName("Data zdarzenia gospodarczego")]
+        [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
         public DateTime Date { get; set; }
         [DisplayName("Nr dowodu księgowego")]
         public string InvoiceNumber { get; set; }
