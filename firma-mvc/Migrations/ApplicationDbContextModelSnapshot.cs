@@ -58,6 +58,36 @@ namespace firmamvc.Migrations
                     b.ToTable("Contractor");
                 });
 
+            modelBuilder.Entity("firma_mvc.FixedAssets", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<DateTime>("DateOfBuy");
+
+                    b.Property<DateTime>("DateOfUseStart");
+
+                    b.Property<decimal>("DepreciationRate");
+
+                    b.Property<string>("Identfier");
+
+                    b.Property<DateTime>("LiquidationDate");
+
+                    b.Property<string>("LiquidationReason");
+
+                    b.Property<string>("Name");
+
+                    b.Property<decimal>("OriginalValue");
+
+                    b.Property<decimal>("UpdatedOriginalValue");
+
+                    b.Property<decimal>("UpgradeValue");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("FixedAssets");
+                });
+
             modelBuilder.Entity("firma_mvc.Invoice", b =>
                 {
                     b.Property<int>("Id")

@@ -30,14 +30,14 @@ namespace firma_mvc
 
         decimal getBruttoPrice()
         {
-            //try
-            //{
+            try
+            {
                 return Price + VAT.Value * Price / 100;
-            //}
-            //catch (Exception e)
-            //{
-            //    return 0;
-            //}
+            }
+            catch (Exception e)
+            {
+                return 0;
+            }
         }
     }
 }

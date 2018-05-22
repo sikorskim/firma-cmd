@@ -35,5 +35,6 @@ namespace firma_mvc.Data
         public DbSet<VAT> VAT { get; set; }
 
         public DbSet<TaxBook> TaxBookItem { get; set; }
+        public DbSet<FixedAssets> FixedAssets { get; set; }
     }
 }

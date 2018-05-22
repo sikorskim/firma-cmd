@@ -1,0 +1,78 @@
+﻿@model firma_mvc.FixedAssets
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>FixedAssets</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.DateOfBuy)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.DateOfBuy)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.DateOfUseStart)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.DateOfUseStart)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Name)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Name)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Identfier)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Identfier)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.OriginalValue)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.OriginalValue)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.DepreciationRate)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.DepreciationRate)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.UpgradeValue)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.UpgradeValue)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.UpdatedOriginalValue)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.UpdatedOriginalValue)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.LiquidationDate)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.LiquidationDate)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.LiquidationReason)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.LiquidationReason)
+        </dd>
+    </dl>
+</div>
+<div>
+    <a asp-action="Edit" asp-route-id="@Model.Id">Edit</a> |
+    <a asp-action="Index">Back to List</a>
+</div>
