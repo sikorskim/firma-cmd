@@ -70,12 +70,26 @@ namespace firma_mvc
 
         decimal countTotalNettPrice()
         {
-                return InvoiceItems.Sum(p=>p.TotalPrice);
+            try
+            {
+                return InvoiceItems.Sum(p => p.TotalPrice);
+            }
+            catch (Exception)
+            {
+                return 0;
+            }
         }
 
         decimal countTotalPriceBrutto()
         {
-            return InvoiceItems.Sum(p => p.TotalPriceBrutto);
+            try
+            {
+                return InvoiceItems.Sum(p => p.TotalPriceBrutto);
+            }
+            catch (Exception)
+            {
+                return 0;
+            }
         }
     }
 }

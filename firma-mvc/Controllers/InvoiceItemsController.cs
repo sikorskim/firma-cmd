@@ -50,9 +50,8 @@ namespace firma_mvc.Controllers
         public IActionResult Create(int InvoiceId)
         {
             InvoiceItem invoiceItem = new InvoiceItem(InvoiceId);
-            ViewBag.InvoiceId = InvoiceId;
+            //ViewBag.InvoiceId = InvoiceId;
             ViewData["ItemId"] = new SelectList(_context.Item, "Id", "Name");
-            Console.WriteLine(invoiceItem.InvoiceId);
             return View(invoiceItem);
         }
 

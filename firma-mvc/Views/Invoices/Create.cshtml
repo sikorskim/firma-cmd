@@ -3,8 +3,9 @@
 @{
     ViewData["Title"] = "Nowa faktura";
 }
-
-<h2>Nowa faktura</h2>
+<p>
+    <h2>Nowa faktura</h2>
+</p>
 <hr />
 <div class="row">
     <div class="col-md-4">
@@ -23,6 +24,7 @@
             <div class="form-group">
                 <label asp-for="ContractorId" class="control-label"></label>
                 <select asp-for="ContractorId" class="form-control" asp-items="ViewBag.ContractorId"></select>
+                @Html.ActionLink("Dodaj kontrahenta", "Create", "Contractors", null, htmlAttributes: new { @class = "btn btn-outline-primary" })
             </div>
             <div class="form-group">
                 <label asp-for="PaymentMethodId" class="control-label"></label>

@@ -189,14 +189,14 @@ namespace firma_mvc.Controllers
             
             try
             {
-                string lastNumber = _context.Invoice.Last(p => p.DateOfIssue.Year == DateTime.Now.Year).Number;                
-                int nextNumber = Int32.Parse(lastNumber.Substring(0, lastNumber.IndexOf('/')));
+                string lastNumber = _context.Invoice.Last(p => p.DateOfIssue.Year == DateTime.Now.Year && p.DateOfIssue.Month == DateTime.Now.Month).Number;                
+                int nextNumber = Int32.Parse(lastNumber.Substring(lastNumber.LastIndexOf('/') + 1, lastNumber.Length - lastNumber.LastIndexOf('/') - 1));
                 nextNumber++;
-                number = nextNumber.ToString()+"/" + DateTime.Now.Year;
+                number = "FV/" + DateTime.Now.Year + "/" + DateTime.Now.Month + "/"+ nextNumber.ToString();
             }
             catch (Exception ex)
             {
-                number = "1/" + DateTime.Now.Year;
+                number = "FV/"+DateTime.Now.Year+"/"+ DateTime.Now.Month+"/1";
             }
             
             return number;

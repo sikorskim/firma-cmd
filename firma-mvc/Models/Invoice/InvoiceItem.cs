@@ -8,6 +8,7 @@ namespace firma_mvc
     {
         public int Id { get; set; }
         public int InvoiceId { get; set; }
+        [DisplayName("Produkt")]
         public int ItemId { get; set; }
         [DisplayName("Ilość")]
         public int Quantity { get; set; }

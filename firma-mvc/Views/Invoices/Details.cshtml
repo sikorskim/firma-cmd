@@ -4,70 +4,48 @@
     ViewData["Title"] = "Details";
 }
 
-<p>
-    <h2>Faktura</h2>
-</p>
+@*<p>
+        <h2>Faktura</h2>
+    </p>
 
-<div>
-    <h4>Nr @Html.DisplayFor(model => model.Number) z dnia @Html.DisplayFor(model => model.DateOfIssue)</h4>
-    <hr />
-    <dl class="dl-horizontal">
-        @*<dt>
-                @Html.DisplayNameFor(model => model.Number)
-            </dt>
-            <dd>
-                @Html.DisplayFor(model => model.Number)
-            </dd>*@
-        @*<dt>
-                @Html.DisplayNameFor(model => model.DateOfIssue)
-            </dt>
-            <dd>
-                @Html.DisplayFor(model => model.DateOfIssue)
-            </dd>*@
-        <dt>
-            @Html.DisplayNameFor(model => model.Contractor.NIP)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.Contractor.NIP)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.Contractor.Name)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.Contractor.Name)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.TotalValue)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.TotalValue)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.TotalValueInclVat)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.TotalValueInclVat)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.ItemsCount)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.ItemsCount)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.PaymentMethod)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.PaymentMethod.Name)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.InvoiceStatus.Name)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.InvoiceStatus.Name)
-        </dd>
-    </dl>
+    <p>*@
+<br />
+<div class="card bg-light">
+    <div class="card-header"><strong>Faktura nr @Model.Number</strong></div>
+    <div class="card-body">
+        <div class="row">
+            <div class="col-6 col-md-4"><strong>@Html.DisplayNameFor(model => model.DateOfIssue)</strong></div>
+            <div class="col-6 col-md-4"><strong>@Html.DisplayNameFor(model => model.InvoiceStatus.Name)</strong></div>
+        </div>
+        <div class="row">
+            <div class="col-6 col-md-4">@Html.DisplayFor(model => model.DateOfIssue)</div>
+            <div class="col-6 col-md-4">@Html.DisplayFor(model => model.InvoiceStatus.Name)</div>
+        </div>
+        <div class="row">
+            <div class="col-6 col-md-4"><strong>@Html.DisplayNameFor(model => model.Contractor.NIP)</strong></div>
+            <div class="col-12 col-md-8"><strong>@Html.DisplayNameFor(model => model.Contractor)</strong></div>
+        </div>
+        <div class="row">
+            <div class="col-6 col-md-4">@Html.DisplayFor(model => model.Contractor.NIP)</div>
+            <div class="col-12 col-md-8">@Html.DisplayFor(model => model.Contractor.Name)</div>
+        </div>
+        <div class="row">
+            <div class="col-6 col-md-4"><strong>@Html.DisplayNameFor(model => model.TotalValue)</strong></div>
+            <div class="col-6 col-md-4"><strong>@Html.DisplayNameFor(model => model.TotalValueInclVat)</strong></div>
+        </div>
+        <div class="row">
+            <div class="col-6 col-md-4">@Html.DisplayFor(model => model.TotalValue)</div>
+            <div class="col-6 col-md-4">@Html.DisplayFor(model => model.TotalValueInclVat)</div>
+        </div>
+        <div class="row">
+            <div class="col-6 col-md-4"><strong>@Html.DisplayNameFor(model => model.PaymentMethod)</strong></div>
+        </div>
+        <div class="row">
+            <div class="col-6 col-md-4">@Html.DisplayFor(model => model.PaymentMethod.Name)</div>
+        </div>
+    </div>
 </div>
+@*</p>*@
 
 <table class="table">
     <thead>
@@ -99,7 +77,6 @@
             <th>
                 @Html.DisplayName("Wartość brutto")
             </th>
-            @*<th></th>*@
         </tr>
     </thead>
     <tbody>
@@ -137,11 +114,6 @@
                         <td>
                             @Html.DisplayFor(modelItem => item.TotalPriceBrutto)
                         </td>
-                        @*<td>
-                                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-                                <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
-                                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
-                            </td>*@
                     </tr>
                     i++;
                 }
@@ -150,8 +122,7 @@
     </tbody>
 </table>
 
-@*<a asp-area="" asp-controller="InvoiceItems" asp-action="Create" asp-route-InvoiceId="@Model.Id" class="btn btn-default">Dodaj pozycję</a>*@
-@Html.ActionLink("Dodaj pozycję", "Create","InvoiceItems", new { id = Model.Id }, htmlAttributes: new { @class = "btn btn-outline-success" })
+@Html.ActionLink("Dodaj pozycję", "Create", "InvoiceItems", new { InvoiceId = Model.Id }, htmlAttributes: new { @class = "btn btn-outline-success" })
 
 <div>
     <a asp-action="Edit" asp-route-id="@Model.Id">Edit</a> |
