@@ -9,7 +9,7 @@
 </p>
 
 <p>
-    <a asp-action="Create">Dodaj</a>
+    @Html.ActionLink("Dodaj", "Create", null, htmlAttributes: new { @class = "btn btn-outline-success" })
 </p>
 <table class="table table-responsive table-hover">
     <thead class="thead-light">

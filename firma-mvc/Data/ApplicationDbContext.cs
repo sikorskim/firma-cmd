@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using firma_mvc.Models;
+using firma_mvc;
 
 namespace firma_mvc.Data
 {
@@ -36,5 +37,7 @@ namespace firma_mvc.Data
 
         public DbSet<TaxBook> TaxBookItem { get; set; }
         public DbSet<FixedAssets> FixedAssets { get; set; }
+        public DbSet<firma_mvc.VATRegisterSell> VATRegisterSell { get; set; }
+        public DbSet<firma_mvc.VATRegisterBuy> VATRegisterBuy { get; set; }
     }
 }

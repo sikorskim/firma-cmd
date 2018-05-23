@@ -1,0 +1,86 @@
+﻿@model IEnumerable<firma_mvc.VATRegisterBuy>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<p>
+    <h2>Rejestr VAT zakupu</h2>
+</p>
+
+<p>
+    @Html.ActionLink("Dodaj", "Create", null, htmlAttributes: new { @class = "btn btn-outline-success" })
+</p>
+<table class="table table-responsive table-hover">
+    <thead class="thead-light">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Number)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.DeliveryDate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.DateOfIssue)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.DocumentNumber)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Contractor)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ValueBrutto)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ValueNetto)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.TaxDeductibleValue)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.TaxFreeBuysValue)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.NoTaxDeductibleBuysValue)
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr class="table-light" onclick="location.href = '@Url.Action("Details", "VATRegisterBuys",new { id = item.Id})'">
+                <td>
+                    @Html.DisplayFor(modelItem => item.Number)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.DeliveryDate)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.DateOfIssue)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.DocumentNumber)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Contractor)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ValueBrutto)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ValueNetto)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.TaxDeductibleValue)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.TaxFreeBuysValue)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.NoTaxDeductibleBuysValue)
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

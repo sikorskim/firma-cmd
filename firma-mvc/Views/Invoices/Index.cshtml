@@ -22,9 +22,6 @@
             <th>
                 @Html.DisplayNameFor(model => model.DateOfIssue)
             </th>
-            @*<th>
-            @Html.DisplayNameFor(model => model.TotalValueInclVat)
-        </th>*@
             <th>
                 @Html.DisplayNameFor(model => model.Contractor.NIP)
             </th>
@@ -55,12 +52,6 @@
                 <td>
                     @Html.DisplayFor(modelItem => item.DateOfIssue)
                 </td>
-                @*<td>
-                    @Html.DisplayFor(modelItem => item.ItemsCount)
-                </td>*@
-                @*<td>
-                    @Html.DisplayFor(modelItem => item.TotalValueInclVat)
-                </td>*@
                 <td>
                     @Html.DisplayFor(modelItem => item.Contractor.NIP)
                 </td>
@@ -73,11 +64,6 @@
                 <td>
                     @Html.DisplayFor(modelItem => item.InvoiceStatus.Name)
                 </td>
-                @*<td>
-                    <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-                    <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
-                    <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
-                </td>*@
             </tr>
             i++;
         }

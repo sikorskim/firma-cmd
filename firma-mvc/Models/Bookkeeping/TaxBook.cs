@@ -22,7 +22,7 @@ namespace firma_mvc
         public string InvoiceNumber { get; set; }
         #region Contractor
         public string ContractorHeader { get { return "Kontrahent"; } }
-        [DisplayName("L.p.")]
+        [DisplayName("Nazwa kontrahenta")]
         public string Name { get; set; }
         public string NIP { get; set; }
         [DisplayName("Adres")]

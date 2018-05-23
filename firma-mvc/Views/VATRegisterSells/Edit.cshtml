@@ -1,0 +1,104 @@
+﻿@model firma_mvc.VATRegisterSell
+
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<h2>Edit</h2>
+
+<h4>VATRegisterSell</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Edit">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="Id" />
+            <div class="form-group">
+                <label asp-for="Number" class="control-label"></label>
+                <input asp-for="Number" class="form-control" />
+                <span asp-validation-for="Number" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="DeliveryDate" class="control-label"></label>
+                <input asp-for="DeliveryDate" class="form-control" />
+                <span asp-validation-for="DeliveryDate" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="DateOfIssue" class="control-label"></label>
+                <input asp-for="DateOfIssue" class="form-control" />
+                <span asp-validation-for="DateOfIssue" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="DocumentNumber" class="control-label"></label>
+                <input asp-for="DocumentNumber" class="form-control" />
+                <span asp-validation-for="DocumentNumber" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Contractor" class="control-label"></label>
+                <input asp-for="Contractor" class="form-control" />
+                <span asp-validation-for="Contractor" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ValueBrutto" class="control-label"></label>
+                <input asp-for="ValueBrutto" class="form-control" />
+                <span asp-validation-for="ValueBrutto" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ValueNetto23" class="control-label"></label>
+                <input asp-for="ValueNetto23" class="form-control" />
+                <span asp-validation-for="ValueNetto23" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="VATValue23" class="control-label"></label>
+                <input asp-for="VATValue23" class="form-control" />
+                <span asp-validation-for="VATValue23" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ValueNetto7_8" class="control-label"></label>
+                <input asp-for="ValueNetto7_8" class="form-control" />
+                <span asp-validation-for="ValueNetto7_8" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="VATValue7_8" class="control-label"></label>
+                <input asp-for="VATValue7_8" class="form-control" />
+                <span asp-validation-for="VATValue7_8" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ValueNetto3_5" class="control-label"></label>
+                <input asp-for="ValueNetto3_5" class="form-control" />
+                <span asp-validation-for="ValueNetto3_5" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="VATValue3_5" class="control-label"></label>
+                <input asp-for="VATValue3_5" class="form-control" />
+                <span asp-validation-for="VATValue3_5" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ValueNetto0" class="control-label"></label>
+                <input asp-for="ValueNetto0" class="form-control" />
+                <span asp-validation-for="ValueNetto0" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ValueTaxFree" class="control-label"></label>
+                <input asp-for="ValueTaxFree" class="form-control" />
+                <span asp-validation-for="ValueTaxFree" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ValueNoTax" class="control-label"></label>
+                <input asp-for="ValueNoTax" class="form-control" />
+                <span asp-validation-for="ValueNoTax" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-default" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
