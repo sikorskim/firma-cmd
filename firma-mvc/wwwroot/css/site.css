@@ -43,3 +43,19 @@
     line-height: 20px; /* Vertically center the text there */
     background: #f8f9fa;
 }
+
+/*@media (min-width: 1600px) {
+    .container {
+        max-width: 1540px;
+    }
+}
+
+@media (min-width: 1920px) {
+    .container {
+        max-width: 1880px;
+    }
+}
+
+.container {
+    align-items: center;
+}*/
