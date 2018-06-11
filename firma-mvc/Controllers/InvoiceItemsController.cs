@@ -156,7 +156,7 @@ namespace firma_mvc.Controllers
             var invoiceItem = await _context.InvoiceItem.SingleOrDefaultAsync(m => m.Id == id);
             _context.InvoiceItem.Remove(invoiceItem);
             await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
+            return RedirectToAction("Details", "Invoices", new { id = invoiceItem.InvoiceId });
         }
 
         private bool InvoiceItemExists(int id)

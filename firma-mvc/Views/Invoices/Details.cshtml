@@ -51,7 +51,7 @@
     </div>
 </div>
 
-<table class="table">
+<table class="table table-hover">
     <thead>
         <tr>
             <th>
@@ -90,7 +90,7 @@
                 int i = 1;
                 foreach (var item in Model.InvoiceItems)
                 {
-                    <tr>
+                    <tr class="table-light" onclick="location.href = '@Url.Action("Edit", "InvoiceItems",new { id = item.Id})'">
                         <td>
                             @i
                         </td>

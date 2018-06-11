@@ -32,6 +32,7 @@ namespace firma_mvc
         {
             try
             {
+                //return 0;
                 return Quantity * Item.Price;
             }
             catch (Exception e)
@@ -44,7 +45,8 @@ namespace firma_mvc
         {
             try
             {
-                return Quantity * Item.PriceBrutto;
+                //return 0;
+                 return Quantity * Item.PriceBrutto;
             }
             catch (Exception e)
             {

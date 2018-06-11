@@ -20,7 +20,8 @@ namespace firma_mvc
         [DisplayName("Wartość netto")]
         public decimal Price { get; set; }
         [DisplayName("Wartość brutto")]
-        public virtual decimal PriceBrutto {
+        public virtual decimal PriceBrutto
+        {
             get { return getBruttoPrice(); }
         }
         [ForeignKey("VATId")]

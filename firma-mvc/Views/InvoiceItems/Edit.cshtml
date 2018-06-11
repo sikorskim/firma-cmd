@@ -4,9 +4,10 @@
     ViewData["Title"] = "Edit";
 }
 
-<h2>Edit</h2>
+<p>
+    <h2>Edycja pozycji</h2>
+</p>
 
-<h4>InvoiceItem</h4>
 <hr />
 <div class="row">
     <div class="col-md-4">
@@ -29,14 +30,15 @@
                 <span asp-validation-for="Quantity" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <input type="submit" value="Save" class="btn btn-default" />
+                <input type="submit" value="Zapisz zmiany" class="btn btn-outline-primary" />
+                @Html.ActionLink("Usuń", "Delete", new { id = Model.Id }, htmlAttributes: new { @class = "btn btn-outline-danger" })
             </div>
         </form>
     </div>
 </div>
 
 <div>
-    <a asp-action="Index">Back to List</a>
+    @Html.ActionLink("Powrót", "Details", "Invoices", new { id = Model.InvoiceId }, htmlAttributes: new { @class = "a" })
 </div>
 
 @section Scripts {
