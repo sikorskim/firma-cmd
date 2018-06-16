@@ -32,6 +32,9 @@ namespace firmamvc.Migrations
 
                     b.Property<string>("County");
 
+                    b.Property<string>("Discriminator")
+                        .IsRequired();
+
                     b.Property<string>("Email");
 
                     b.Property<string>("FullName");
@@ -53,6 +56,8 @@ namespace firmamvc.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Contractor");
+
+                    b.HasDiscriminator<string>("Discriminator").HasValue("Contractor");
                 });
 
             modelBuilder.Entity("firma_mvc.FixedAssets", b =>
@@ -213,6 +218,20 @@ namespace firmamvc.Migrations
                         .HasName("UserNameIndex");
 
                     b.ToTable("AspNetUsers");
+                });
+
+            modelBuilder.Entity("firma_mvc.Parameter", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<string>("Description");
+
+                    b.Property<string>("Name");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Parameter");
                 });
 
             modelBuilder.Entity("firma_mvc.PaymentMethod", b =>
@@ -474,6 +493,19 @@ namespace firmamvc.Migrations
                     b.HasKey("UserId", "LoginProvider", "Name");
 
                     b.ToTable("AspNetUserTokens");
+                });
+
+            modelBuilder.Entity("firma_mvc.Company", b =>
+                {
+                    b.HasBaseType("firma_mvc.Contractor");
+
+                    b.Property<string>("InvoiceIssueCity");
+
+                    b.Property<string>("InvoiceIssuerName");
+
+                    b.ToTable("Company");
+
+                    b.HasDiscriminator().HasValue("Company");
                 });
 
             modelBuilder.Entity("firma_mvc.Invoice", b =>

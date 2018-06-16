@@ -25,6 +25,8 @@ namespace firma_mvc.Data
         }
 
         public DbSet<Contractor> Contractor { get; set; }
+        public DbSet<Company> Company { get; set; }
+        public DbSet<Parameter> Parameter { get; set; }
 
         public DbSet<Invoice> Invoice { get; set; }
         public DbSet<InvoiceItem> InvoiceItem { get; set; }
