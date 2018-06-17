@@ -144,7 +144,7 @@ namespace firma_mvc
             int i = 1;
             foreach (InvoiceItem item in InvoiceItems)
             {
-                string newItem = string.Format(invoiceItem, i, item.Item.Name, item.Item.UnitOfMeasure, item.Quantity, item.Item.Price.ToString("0.00"), item.TotalPrice.ToString("0.00"), item.Item.VAT.Value.ToString("0.00"), item.TotalVATValue.ToString("0.00"), item.TotalPriceBrutto.ToString("0.00"));
+                string newItem = string.Format(invoiceItem, i, item.Item.Name, item.Item.UnitOfMeasure.ShortName, item.Quantity, item.Item.Price.ToString("0.00"), item.TotalPrice.ToString("0.00"), item.Item.VAT.Value.ToString("0.00"), item.TotalVATValue.ToString("0.00"), item.TotalPriceBrutto.ToString("0.00"));
                 invoiceItemsTable += newItem;
                 i++;
             }
@@ -157,7 +157,7 @@ namespace firma_mvc
             string taxTable = taxTableHeader + tax + taxTableSummary;
 
             string priceSummary = root.Element("PriceSummary").Value;
-            //priceSummary = string.Format(priceSummary, TotalValueBrutto.ToString("0.00"), "słownie złotych", "groszy");
+            priceSummary = string.Format(priceSummary, TotalValueInclVat.ToString("0.00"), getValueInWords(TotalValueInclVat));
             string paymentMethod = root.Element("PaymentMethod").Value;
             paymentMethod = string.Format(paymentMethod, PaymentMethod.Name, DateOfIssue.AddDays(PaymentMethod.DueTerm).ToShortDateString());
             string issuer = root.Element("Issuer").Value;
@@ -171,16 +171,15 @@ namespace firma_mvc
             output = output.Replace("^~^~", "}}");
             output = output.Replace("~^", "{");
             output = output.Replace("^~", "}");
-            File.WriteAllText("out.tex", output);
-            
-            // wait to avoid FileNotFoundException
-            Task.Delay(1000);
+            File.WriteAllText("out.tex", output);            
 
             Process process = new Process();
             process.StartInfo.FileName = "pdflatex";
             process.StartInfo.Arguments = "out.tex";
             process.Start();
-            process.Dispose();
+
+            // wait to avoid FileNotFoundException
+            Task.Delay(1000);
         }
 
         string getValueInWords(decimal d)
@@ -225,6 +224,8 @@ namespace firma_mvc
             {
                 valueInWords = getThousands(i1);
             }
+
+            valueInWords += " " + "PLN " + i2.ToString() + "/100";
 
             return valueInWords;
         }

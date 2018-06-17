@@ -54,7 +54,8 @@ namespace firma_mvc
 
         decimal getTotalVATValue()
         {
-            return getTotalPrice() * Item.VAT.Value / 100;
+            //   return getTotalPrice() * Item.VAT.Value / 100;
+            return 0;
         }
     }
 }

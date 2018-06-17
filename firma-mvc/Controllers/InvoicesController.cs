@@ -8,6 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using firma_mvc;
 using firma_mvc.Data;
 using System.Threading;
+using System.IO;
 
 namespace firma_mvc.Controllers
 {
@@ -32,10 +33,20 @@ namespace firma_mvc.Controllers
         {
             const string contentType = "application/pdf";
             HttpContext.Response.ContentType = contentType;
-            var result = new FileContentResult(System.IO.File.ReadAllBytes(@"out.pdf"), contentType)
+            FileContentResult result=null;
+
+            try
             {
-                FileDownloadName = $"out.pdf"
-            };
+                result = new FileContentResult(System.IO.File.ReadAllBytes(@"out.pdf"), contentType)
+                {
+                    FileDownloadName = $"out.pdf"
+                };
+            }
+            catch (FileNotFoundException e)
+            {
+                Console.WriteLine(e.Message);
+                return NotFound();
+            }
 
             return result;
         }
@@ -91,10 +102,10 @@ namespace firma_mvc.Controllers
                 .Include(i=>i.InvoiceStatus)
                 .SingleOrDefaultAsync(m => m.Id == id);
 
-            invoice.InvoiceItems = _context.InvoiceItem.Where(p => p.InvoiceId == id).Include(i => i.Item).ToList();
+            invoice.InvoiceItems = _context.InvoiceItem.Where(p => p.InvoiceId == id).Include(i => i.Item).ToList();            
             foreach (InvoiceItem invoiceItem in invoice.InvoiceItems)
             {
-                Item item = invoiceItem.Item;
+                Item item = invoiceItem.Item;                
                 item.VAT = _context.VAT.Single(p => p.Id == item.VATId);
                 item.UnitOfMeasure = _context.UnitOfMeasure.Single(p => p.Id == item.UnitOfMeasureId);
             }
@@ -235,18 +246,25 @@ namespace firma_mvc.Controllers
         
         public string getNumber()
         {
-            string number=string.Empty;            
-            
+            string number=string.Empty;
+            string month = DateTime.Now.Month.ToString();
+
             try
             {
                 string lastNumber = _context.Invoice.Last(p => p.DateOfIssue.Year == DateTime.Now.Year && p.DateOfIssue.Month == DateTime.Now.Month).Number;                
                 int nextNumber = Int32.Parse(lastNumber.Substring(lastNumber.LastIndexOf('/') + 1, lastNumber.Length - lastNumber.LastIndexOf('/') - 1));
                 nextNumber++;
-                number = "FV/" + DateTime.Now.Year + "/" + DateTime.Now.Month + "/"+ nextNumber.ToString();
+                
+                if (month.Length == 1)
+                {
+                    month.Insert(0, "0");
+                }
+
+                number = "FV/" + DateTime.Now.Year + "/" + month + "/"+ nextNumber.ToString();
             }
             catch (Exception ex)
             {
-                number = "FV/"+DateTime.Now.Year+"/"+ DateTime.Now.Month+"/1";
+                number = "FV/"+DateTime.Now.Year+"/"+ month+"/01";
             }
             
             return number;

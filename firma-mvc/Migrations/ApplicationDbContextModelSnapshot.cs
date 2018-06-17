@@ -95,7 +95,11 @@ namespace firmamvc.Migrations
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd();
 
+                    b.Property<int?>("CompanyId");
+
                     b.Property<int>("ContractorId");
+
+                    b.Property<DateTime>("DateOfDelivery");
 
                     b.Property<DateTime>("DateOfIssue");
 
@@ -106,6 +110,8 @@ namespace firmamvc.Migrations
                     b.Property<int>("PaymentMethodId");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("CompanyId");
 
                     b.HasIndex("ContractorId");
 
@@ -499,9 +505,17 @@ namespace firmamvc.Migrations
                 {
                     b.HasBaseType("firma_mvc.Contractor");
 
+                    b.Property<string>("BankAccountNumber");
+
+                    b.Property<string>("BankName");
+
                     b.Property<string>("InvoiceIssueCity");
 
                     b.Property<string>("InvoiceIssuerName");
+
+                    b.Property<string>("REGON");
+
+                    b.Property<string>("Website");
 
                     b.ToTable("Company");
 
@@ -510,6 +524,10 @@ namespace firmamvc.Migrations
 
             modelBuilder.Entity("firma_mvc.Invoice", b =>
                 {
+                    b.HasOne("firma_mvc.Company", "Company")
+                        .WithMany()
+                        .HasForeignKey("CompanyId");
+
                     b.HasOne("firma_mvc.Contractor", "Contractor")
                         .WithMany()
                         .HasForeignKey("ContractorId")

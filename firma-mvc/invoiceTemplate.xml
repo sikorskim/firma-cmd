@@ -95,7 +95,7 @@
   \noindent
   \begin~^flushright^~
   \textbf~^\LARGE~^Do zapłaty^~ {0} PLN^~\\
-  {1} PLN {2}/100
+  {1}
   \end~^flushright^~
 </PriceSummary>
   <PaymentMethod>
@@ -108,6 +108,7 @@
   \\
   </PaymentMethod>
   <Issuer>
+  \noindent
     \textbf~^Fakturę wystawił^~\\
     {0}
     \end~^document^~
