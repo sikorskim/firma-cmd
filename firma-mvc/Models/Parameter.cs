@@ -13,5 +13,8 @@ namespace firma_mvc
         public string Name { get; set; }
         [DisplayName("Opis")]
         public string Description { get; set; }
+
+        public Parameter()
+        { }
     }
 }
