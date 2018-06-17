@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Template>
+  <Header>
+    \documentclass[a4paper,10pt]~^article^~
+    \usepackage~^latexsym^~
+    \usepackage[polish]~^babel^~
+    \usepackage[utf8]~^inputenc^~
+    \usepackage[MeX]~^polski^~
+    \usepackage~^float^~
+    \usepackage~^geometry^~
+    \usepackage[table]~^xcolor^~
+
+    \geometry~^
+    a4paper,
+    total=~^170mm,257mm^~,
+    left=20mm,
+    top=20mm,
+    ^~
+
+    \pagenumbering~^gobble^~
+    \date~^^~
+
+    \begin~^document^~
+
+    \noindent
+    \textbf~^{0}^~\\
+    {1}\\
+    NIP {2} REGON {3}\\
+    Tel. {4}\\
+    E-mail: {5}\\
+    {6}\\
+    \\
+    {7}
+    {8}\\
+    \\
+  </Header>
+  <DatePlace>
+\noindent
+    \textbf~^Data i miejsce wystawienia^~		\hfill \textbf~^Data dostawy/wykonania usługi^~\\
+    {0}, {1}							        \hfill	{2}\\
+  </DatePlace>
+  <Title>
+    \begin~^center^~
+    \textbf~^\huge~^FAKTURA {0}^~^~
+    \end~^center^~
+    \vspace~^2cm^~
+  </Title>
+  <SellerBuyer>
+    \noindent
+    \textbf~^SPRZEDAWCA^~						\hfill \textbf~^NABYWCA^~\\
+    {0}					                        \hfill {3}\\
+    {1}								            \hfill {4}\\
+    NIP {2}								        \hfill NIP {5}\\
+  </SellerBuyer>
+  <Recipient>
+    \begin~^flushright^~
+    \textbf~^ODBIORCA^~\\
+    {0}\\
+    {1}\\
+    \end~^flushright^~
+  </Recipient>
+  <InvoiceItemsTableHeader>
+    \begin~^table^~[H]
+    \raggedleft
+    \begin~^tabular^~~^| p~^0,5cm^~ | p~^4,8cm^~  | p~^0,7cm^~ | p~^0,7cm^~| p~^1,3cm^~ | p~^1,3cm^~ | p~^1,1cm^~ | p~^1,3cm^~ | p~^1,3cm^~ |^~
+    \hline
+    \textbf~^L.p.^~ &amp; \textbf~^Nazwa^~ &amp; \textbf~^J.m.^~ &amp; \textbf~^Ilość^~ &amp; \textbf~^Cena netto^~ &amp; \textbf~^Wartość netto^~ &amp; \textbf~^Stawka VAT^~ &amp; \textbf~^Wartość VAT^~ &amp; \textbf~^Wartość brutto^~ \\ \hline
+  </InvoiceItemsTableHeader>
+  <InvoiceItem>
+    {0} &amp; {1} &amp; {2} &amp; {3} &amp; {4} &amp; {5} &amp; {6}\% &amp; {7} &amp; {8} \\ \hline
+  </InvoiceItem>
+  <InvoiceItemTableSummary>
+    \hline
+    \multicolumn~^5^~~^|r|^~~^\textbf~^Razem^~^~ &amp; \textbf~^{0}^~ &amp; \cellcolor[gray]~^0.9^~ &amp; \textbf~^{1}^~ &amp; \textbf~^{2}^~ \\ \hline
+    \end~^tabular^~
+    \end~^table^~
+  </InvoiceItemTableSummary>
+  <TaxTableHeader>
+    \begin~^table^~[H]
+    \raggedleft
+    \begin~^tabular^~~^| p~^2,5cm^~ | p~^1,3cm^~ | p~^1,1cm^~ | p~^1,3cm^~ | p~^1,3cm^~ |^~
+    \hline
+    \textbf~^Według stawki VAT^~ &amp; \textbf~^Wartość netto^~ &amp; \cellcolor[gray]~^0.9^~ &amp; \textbf~^Kwota VAT^~ &amp; \textbf~^Wartość brutto^~ \\ \hline
+  </TaxTableHeader>
+  <Tax>
+    {0}\% &amp; {1} &amp; \cellcolor[gray]~^0.9^~ &amp; {2} &amp; {3} \\ \hline
+  </Tax>
+  <TaxTableSummary>
+  \hline
+  ~^\textbf~^Razem^~^~  &amp; \textbf~^100,00^~ &amp; \cellcolor[gray]~^0.9^~ &amp; \textbf~^23,00^~ &amp; \textbf~^123,00^~ \\ \hline
+  \end~^tabular^~
+  \end~^table^~
+</TaxTableSummary>
+  <PriceSummary>
+  \noindent
+  \begin~^flushright^~
+  \textbf~^\LARGE~^Do zapłaty^~ {0} PLN^~\\
+  {1} PLN {2}/100
+  \end~^flushright^~
+</PriceSummary>
+  <PaymentMethod>
+  \vfill
+  \noindent
+  \textbf~^Forma płatności^~\\
+  {0}\\
+  \textbf~^Termin płatności^~\\
+  {1}\\
+  \\
+  </PaymentMethod>
+  <Issuer>
+    \textbf~^Fakturę wystawił^~\\
+    {0}
+    \end~^document^~
+  </Issuer>
+</Template>

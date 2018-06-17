@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using firma_mvc;
 using firma_mvc.Data;
+using System.Threading;
 
 namespace firma_mvc.Controllers
 {
@@ -24,6 +25,53 @@ namespace firma_mvc.Controllers
         {
             var applicationDbContext = _context.Invoice.Include(i => i.Contractor).Include(i => i.PaymentMethod).Include(i=>i.InvoiceItems).Include(i=>i.InvoiceStatus);
             return View(await applicationDbContext.ToListAsync());
+        }
+
+        [HttpGet, Route("out.pdf/pdf", Name = "GetPdfFile")]
+        public IActionResult GetPdfFile(string filename)
+        {
+            const string contentType = "application/pdf";
+            HttpContext.Response.ContentType = contentType;
+            var result = new FileContentResult(System.IO.File.ReadAllBytes(@"out.pdf"), contentType)
+            {
+                FileDownloadName = $"out.pdf"
+            };
+
+            return result;
+        }
+
+
+        // GET: GenerateInvoice        
+        public async Task<IActionResult> GenerateInvoice(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var invoice = await _context.Invoice
+                .Include(i => i.Contractor)
+                .Include(i => i.PaymentMethod)
+                .Include(i => i.InvoiceItems)
+                .Include(i => i.InvoiceStatus)
+                .SingleOrDefaultAsync(m => m.Id == id);
+
+            invoice.InvoiceItems = _context.InvoiceItem.Where(p => p.InvoiceId == id).Include(i => i.Item).ToList();
+            foreach (InvoiceItem invoiceItem in invoice.InvoiceItems)
+            {
+                Item item = invoiceItem.Item;
+                item.VAT = _context.VAT.Single(p => p.Id == item.VATId);
+                item.UnitOfMeasure = _context.UnitOfMeasure.Single(p => p.Id == item.UnitOfMeasureId);
+            }
+
+            if (invoice == null)
+            {
+                return NotFound();
+            }
+
+            invoice.generate();
+
+            return RedirectToAction(nameof(GetPdfFile)); ;
         }
 
         // GET: Invoice/Details/5

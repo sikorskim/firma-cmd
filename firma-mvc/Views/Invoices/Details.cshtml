@@ -9,7 +9,7 @@
 <p>
     @Html.ActionLink("Dodaj pozycję", "Create", "InvoiceItems", new { InvoiceId = Model.Id }, htmlAttributes: new { @class = "btn btn-outline-success" })
     @Html.ActionLink("Zatwierdź", "Create", new { id = Model.Id }, htmlAttributes: new { @class = "btn btn-outline-primary" })
-    @Html.ActionLink("Drukuj", "Create", new { id = Model.Id }, htmlAttributes: new { @class = "btn btn-outline-dark" })
+    @Html.ActionLink("Drukuj", "GenerateInvoice", new { id = Model.Id }, htmlAttributes: new { @class = "btn btn-outline-dark" })
     @Html.ActionLink("Edytuj", "Create", new { id = Model.Id }, htmlAttributes: new { @class = "btn btn-outline-warning" })
     @Html.ActionLink("Korekta", "Create", new { id = Model.Id }, htmlAttributes: new { @class = "btn btn-outline-danger" })
 
