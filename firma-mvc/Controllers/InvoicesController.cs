@@ -248,23 +248,22 @@ namespace firma_mvc.Controllers
         {
             string number=string.Empty;
             string month = DateTime.Now.Month.ToString();
+            if (month.Length == 1)
+            {
+                month = month.Insert(0, "0");
+            }
 
             try
             {
                 string lastNumber = _context.Invoice.Last(p => p.DateOfIssue.Year == DateTime.Now.Year && p.DateOfIssue.Month == DateTime.Now.Month).Number;                
                 int nextNumber = Int32.Parse(lastNumber.Substring(lastNumber.LastIndexOf('/') + 1, lastNumber.Length - lastNumber.LastIndexOf('/') - 1));
-                nextNumber++;
-                
-                if (month.Length == 1)
-                {
-                    month.Insert(0, "0");
-                }
+                nextNumber++;                
 
                 number = "FV/" + DateTime.Now.Year + "/" + month + "/"+ nextNumber.ToString();
             }
-            catch (Exception ex)
+            catch (Exception)
             {
-                number = "FV/"+DateTime.Now.Year+"/"+ month+"/01";
+                number = "FV/"+DateTime.Now.Year+"/"+ month+"/1";
             }
             
             return number;
