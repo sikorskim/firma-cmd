@@ -14,7 +14,7 @@ namespace firma_mvc
         public int Quantity { get; set; }
         public virtual decimal TotalPrice { get { return getTotalPrice(); } }
         public virtual decimal TotalPriceBrutto { get { return getTotalPriceBrutto(); } }
-
+        public virtual decimal TotalVATValue { get { return getTotalVATValue(); } }
         [ForeignKey("InvoiceId")]
         public virtual Invoice Invoice { get; set; }
         [ForeignKey("ItemId")]
@@ -32,7 +32,6 @@ namespace firma_mvc
         {
             try
             {
-                //return 0;
                 return Quantity * Item.Price;
             }
             catch (Exception e)
@@ -45,13 +44,17 @@ namespace firma_mvc
         {
             try
             {
-                //return 0;
                  return Quantity * Item.PriceBrutto;
             }
             catch (Exception e)
             {
                 return 0;
             }
+        }
+
+        decimal getTotalVATValue()
+        {
+            return getTotalPrice() * Item.VAT.Value / 100;
         }
     }
 }

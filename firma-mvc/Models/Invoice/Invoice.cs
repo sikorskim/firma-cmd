@@ -23,6 +23,9 @@ namespace firma_mvc
         [DisplayName("Data wystawienia")]
         [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
         public DateTime DateOfIssue { get; set; }
+        [DisplayName("Data dostawy")]
+        [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
+        public DateTime DateOfDelivery { get; set; }
         [DisplayName("Kontrahent")]
         public int ContractorId { get; set; }
         [DisplayName("Forma płatności")]
@@ -35,12 +38,16 @@ namespace firma_mvc
         [DisplayName("Wartość netto")]
         public decimal TotalValue 
         {
-            get { return countTotalNettPrice(); }
+            get { return getTotalNettPrice(); }
         }
         [DisplayName("Wartość brutto")]
         public decimal TotalValueInclVat
         {
-            get { return countTotalPriceBrutto(); }
+            get { return getTotalPriceBrutto(); }
+        }
+        public decimal TotalVATValue
+        {
+            get { return getTotalVATValue(); }
         }
         [DisplayName("Status")]
         public int InvoiceStatusId { get; set; }
@@ -54,6 +61,8 @@ namespace firma_mvc
         [ForeignKey("PaymentMethodId")]
         public virtual PaymentMethod PaymentMethod { get; set; }
         public virtual ICollection<InvoiceItem> InvoiceItems { get; set; }            
+        // to do: change this to connect with login
+        public virtual Company Company { get; set; }
 
         public Invoice()
         {}
@@ -70,7 +79,7 @@ namespace firma_mvc
             }
         }
 
-        decimal countTotalNettPrice()
+        decimal getTotalNettPrice()
         {
             try
             {
@@ -82,7 +91,7 @@ namespace firma_mvc
             }
         }
 
-        decimal countTotalPriceBrutto()
+        decimal getTotalPriceBrutto()
         {
             try
             {
@@ -94,29 +103,16 @@ namespace firma_mvc
             }
         }
 
-        public static string getTotalValueInWords()
+        decimal getTotalVATValue()
         {
-            string[] value;
-
-
-            //   TotalValueBrutto.ToString().Split('.');
-            //TotalValueBrutto.ToString().Split(',');
-
-
-            //string beforePoint = ;
-
-            string valueInWords = "";
-
-            string[] ones = { "jeden", "dwa", "trzy", "cztery", "pięć", "sześć", "siedem", "osiem", "dziewięć" };
-            string[] teens = { "jedenaście", "dwanaście", "trzynaście", "czternaście", "piętnaście", "szesnaście", "siedemnaście", "osiemanście", "dziewiętnaście" };
-            string[] doubles = { "dziesięć", "dwadzieścia", "trzydzieści", "czterdzieści", "pięćdziesiąt", "sześćdziesiąt", "siedemdziesiąt", "osiemdziesiąt", "dziewięćdziesiąt" };
-            string[] triplets = { "sto", "dwieście", "trzysta", "czterysta", "pięćset", "sześćset", "siedemset", "osiemset", "dziewięćset" };
-            string[] thousands = { "tysiąc", "tysięcy" };
-            string[] millions = { "milion", "milionów" };
-
-
-
-            return valueInWords;
+            try
+            {
+                return InvoiceItems.Sum(p => p.TotalVATValue);
+            }
+            catch (Exception)
+            {
+                return 0;
+            }
         }
 
         public void generate()
@@ -126,18 +122,18 @@ namespace firma_mvc
             XElement root = doc.Element("Template");
 
             string header = root.Element("Header").Value;
-            //header = string.Format(header, Company.Name, Company.FullAddress, Company.NIP, Company.REGON, Company.Phone, Company.Email, Company.Website, Company.BankName, Company.BankAccount);
+            header = string.Format(header, Company.Name, Company.FullAddress, Company.NIP, Company.REGON, Company.Phone, Company.Email, Company.Website, Company.BankName, Company.BankAccountNumber);
 
             string cityOfIssue = root.Element("DatePlace").Value;
             string dateOfIssue = DateOfIssue.ToShortDateString();
-            //string dateOfDelivery = DateOfDelivery.ToShortDateString();
-            //cityOfIssue = string.Format(cityOfIssue, dateOfIssue, IssuePlace, dateOfDelivery);
+            string dateOfDelivery = DateOfDelivery.ToShortDateString();
+            cityOfIssue = string.Format(cityOfIssue, dateOfIssue, Company.InvoiceIssueCity, dateOfDelivery);
 
             string title = root.Element("Title").Value;
             title = string.Format(title, Number);
 
             string sellerBuyer = root.Element("SellerBuyer").Value;
-            //sellerBuyer = string.Format(sellerBuyer, Company.FullName, Company.FullAddress, Company.NIP, Contractor.FullName, Contractor.FullAddress, Contractor.NIP);
+            sellerBuyer = string.Format(sellerBuyer, Company.FullName, Company.FullAddress, Company.NIP, Contractor.FullName, Contractor.FullAddress, Contractor.NIP);
 
             header += cityOfIssue += title += sellerBuyer;
 
@@ -148,12 +144,11 @@ namespace firma_mvc
             int i = 1;
             foreach (InvoiceItem item in InvoiceItems)
             {
-              //  string newItem = string.Format(invoiceItem, i, item.Item.Name, item.Item.UnitOfMeasure, item.Quantity, item.Item.UnitPrice.ToString("0.00"), item.ValueNetto.ToString("0.00"), item.Item.VatRate.ToString("0.00"), item.VATValue.ToString("0.00"), item.ValueBrutto.ToString("0.00"));
-              //  Console.WriteLine(newItem);
-              //  invoiceItemsTable += newItem;
+                string newItem = string.Format(invoiceItem, i, item.Item.Name, item.Item.UnitOfMeasure, item.Quantity, item.Item.Price.ToString("0.00"), item.TotalPrice.ToString("0.00"), item.Item.VAT.Value.ToString("0.00"), item.TotalVATValue.ToString("0.00"), item.TotalPriceBrutto.ToString("0.00"));
+                invoiceItemsTable += newItem;
                 i++;
             }
-            //invoiceItemsSummary = string.Format(invoiceItemsSummary, TotalValueNetto.ToString("0.00"), TotalVATValue.ToString("0.00"), TotalValueBrutto.ToString("0.00"));
+            invoiceItemsSummary = string.Format(invoiceItemsSummary, TotalValue.ToString("0.00"), TotalVATValue.ToString("0.00"), TotalValueInclVat.ToString("0.00"));
             invoiceItemsTable += invoiceItemsSummary;
 
             string taxTableHeader = root.Element("TaxTableHeader").Value;
@@ -164,9 +159,9 @@ namespace firma_mvc
             string priceSummary = root.Element("PriceSummary").Value;
             //priceSummary = string.Format(priceSummary, TotalValueBrutto.ToString("0.00"), "słownie złotych", "groszy");
             string paymentMethod = root.Element("PaymentMethod").Value;
-            //paymentMethod = string.Format(paymentMethod, PaymentMethod.Name, DateOfIssue.AddDays(PaymentMethod.DueDate).ToShortDateString());
+            paymentMethod = string.Format(paymentMethod, PaymentMethod.Name, DateOfIssue.AddDays(PaymentMethod.DueTerm).ToShortDateString());
             string issuer = root.Element("Issuer").Value;
-            //issuer = string.Format(issuer, Company.IssuerName);
+            issuer = string.Format(issuer, Company.InvoiceIssuerName);
             string footer = paymentMethod + issuer;
 
 
@@ -188,5 +183,131 @@ namespace firma_mvc
             process.Dispose();
         }
 
+        string getValueInWords(decimal d)
+        {
+            string inputString = d.ToString("0.00");
+            string[] parts;
+            int i1;
+            int i2;
+
+            try
+            {
+                parts = inputString.Split(',');
+                i1 = int.Parse(parts[0]);
+                i2 = int.Parse(parts[1]);
+            }
+            catch (FormatException)
+            {
+                parts = inputString.Split('.');
+                i1 = int.Parse(parts[0]);
+                i2 = int.Parse(parts[1]);
+            }
+
+            string valueInWords = "";
+
+            if (i1 >= 1 && i1 <= 9)
+            {
+                valueInWords = getOnes(i1);
+            }
+            else if (i1 >= 10 && i1 <= 19)
+            {
+                valueInWords = getTeens(i1);
+            }
+            else if (i1 >= 20 && i1 <= 99)
+            {
+                valueInWords = getDoubles(i1);
+            }
+            else if (i1 >= 100 && i1 <= 999)
+            {
+                valueInWords = getTriplets(i1);
+            }
+            else if (i1 >= 1000 && i1 <= 99999)
+            {
+                valueInWords = getThousands(i1);
+            }
+
+            return valueInWords;
+        }
+
+        string getOnes(int i)
+        {
+            string[] ones = { "jeden", "dwa", "trzy", "cztery", "pięć", "sześć", "siedem", "osiem", "dziewięć" };
+            return ones[i - 1];
+        }
+
+        string getTeens(int i)
+        {
+            string[] teens = { "dziesięć", "jedenaście", "dwanaście", "trzynaście", "czternaście", "piętnaście", "szesnaście", "siedemnaście", "osiemanście", "dziewiętnaście" };
+            return teens[i - 10];
+        }
+
+        string getDoubles(int i)
+        {
+            string[] doubles = { "dwadzieścia", "trzydzieści", "czterdzieści", "pięćdziesiąt", "sześćdziesiąt", "siedemdziesiąt", "osiemdziesiąt", "dziewięćdziesiąt" };
+            string output = doubles[i / 10 - 2];
+            int i1 = i % 10;
+            if (i1 != 0)
+            {
+                output += " " + getOnes(i1);
+            }
+
+            return output;
+        }
+
+        string getTriplets(int i)
+        {
+            string[] triplets = { "sto", "dwieście", "trzysta", "czterysta", "pięćset", "sześćset", "siedemset", "osiemset", "dziewięćset" };
+            string output = triplets[i / 100 - 1];
+            int i1 = i % 100;
+            if (i1 != 0)
+            {
+                if (i1 >= 10 && i1 <= 19)
+                {
+                    output += " " + getTeens(i1);
+                }
+                if (i1 >= 20 && i1 <= 99)
+                {
+                    output += " " + getDoubles(i1);
+                }
+            }
+            return output;
+        }
+
+        string getThousands(int i)
+        {
+            string[] thousands = { "tysiąc", "tysiące", "tysięcy" };
+            string output = "";
+            int i1 = i / 1000;
+            if (i1 == 1)
+            {
+                output = thousands[0];
+            }
+            else if (i1 >= 2 && i1 <= 4)
+            {
+                output = getOnes(i1) + " " + thousands[1];
+            }
+            else if (i1 >= 5 && i1 <= 9)
+            {
+                output = getOnes(i1) + " " + thousands[2];
+            }
+            else if (i1 >= 10 && i1 <= 19)
+            {
+                output = getTeens(i1) + " " + thousands[2];
+            }
+            else if (i1 >= 20 && i1 <= 99)
+            {
+                output = getDoubles(i1);
+                int i2 = Int32.Parse(i1.ToString()[1].ToString());
+                if (i2 >= 2 && i2 <= 4)
+                {
+                    output += " " + thousands[1];
+                }
+                else
+                {
+                    output += " " + thousands[2];
+                }
+            }
+            return output;
+        }
     }
 }

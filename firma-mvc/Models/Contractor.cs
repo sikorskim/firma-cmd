@@ -37,7 +37,7 @@ namespace firma_mvc
         public string Email { get; set; }
         [DisplayName("Telefon")]
         public string Phone { get; set; }
-
+        public virtual string FullAddress { get { return getFullAddress(); } }
 
         public Contractor()
         {
@@ -67,6 +67,11 @@ namespace firma_mvc
             BuldingNo = buldingNo;
             PostalCode = postalCode;
             PostOffice = postOffice;
+        }
+
+        string getFullAddress()
+        {
+            return "ul. " + Street + " " + BuldingNo + ", " + PostalCode + " " + City;
         }
 
         //public bool add()

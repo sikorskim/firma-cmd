@@ -68,6 +68,8 @@ namespace firma_mvc.Controllers
             {
                 return NotFound();
             }
+            // to change
+            invoice.Company = _context.Company.FirstOrDefault();
 
             invoice.generate();
 
