@@ -33,33 +33,33 @@ namespace firma_mvc
         #region Income
         public string IncomeHeader { get { return "Przychód"; } }
         [DisplayName("Wartość sprzedanych towarów i usług")]
-        public decimal SellValue { get; set; }
+        public decimal? SellValue { get; set; }
         [DisplayName("Pozostałe przychody")]
-        public decimal OtherIncome { get; set; }
+        public decimal? OtherIncome { get; set; }
         [DisplayName("Razem przychód")]
-        public decimal VATValue { get { return SellValue + OtherIncome; } }
+        public decimal? VATValue { get { return SellValue + OtherIncome; } }
         #endregion
         [DisplayName("Zakup towarów handlowych i materiałów wg cen zakupu")]
-        public decimal GoodsBuys { get; set; }
+        public decimal? GoodsBuys { get; set; }
         [DisplayName("Koszty uboczne zakupu")]
-        public decimal BuysSideEffects { get; set; }
+        public decimal? BuysSideEffects { get; set; }
         #region Costs
         public string CostsHeader { get { return "Wydatki"; } }
         [DisplayName("Wynagrodzenia w gotówce i w naturze")]
-        public decimal Salary { get; set; }
+        public decimal? Salary { get; set; }
         [DisplayName("Pozostałe wydatki")]
-        public decimal OtherCosts { get; set; }
+        public decimal? OtherCosts { get; set; }
         [DisplayName("Razem wydatki")]
-        public decimal TotalCosts { get { return Salary + OtherCosts; } }
+        public decimal? TotalCosts { get { return Salary + OtherCosts; } }
         [DisplayName("")]
-        public decimal Column15 { get; set; }
+        public decimal? Column15 { get; set; }
         #endregion
         #region Research costs
         public string ResearchCostsHeader { get { return "Koszty działalności badawczo-rozwojowej, o których mowa w art. 26c ustawy o podatku dochodowym"; } }
         [DisplayName("Opis kosztu")]
         public string CostDescription { get; set; }
         [DisplayName("Wartość")]
-        public decimal ResearchCostValue { get; set; }
+        public decimal? ResearchCostValue { get; set; }
         #endregion
         [DisplayName("Uwagi")]
         public string Comments { get; set; }

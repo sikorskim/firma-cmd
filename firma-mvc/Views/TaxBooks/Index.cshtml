@@ -11,7 +11,7 @@
 <p>
     @Html.ActionLink("Dodaj", "Create", null, htmlAttributes: new { @class = "btn btn-outline-success" })
 </p>
-<table class="table table-responsive table-hover">
+<table class="table table-responsive table-hover table-bordered">
     <thead class="thead-light">
         <tr>
                 <th>
@@ -65,12 +65,11 @@
                 <th>
                     @Html.DisplayNameFor(model => model.Comments)
                 </th>
-            <th></th>
         </tr>
     </thead>
     <tbody>
 @foreach (var item in Model) {
-        <tr>
+        <tr class="table-light" onclick="location.href = '@Url.Action("Details", "TaxBooks",new { id = item.Id})'">
             <td>
                 @Html.DisplayFor(modelItem => item.Number)
             </td>
@@ -121,11 +120,6 @@
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Comments)
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
             </td>
         </tr>
 }

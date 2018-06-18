@@ -69,11 +69,11 @@ namespace firmamvc.Migrations
 
                     b.Property<DateTime>("DateOfUseStart");
 
-                    b.Property<decimal>("DepreciationRate");
+                    b.Property<decimal?>("DepreciationRate");
 
                     b.Property<string>("Identfier");
 
-                    b.Property<DateTime>("LiquidationDate");
+                    b.Property<DateTime?>("LiquidationDate");
 
                     b.Property<string>("LiquidationReason");
 
@@ -81,9 +81,9 @@ namespace firmamvc.Migrations
 
                     b.Property<decimal>("OriginalValue");
 
-                    b.Property<decimal>("UpdatedOriginalValue");
+                    b.Property<decimal?>("UpdatedOriginalValue");
 
-                    b.Property<decimal>("UpgradeValue");
+                    b.Property<decimal?>("UpgradeValue");
 
                     b.HasKey("Id");
 
@@ -261,9 +261,9 @@ namespace firmamvc.Migrations
 
                     b.Property<string>("Address");
 
-                    b.Property<decimal>("BuysSideEffects");
+                    b.Property<decimal?>("BuysSideEffects");
 
-                    b.Property<decimal>("Column15");
+                    b.Property<decimal?>("Column15");
 
                     b.Property<string>("Comments");
 
@@ -273,7 +273,7 @@ namespace firmamvc.Migrations
 
                     b.Property<string>("Description");
 
-                    b.Property<decimal>("GoodsBuys");
+                    b.Property<decimal?>("GoodsBuys");
 
                     b.Property<string>("InvoiceNumber");
 
@@ -283,15 +283,15 @@ namespace firmamvc.Migrations
 
                     b.Property<int>("Number");
 
-                    b.Property<decimal>("OtherCosts");
+                    b.Property<decimal?>("OtherCosts");
 
-                    b.Property<decimal>("OtherIncome");
+                    b.Property<decimal?>("OtherIncome");
 
-                    b.Property<decimal>("ResearchCostValue");
+                    b.Property<decimal?>("ResearchCostValue");
 
-                    b.Property<decimal>("Salary");
+                    b.Property<decimal?>("Salary");
 
-                    b.Property<decimal>("SellValue");
+                    b.Property<decimal?>("SellValue");
 
                     b.HasKey("Id");
 
@@ -337,13 +337,13 @@ namespace firmamvc.Migrations
 
                     b.Property<string>("DocumentNumber");
 
-                    b.Property<decimal>("NoTaxDeductibleBuysValue");
+                    b.Property<decimal?>("NoTaxDeductibleBuysValue");
 
                     b.Property<int>("Number");
 
-                    b.Property<decimal>("TaxDeductibleValue");
+                    b.Property<decimal?>("TaxDeductibleValue");
 
-                    b.Property<decimal>("TaxFreeBuysValue");
+                    b.Property<decimal?>("TaxFreeBuysValue");
 
                     b.Property<decimal>("ValueBrutto");
 
@@ -369,25 +369,25 @@ namespace firmamvc.Migrations
 
                     b.Property<int>("Number");
 
-                    b.Property<decimal>("VATValue23");
+                    b.Property<decimal?>("VATValue23");
 
-                    b.Property<decimal>("VATValue3_5");
+                    b.Property<decimal?>("VATValue3_5");
 
-                    b.Property<decimal>("VATValue7_8");
+                    b.Property<decimal?>("VATValue7_8");
 
-                    b.Property<decimal>("ValueBrutto");
+                    b.Property<decimal?>("ValueBrutto");
 
-                    b.Property<decimal>("ValueNetto0");
+                    b.Property<decimal?>("ValueNetto0");
 
-                    b.Property<decimal>("ValueNetto23");
+                    b.Property<decimal?>("ValueNetto23");
 
-                    b.Property<decimal>("ValueNetto3_5");
+                    b.Property<decimal?>("ValueNetto3_5");
 
-                    b.Property<decimal>("ValueNetto7_8");
+                    b.Property<decimal?>("ValueNetto7_8");
 
-                    b.Property<decimal>("ValueNoTax");
+                    b.Property<decimal?>("ValueNoTax");
 
-                    b.Property<decimal>("ValueTaxFree");
+                    b.Property<decimal?>("ValueTaxFree");
 
                     b.HasKey("Id");
 

@@ -11,54 +11,80 @@
 <p>
     @Html.ActionLink("Dodaj", "Create", null, htmlAttributes: new { @class = "btn btn-outline-success" })
 </p>
-<table class="table table-responsive table-hover">
+<table class="table table-responsive table-hover table-bordered">
     <thead class="thead-light">
         <tr>
-                <th>
-                    @Html.DisplayNameFor(model => model.Number)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.DeliveryDate)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.DateOfIssue)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.DocumentNumber)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.Contractor)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.ValueBrutto)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.ValueNetto23)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.VATValue23)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.ValueNetto7_8)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.VATValue7_8)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.ValueNetto3_5)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.VATValue3_5)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.ValueNetto0)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.ValueTaxFree)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.ValueNoTax)
-                </th>
+            <th colspan="6"></th>
+            <th colspan="7"> 
+                Sprzedaż opodatkowana
+            </th>
+            <th colspan="3"></th>
+        </tr>
+        <tr>
+            <th colspan="6"></th>
+            <th colspan="2">
+                Stawka 23%
+            </th>
+            <th colspan="2">
+                Stawka 7/8%
+            </th>
+            <th colspan="2">
+                Stawka 3/5%
+            </th>
+            <th>
+                Stawka 0%
+            </th>
+            <th colspan="3"></th>
+        </tr>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Number)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.DeliveryDate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.DateOfIssue)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.DocumentNumber)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Contractor)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ValueBrutto)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ValueNetto23)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.VATValue23)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ValueNetto7_8)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.VATValue7_8)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ValueNetto3_5)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.VATValue3_5)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ValueNetto0)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ValueTaxFree)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ValueNoTax)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.VATSummary)
+            </th>
         </tr>
     </thead>
     <tbody>
@@ -107,7 +133,7 @@
                 @Html.DisplayFor(modelItem => item.ValueTaxFree)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.ValueNoTax)
+                @Html.DisplayFor(modelItem => item.VATSummary)
             </td>
         </tr>
 }

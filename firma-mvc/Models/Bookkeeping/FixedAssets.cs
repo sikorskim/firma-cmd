@@ -23,14 +23,14 @@ namespace firma_mvc
         [DisplayName("Wartość początkowa")]
         public decimal OriginalValue { get; set; }
         [DisplayName("Stawka amortyzacyjna")]
-        public decimal DepreciationRate { get; set; }
+        public decimal? DepreciationRate { get; set; }
         [DisplayName("Wartość ulepszenia")]
-        public decimal UpgradeValue { get; set; }
+        public decimal? UpgradeValue { get; set; }
         [DisplayName("Zaktualizowana wartość początkowa")]
-        public decimal UpdatedOriginalValue { get; set; }
+        public decimal? UpdatedOriginalValue { get; set; }
         [DisplayName("Data likwidacji")]
         [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
-        public DateTime LiquidationDate { get; set; }
+        public DateTime? LiquidationDate { get; set; }
         [DisplayName("Przyczyna likwidacji")]
         public string LiquidationReason { get; set; }
     }
