@@ -10,56 +10,65 @@
 <p>
     @Html.ActionLink("Dodaj", "Create", null, htmlAttributes: new { @class = "btn btn-outline-success" })
 </p>
-<table class="table table-responsive table-hover">
+<table class="table table-responsive table-hover table-bordered">
     <thead class="thead-light">
         <tr>
-                <th>
-                    @Html.DisplayNameFor(model => model.DateOfBuy)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.DateOfUseStart)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.Name)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.Identfier)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.OriginalValue)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.DepreciationRate)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.UpgradeValue)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.UpdatedOriginalValue)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.LiquidationDate)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.LiquidationReason)
-                </th>
-            <th></th>
+            <th>
+                L.p.
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Identfier)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Name)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.DateOfBuy)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.DateOfUseStart)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.OriginalValue)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.DepreciationRate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.UpgradeValue)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.UpdatedOriginalValue)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.LiquidationDate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.LiquidationReason)
+            </th>
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model) {
-        <tr>
+        @{
+            int i = 1;
+        }
+        @foreach (var item in Model)
+        {
+        <tr class="table-light" onclick="location.href = '@Url.Action("Details", "FixedAssets",new { id = item.Id})'">
             <td>
-                @Html.DisplayFor(modelItem => item.DateOfBuy)
+                @i
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.DateOfUseStart)
+                @Html.DisplayFor(modelItem => item.Identfier)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Name)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Identfier)
+                @Html.DisplayFor(modelItem => item.DateOfBuy)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DateOfUseStart)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.OriginalValue)
@@ -79,12 +88,8 @@
             <td>
                 @Html.DisplayFor(modelItem => item.LiquidationReason)
             </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
-            </td>
         </tr>
-}
+            i++;
+        }
     </tbody>
 </table>

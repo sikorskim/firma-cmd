@@ -4,68 +4,86 @@
     ViewData["Title"] = "Faktury";
 }
 
-<p>
-    <h2>Faktury</h2>
-</p>
-<p>
-    @Html.ActionLink("Wystaw", "Create", null, htmlAttributes: new { @class = "btn btn-outline-success" })
-</p>
-<table class="table table-responsive table-hover">
-    <thead class="thead-light">
-        <tr>
-            <th>
-                #
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Number)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.DateOfIssue)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Contractor.NIP)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Contractor)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.TotalValue)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.InvoiceStatus.Name)
-            </th>
-        </tr>
-    </thead>
-    <tbody>
-        @{
-            int i = 1;
-        }
-        @foreach (var item in Model)
-        {
-            <tr class="table-light" onclick="location.href = '@Url.Action("Details", "Invoices",new { id = item.Id})'">
-                <td>
-                    @i
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Number)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.DateOfIssue)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Contractor.NIP)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Contractor.Name)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.TotalValue)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.InvoiceStatus.Name)
-                </td>
-            </tr>
-            i++;
-        }
-    </tbody>
-</table>
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-2">
+            <p></p>
+            <table class="table table-hover">
+                <tbody>
+                    <tr class="table-light" onclick="location.href = '@Url.Action("Create", "Invoices")'"><td>Nowa</td></tr>
+                    <tr class="table-light" onclick="location.href = '@Url.Action("Create", "Invoices")'"><td>Wszystkie</td></tr>
+                    <tr class="table-light"><td>Korekta</td></tr>
+                    <tr class="table-light"><td>Robocze</td></tr>
+                    <tr class="table-light"><td>Szablony</td></tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="col-10">
+            <p>
+                <h2>Faktury</h2>
+            </p>
+            <p>
+
+            </p>
+            <table class="table table-responsive table-hover">
+                <thead class="thead-light">
+                    <tr>
+                        <th>
+                            L.p.
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Number)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.DateOfIssue)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Contractor.NIP)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Contractor)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.TotalValue)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.InvoiceStatus.Name)
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @{
+                        int i = 1;
+                    }
+                    @foreach (var item in Model)
+                    {
+                        <tr class="table-light" onclick="location.href = '@Url.Action("Details", "Invoices",new { id = item.Id})'">
+                            <td>
+                                @i
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Number)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.DateOfIssue)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Contractor.NIP)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Contractor.Name)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.TotalValue)
+                            </td>
+                            <td>
+                                <span class="badge badge-primary">@Html.DisplayFor(modelItem => item.InvoiceStatus.Name)</span>
+                            </td>
+                        </tr>
+                        i++;
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

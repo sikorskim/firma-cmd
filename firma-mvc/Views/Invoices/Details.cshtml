@@ -24,7 +24,7 @@
         </div>
         <div class="row">
             <div class="col-6 col-md-4">@Html.DisplayFor(model => model.DateOfIssue)</div>
-            <div class="col-6 col-md-4">@Html.DisplayFor(model => model.InvoiceStatus.Name)</div>
+            <div class="col-6 col-md-4"><span class="badge badge-primary">@Html.DisplayFor(model => model.InvoiceStatus.Name)</span></div>
         </div>
         <div class="row">
             <div class="col-6 col-md-4"><strong>@Html.DisplayNameFor(model => model.Contractor.NIP)</strong></div>
