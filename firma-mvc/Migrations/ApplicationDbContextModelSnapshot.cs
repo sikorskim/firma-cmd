@@ -103,6 +103,9 @@ namespace firmamvc.Migrations
 
                     b.Property<DateTime>("DateOfIssue");
 
+                    b.Property<string>("Discriminator")
+                        .IsRequired();
+
                     b.Property<int>("InvoiceStatusId");
 
                     b.Property<string>("Number");
@@ -120,6 +123,8 @@ namespace firmamvc.Migrations
                     b.HasIndex("PaymentMethodId");
 
                     b.ToTable("Invoice");
+
+                    b.HasDiscriminator<string>("Discriminator").HasValue("Invoice");
                 });
 
             modelBuilder.Entity("firma_mvc.InvoiceItem", b =>
@@ -520,6 +525,21 @@ namespace firmamvc.Migrations
                     b.ToTable("Company");
 
                     b.HasDiscriminator().HasValue("Company");
+                });
+
+            modelBuilder.Entity("firma_mvc.InvoiceCorrection", b =>
+                {
+                    b.HasBaseType("firma_mvc.Invoice");
+
+                    b.Property<string>("CorrectionCause");
+
+                    b.Property<DateTime>("DateOfCorrection");
+
+                    b.Property<int>("InvoiceId");
+
+                    b.ToTable("InvoiceCorrection");
+
+                    b.HasDiscriminator().HasValue("InvoiceCorrection");
                 });
 
             modelBuilder.Entity("firma_mvc.Invoice", b =>

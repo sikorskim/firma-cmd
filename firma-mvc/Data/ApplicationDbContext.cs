@@ -29,6 +29,7 @@ namespace firma_mvc.Data
         public DbSet<Parameter> Parameter { get; set; }
 
         public DbSet<Invoice> Invoice { get; set; }
+        public DbSet<InvoiceCorrection> InvoiceCorrections { get; set; }
         public DbSet<InvoiceItem> InvoiceItem { get; set; }
         public DbSet<InvoiceStatus> InvoiceStatus { get; set; }
         public DbSet<PaymentMethod> PaymentMethod { get; set; }
@@ -39,7 +40,7 @@ namespace firma_mvc.Data
 
         public DbSet<TaxBook> TaxBookItem { get; set; }
         public DbSet<FixedAssets> FixedAssets { get; set; }
-        public DbSet<firma_mvc.VATRegisterSell> VATRegisterSell { get; set; }
-        public DbSet<firma_mvc.VATRegisterBuy> VATRegisterBuy { get; set; }
+        public DbSet<VATRegisterSell> VATRegisterSell { get; set; }
+        public DbSet<VATRegisterBuy> VATRegisterBuy { get; set; }
     }
 }
