@@ -46,9 +46,16 @@ namespace firma_mvc
         {
             get { return getTotalPriceBrutto(); }
         }
+        [DisplayName("Wartość VAT")]
         public decimal TotalVATValue
         {
             get { return getTotalVATValue(); }
+        }
+        [DisplayName("Termin płatności")]
+        [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
+        public DateTime PaymentDueTerm
+        {
+            get { return DateOfIssue.AddDays(PaymentMethod.DueTerm); }
         }
         [DisplayName("Status")]
         public int InvoiceStatusId { get; set; }
