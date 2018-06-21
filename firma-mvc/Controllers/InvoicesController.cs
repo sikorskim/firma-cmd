@@ -132,7 +132,6 @@ namespace firma_mvc.Controllers
             Invoice invoice = new Invoice();
             invoice.Number = getNumber();
             invoice.DateOfIssue = DateTime.Now;
-            invoice.DateOfDelivery = invoice.DateOfIssue;
 
             ViewData["ContractorId"] = new SelectList(_context.Contractor, "Id", "Name");
             ViewData["PaymentMethodId"] = new SelectList(_context.PaymentMethod, "Id", "Name");

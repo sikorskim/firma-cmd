@@ -11,28 +11,6 @@
     @Html.ActionLink("Dodaj", "Create", null, htmlAttributes: new { @class = "btn btn-outline-success" })
 </p>
 
-
-<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
-   Dodaj w okienku
-</button>
-
-<!-- Modal -->
-<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Dodaj nowy towar lub usługę</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                @await Component.InvokeAsync("ItemCreate", new Item())
-            </div>
-        </div>
-    </div>
-</div>
-
 <ul class="nav nav-tabs" id="myTab" role="tablist">
     <li class="nav-item">
         <a class="nav-link active" id="services-tab" data-toggle="tab" href="#services" role="tab" aria-controls="services" aria-selected="true">Usługi</a>

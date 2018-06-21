@@ -22,39 +22,33 @@
                 <div class="card-body">
                     <div class="row">
                         <div class="col-6 col-md-4"><strong>@Html.DisplayNameFor(model => model.DateOfIssue)</strong></div>
-                        <div class="col-6 col-md-4"><strong>@Html.DisplayNameFor(model => model.DateOfDelivery)</strong></div>
                         <div class="col-6 col-md-4"><strong>@Html.DisplayNameFor(model => model.InvoiceStatus.Name)</strong></div>
                     </div>
                     <div class="row">
                         <div class="col-6 col-md-4">@Html.DisplayFor(model => model.DateOfIssue)</div>
-                        <div class="col-6 col-md-4">@Html.DisplayFor(model => model.DateOfDelivery)</div>
                         <div class="col-6 col-md-4"><span class="badge badge-primary">@Html.DisplayFor(model => model.InvoiceStatus.Name)</span></div>
                     </div>
                     <div class="row">
-                        <div class="col-6 col-md-4"><strong>@Html.DisplayNameFor(model => model.Contractor)</strong></div>
                         <div class="col-6 col-md-4"><strong>@Html.DisplayNameFor(model => model.Contractor.NIP)</strong></div>
+                        <div class="col-12 col-md-8"><strong>@Html.DisplayNameFor(model => model.Contractor)</strong></div>
                     </div>
                     <div class="row">
-                        <div class="col-6 col-md-4">@Html.DisplayFor(model => model.Contractor.Name)</div>
                         <div class="col-6 col-md-4">@Html.DisplayFor(model => model.Contractor.NIP)</div>
+                        <div class="col-12 col-md-8">@Html.DisplayFor(model => model.Contractor.Name)</div>
                     </div>
                     <div class="row">
                         <div class="col-6 col-md-4"><strong>@Html.DisplayNameFor(model => model.TotalValue)</strong></div>
-                        <div class="col-6 col-md-4"><strong>@Html.DisplayNameFor(model => model.TotalVATValue)</strong></div>
                         <div class="col-6 col-md-4"><strong>@Html.DisplayNameFor(model => model.TotalValueInclVat)</strong></div>
                     </div>
                     <div class="row">
                         <div class="col-6 col-md-4">@Html.DisplayFor(model => model.TotalValue)</div>
-                        <div class="col-6 col-md-4">@Html.DisplayFor(model => model.TotalVATValue)</div>
                         <div class="col-6 col-md-4">@Html.DisplayFor(model => model.TotalValueInclVat)</div>
                     </div>
                     <div class="row">
                         <div class="col-6 col-md-4"><strong>@Html.DisplayNameFor(model => model.PaymentMethod)</strong></div>
-                        <div class="col-6 col-md-4"><strong>@Html.DisplayNameFor(model => model.PaymentMethod.DueTerm)</strong></div>
                     </div>
                     <div class="row">
                         <div class="col-6 col-md-4">@Html.DisplayFor(model => model.PaymentMethod.Name)</div>
-                        <div class="col-6 col-md-4">@Html.DisplayFor(model => model.PaymentDueTerm)</div>
                     </div>
                 </div>
             </div>
