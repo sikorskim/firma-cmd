@@ -22,9 +22,15 @@ namespace firma_mvc.Controllers
         }
 
         // GET: Invoice
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(string searchQuery)
         {
-            var applicationDbContext = _context.Invoice.Include(i => i.Contractor).Include(i => i.PaymentMethod).Include(i=>i.InvoiceItems).Include(i=>i.InvoiceStatus);
+            var applicationDbContext = _context.Invoice.Include(i => i.Contractor).Include(i => i.PaymentMethod).Include(i => i.InvoiceItems).Include(i => i.InvoiceStatus);
+
+            if (!String.IsNullOrEmpty(searchQuery))
+            {
+                var searchResult = applicationDbContext.Where(p => p.Contractor.Name.Contains(searchQuery) || p.Contractor.NIP.Contains(searchQuery) || p.Number.Contains(searchQuery));
+                return View(await searchResult.ToListAsync());
+            }
             return View(await applicationDbContext.ToListAsync());
         }
 
@@ -33,7 +39,7 @@ namespace firma_mvc.Controllers
         {
             const string contentType = "application/pdf";
             HttpContext.Response.ContentType = contentType;
-            FileContentResult result=null;
+            FileContentResult result = null;
 
             try
             {
@@ -98,14 +104,14 @@ namespace firma_mvc.Controllers
             var invoice = await _context.Invoice
                 .Include(i => i.Contractor)
                 .Include(i => i.PaymentMethod)
-                .Include(i=>i.InvoiceItems)
-                .Include(i=>i.InvoiceStatus)
+                .Include(i => i.InvoiceItems)
+                .Include(i => i.InvoiceStatus)
                 .SingleOrDefaultAsync(m => m.Id == id);
 
-            invoice.InvoiceItems = _context.InvoiceItem.Where(p => p.InvoiceId == id).Include(i => i.Item).ToList();            
+            invoice.InvoiceItems = _context.InvoiceItem.Where(p => p.InvoiceId == id).Include(i => i.Item).ToList();
             foreach (InvoiceItem invoiceItem in invoice.InvoiceItems)
             {
-                Item item = invoiceItem.Item;                
+                Item item = invoiceItem.Item;
                 item.VAT = _context.VAT.Single(p => p.Id == item.VATId);
                 item.UnitOfMeasure = _context.UnitOfMeasure.Single(p => p.Id == item.UnitOfMeasureId);
             }
@@ -116,16 +122,16 @@ namespace firma_mvc.Controllers
             {
                 return NotFound();
             }
-            
+
             return View(invoice);
         }
-        
+
         // GET: InvoiceHeaders/Create
         public IActionResult Create()
         {
             Invoice invoice = new Invoice();
             invoice.Number = getNumber();
-            invoice.DateOfIssue=DateTime.Now;         
+            invoice.DateOfIssue = DateTime.Now;
 
             ViewData["ContractorId"] = new SelectList(_context.Contractor, "Id", "Name");
             ViewData["PaymentMethodId"] = new SelectList(_context.PaymentMethod, "Id", "Name");
@@ -137,16 +143,19 @@ namespace firma_mvc.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Number,DateOfIssue,ContractorId,PaymentMethodId,InvoiceStatusId")] Invoice invoice)
+        public async Task<IActionResult> Create([Bind("Id,Number,DateOfIssue,DateOfDelivery,ContractorId,PaymentMethodId,InvoiceStatusId")] Invoice invoice)
         {
             invoice.InvoiceStatusId = _context.InvoiceStatus.Single(p => p.Name == "nowa").Id;
-            
+
+            //to change
+            invoice.CompanyId =getCompanyId();
+
             if (ModelState.IsValid)
             {
                 _context.Add(invoice);
                 await _context.SaveChangesAsync();
-//                return RedirectToAction(nameof(Index));
-                return RedirectToAction("Details", "Invoices", new {id=invoice.Id});                
+                //                return RedirectToAction(nameof(Index));
+                return RedirectToAction("Details", "Invoices", new { id = invoice.Id });
             }
             ViewData["ContractorId"] = new SelectList(_context.Contractor, "Id", "Name", invoice.ContractorId);
             ViewData["PaymentMethodId"] = new SelectList(_context.PaymentMethod, "Id", "Name", invoice.PaymentMethodId);
@@ -161,14 +170,15 @@ namespace firma_mvc.Controllers
                 return NotFound();
             }
 
-            var invoiceHeader = await _context.Invoice.SingleOrDefaultAsync(m => m.Id == id);
-            if (invoiceHeader == null)
+            var invoice = await _context.Invoice.SingleOrDefaultAsync(m => m.Id == id);
+            if (invoice == null)
             {
                 return NotFound();
             }
-            ViewData["ContractorId"] = new SelectList(_context.Contractor, "Id", "Id", invoiceHeader.ContractorId);
-            ViewData["PaymentMethodId"] = new SelectList(_context.PaymentMethod, "Id", "Id", invoiceHeader.PaymentMethodId);
-            return View(invoiceHeader);
+            ViewData["ContractorId"] = new SelectList(_context.Contractor, "Id", "Name", invoice.ContractorId);
+            ViewData["PaymentMethodId"] = new SelectList(_context.PaymentMethod, "Id", "Name", invoice.PaymentMethodId);
+            ViewData["InvoiceStatusId"] = new SelectList(_context.InvoiceStatus, "Id", "Name", invoice.PaymentMethodId);
+            return View(invoice);
         }
 
         // POST: InvoiceHeaders/Edit/5
@@ -176,7 +186,7 @@ namespace firma_mvc.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Number,DateOfIssue,ContractorId,PaymentMethodId,ItemsCount,TotalValue,TotalValueInclVat")] Invoice invoice)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,Number,DateOfIssue,DateOfDelivery,ContractorId,PaymentMethodId,InvoiceStatusId")] Invoice invoice)
         {
             if (id != invoice.Id)
             {
@@ -187,6 +197,7 @@ namespace firma_mvc.Controllers
             {
                 try
                 {
+                    invoice.CompanyId = getCompanyId();
                     _context.Update(invoice);
                     await _context.SaveChangesAsync();
                 }
@@ -203,8 +214,9 @@ namespace firma_mvc.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["ContractorId"] = new SelectList(_context.Contractor, "Id", "Id", invoice.ContractorId);
-            ViewData["PaymentMethodId"] = new SelectList(_context.PaymentMethod, "Id", "Id", invoice.PaymentMethodId);
+            ViewData["ContractorId"] = new SelectList(_context.Contractor, "Id", "Name", invoice.ContractorId);
+            ViewData["PaymentMethodId"] = new SelectList(_context.PaymentMethod, "Id", "Name", invoice.PaymentMethodId);
+            ViewData["InvoiceStatusId"] = new SelectList(_context.InvoiceStatus, "Id", "Name", invoice.InvoiceStatusId);
             return View(invoice);
         }
 
@@ -243,10 +255,10 @@ namespace firma_mvc.Controllers
         {
             return _context.Invoice.Any(e => e.Id == id);
         }
-        
+
         public string getNumber()
         {
-            string number=string.Empty;
+            string number = string.Empty;
             string month = DateTime.Now.Month.ToString();
             if (month.Length == 1)
             {
@@ -255,32 +267,37 @@ namespace firma_mvc.Controllers
 
             try
             {
-                string lastNumber = _context.Invoice.Last(p => p.DateOfIssue.Year == DateTime.Now.Year && p.DateOfIssue.Month == DateTime.Now.Month).Number;                
+                string lastNumber = _context.Invoice.Last(p => p.DateOfIssue.Year == DateTime.Now.Year && p.DateOfIssue.Month == DateTime.Now.Month).Number;
                 int nextNumber = Int32.Parse(lastNumber.Substring(lastNumber.LastIndexOf('/') + 1, lastNumber.Length - lastNumber.LastIndexOf('/') - 1));
-                nextNumber++;                
+                nextNumber++;
 
-                number = "FV/" + DateTime.Now.Year + "/" + month + "/"+ nextNumber.ToString();
+                number = "FV/" + DateTime.Now.Year + "/" + month + "/" + nextNumber.ToString();
             }
             catch (Exception)
             {
-                number = "FV/"+DateTime.Now.Year+"/"+ month+"/1";
+                number = "FV/" + DateTime.Now.Year + "/" + month + "/1";
             }
-            
+
             return number;
         }
-        
+
         int countItems(int invoiceId)
         {
             try
             {
-            int count = _context.InvoiceItem.Where(p=>p.InvoiceId==invoiceId).Count();
-            Console.WriteLine(count);
-            return count;
+                int count = _context.InvoiceItem.Where(p => p.InvoiceId == invoiceId).Count();
+                Console.WriteLine(count);
+                return count;
             }
             catch (Exception e)
             {
                 return 0;
             }
+        }
+
+        int getCompanyId()
+        {
+            return _context.Company.Single(p => p.Name == "Computerman").Id;
         }
     }
 }

@@ -6,18 +6,7 @@
 
 <div class="container-fluid">
     <div class="row">
-        <div class="col-2">
-            <p></p>
-            <table class="table table-hover">
-                <tbody>
-                    <tr class="table-light" onclick="location.href = '@Url.Action("Create", "Invoices")'"><td><i class="far fa-file"></i> Nowa</td></tr>
-                    <tr class="table-light" onclick="location.href = '@Url.Action("Index", "Invoices")'"><td><i class="far fa-copy"></i> Wystawione</td></tr>
-                    <tr class="table-light" onclick="location.href = '@Url.Action("Index", "InvoiceCorrections")'"><td><i class="far fa-edit"></i> Korekty</td></tr>
-                    <tr class="table-light"><td><i class="far fa-file-alt"></i> Robocze</td></tr>
-                    <tr class="table-light"><td><i class="fas fa-th-list"></i> Szablony</td></tr>
-                </tbody>
-            </table>
-        </div>
+    @await Html.PartialAsync("SideMenuPartial")
         <div class="col-10">
             <p>
                 <h2>Faktury</h2>
@@ -34,7 +23,7 @@
                     </div>
 
                     <div class="col-sm-3 my-1">
-                        <input class="form-control" type="search" placeholder="Nr faktury/ NIP/ kontrahent" aria-label="Search">
+                        <input class="form-control" type="text" name="searchQuery" placeholder="Nr faktury/ NIP lub nazwa kontrahenta" aria-label="Search">
                     </div>
                     <button class="btn btn-outline-primary" type="submit">Szukaj</button>
                 </div>
@@ -53,10 +42,10 @@
                             @Html.DisplayNameFor(model => model.DateOfIssue)
                         </th>
                         <th>
-                            @Html.DisplayNameFor(model => model.Contractor.NIP)
+                            @Html.DisplayNameFor(model => model.Contractor)
                         </th>
                         <th>
-                            @Html.DisplayNameFor(model => model.Contractor)
+                            @Html.DisplayNameFor(model => model.Contractor.NIP)
                         </th>
                         <th>
                             @Html.DisplayNameFor(model => model.TotalValue)
@@ -72,29 +61,29 @@
                     }
                     @foreach (var item in Model)
                     {
-                        <tr class="table-light" onclick="location.href = '@Url.Action("Details", "Invoices",new { id = item.Id})'">
-                            <td>
-                                @i
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.Number)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.DateOfIssue)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.Contractor.NIP)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.Contractor.Name)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.TotalValue)
-                            </td>
-                            <td>
-                                <span class="badge badge-primary">@Html.DisplayFor(modelItem => item.InvoiceStatus.Name)</span>
-                            </td>
-                        </tr>
+                    <tr class="table-light" onclick="location.href = '@Url.Action("Details", "Invoices",new { id = item.Id})'">
+                        <td>
+                            @i
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Number)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.DateOfIssue)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Contractor.Name)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Contractor.NIP)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.TotalValue)
+                        </td>
+                        <td>
+                            <span class="badge badge-primary">@Html.DisplayFor(modelItem => item.InvoiceStatus.Name)</span>
+                        </td>
+                    </tr>
                         i++;
                     }
                 </tbody>

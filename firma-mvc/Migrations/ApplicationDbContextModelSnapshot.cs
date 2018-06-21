@@ -95,7 +95,7 @@ namespace firmamvc.Migrations
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<int?>("CompanyId");
+                    b.Property<int>("CompanyId");
 
                     b.Property<int>("ContractorId");
 
@@ -546,7 +546,8 @@ namespace firmamvc.Migrations
                 {
                     b.HasOne("firma_mvc.Company", "Company")
                         .WithMany()
-                        .HasForeignKey("CompanyId");
+                        .HasForeignKey("CompanyId")
+                        .OnDelete(DeleteBehavior.Cascade);
 
                     b.HasOne("firma_mvc.Contractor", "Contractor")
                         .WithMany()

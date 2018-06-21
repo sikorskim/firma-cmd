@@ -1,12 +1,11 @@
 ﻿@model firma_mvc.Invoice
 
 @{
-    ViewData["Title"] = "Edit";
+    ViewData["Title"] = "Edycja faktury";
 }
 
-<h2>Edit</h2>
+<h2>Edycja faktury</h2>
 
-<h4>InvoiceHeader</h4>
 <hr />
 <div class="row">
     <div class="col-md-4">
@@ -24,6 +23,11 @@
                 <span asp-validation-for="DateOfIssue" class="text-danger"></span>
             </div>
             <div class="form-group">
+                <label asp-for="DateOfDelivery" class="control-label"></label>
+                <input asp-for="DateOfDelivery" class="form-control" />
+                <span asp-validation-for="DateOfDelivery" class="text-danger"></span>
+            </div>
+            <div class="form-group">
                 <label asp-for="ContractorId" class="control-label"></label>
                 <select asp-for="ContractorId" class="form-control" asp-items="ViewBag.ContractorId"></select>
                 <span asp-validation-for="ContractorId" class="text-danger"></span>
@@ -34,29 +38,19 @@
                 <span asp-validation-for="PaymentMethodId" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="ItemsCount" class="control-label"></label>
-                <input asp-for="ItemsCount" class="form-control" />
-                <span asp-validation-for="ItemsCount" class="text-danger"></span>
+                <label asp-for="InvoiceStatusId" class="control-label"></label>
+                <select asp-for="InvoiceStatusId" class="form-control" asp-items="ViewBag.InvoiceStatusId"></select>
+                <span asp-validation-for="InvoiceStatusId" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="TotalValue" class="control-label"></label>
-                <input asp-for="TotalValue" class="form-control" />
-                <span asp-validation-for="TotalValue" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="TotalValueInclVat" class="control-label"></label>
-                <input asp-for="TotalValueInclVat" class="form-control" />
-                <span asp-validation-for="TotalValueInclVat" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <input type="submit" value="Save" class="btn btn-default" />
+                <input type="submit" value="Zapisz" class="btn btn-outline-success" />
             </div>
         </form>
     </div>
 </div>
 
 <div>
-    <a asp-action="Index">Back to List</a>
+    <a asp-action="Index">Powrót</a>
 </div>
 
 @section Scripts {

@@ -28,6 +28,7 @@ namespace firma_mvc
         public DateTime DateOfDelivery { get; set; }
         [DisplayName("Kontrahent")]
         public int ContractorId { get; set; }
+        public int CompanyId { get; set; }
         [DisplayName("Forma płatności")]
         public int PaymentMethodId { get; set; }     
         [DisplayName("Ilość pozycji")]
@@ -60,8 +61,10 @@ namespace firma_mvc
         [DisplayName("Forma płatności")]
         [ForeignKey("PaymentMethodId")]
         public virtual PaymentMethod PaymentMethod { get; set; }
-        public virtual ICollection<InvoiceItem> InvoiceItems { get; set; }            
+        public virtual ICollection<InvoiceItem> InvoiceItems { get; set; }
         // to do: change this to connect with login
+        [DisplayName("Firma")]
+        [ForeignKey("CompanyId")]
         public virtual Company Company { get; set; }
 
         public Invoice()
