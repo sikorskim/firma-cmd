@@ -22,7 +22,7 @@ namespace firma_mvc.Controllers
         // GET: InvoiceItems
         public async Task<IActionResult> Index()
         {
-            var applicationDbContext = _context.InvoiceItem.Include(i => i.Invoice).Include(i => i.Item);
+            var applicationDbContext = _context.InvoiceItem.Include(i => i.Invoice);
             return View(await applicationDbContext.ToListAsync());
         }
 
@@ -36,7 +36,6 @@ namespace firma_mvc.Controllers
 
             var invoiceItem = await _context.InvoiceItem
                 .Include(i => i.Invoice)
-                .Include(i => i.Item)
                 .SingleOrDefaultAsync(m => m.Id == id);
             if (invoiceItem == null)
             {
@@ -69,7 +68,7 @@ namespace firma_mvc.Controllers
                 return RedirectToAction("Details", "Invoices", new {id=invoiceItem.InvoiceId});
 //                return RedirectToAction(nameof(Index));
             }            
-            ViewData["ItemId"] = new SelectList(_context.Item, "Id", "Name", invoiceItem.ItemId);
+           // ViewData["ItemId"] = new SelectList(_context.Item, "Id", "Name", invoiceItem.ItemId);
             return View(invoiceItem);
         }
 
@@ -87,7 +86,7 @@ namespace firma_mvc.Controllers
                 return NotFound();
             }
             ViewData["InvoiceId"] = new SelectList(_context.Invoice, "Id", "Id", invoiceItem.InvoiceId);
-            ViewData["ItemId"] = new SelectList(_context.Item, "Id", "Id", invoiceItem.ItemId);
+           // ViewData["ItemId"] = new SelectList(_context.Item, "Id", "Id", invoiceItem.ItemId);
             return View(invoiceItem);
         }
 
@@ -124,7 +123,7 @@ namespace firma_mvc.Controllers
                 return RedirectToAction(nameof(Index));
             }
             ViewData["InvoiceId"] = new SelectList(_context.Invoice, "Id", "Id", invoiceItem.InvoiceId);
-            ViewData["ItemId"] = new SelectList(_context.Item, "Id", "Id", invoiceItem.ItemId);
+            //ViewData["ItemId"] = new SelectList(_context.Item, "Id", "Id", invoiceItem.ItemId);
             return View(invoiceItem);
         }
 
@@ -138,7 +137,6 @@ namespace firma_mvc.Controllers
 
             var invoiceItem = await _context.InvoiceItem
                 .Include(i => i.Invoice)
-                .Include(i => i.Item)
                 .SingleOrDefaultAsync(m => m.Id == id);
             if (invoiceItem == null)
             {

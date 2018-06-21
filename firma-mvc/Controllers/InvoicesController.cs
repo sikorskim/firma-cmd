@@ -73,12 +73,12 @@ namespace firma_mvc.Controllers
                 .Include(i => i.InvoiceStatus)
                 .SingleOrDefaultAsync(m => m.Id == id);
 
-            invoice.InvoiceItems = _context.InvoiceItem.Where(p => p.InvoiceId == id).Include(i => i.Item).ToList();
+            invoice.InvoiceItems = _context.InvoiceItem.Where(p => p.InvoiceId == id).ToList();
             foreach (InvoiceItem invoiceItem in invoice.InvoiceItems)
             {
-                Item item = invoiceItem.Item;
-                item.VAT = _context.VAT.Single(p => p.Id == item.VATId);
-                item.UnitOfMeasure = _context.UnitOfMeasure.Single(p => p.Id == item.UnitOfMeasureId);
+                //Item item = invoiceItem.Item;
+                //item.VAT = _context.VAT.Single(p => p.Id == item.VATId);
+                //item.UnitOfMeasure = _context.UnitOfMeasure.Single(p => p.Id == item.UnitOfMeasureId);
             }
 
             if (invoice == null)
@@ -108,12 +108,12 @@ namespace firma_mvc.Controllers
                 .Include(i => i.InvoiceStatus)
                 .SingleOrDefaultAsync(m => m.Id == id);
 
-            invoice.InvoiceItems = _context.InvoiceItem.Where(p => p.InvoiceId == id).Include(i => i.Item).ToList();
+            invoice.InvoiceItems = _context.InvoiceItem.Where(p => p.InvoiceId == id).ToList();
             foreach (InvoiceItem invoiceItem in invoice.InvoiceItems)
             {
-                Item item = invoiceItem.Item;
-                item.VAT = _context.VAT.Single(p => p.Id == item.VATId);
-                item.UnitOfMeasure = _context.UnitOfMeasure.Single(p => p.Id == item.UnitOfMeasureId);
+                //Item item = invoiceItem.Item;
+                //item.VAT = _context.VAT.Single(p => p.Id == item.VATId);
+                //item.UnitOfMeasure = _context.UnitOfMeasure.Single(p => p.Id == item.UnitOfMeasureId);
             }
 
             //invoice.TotalValue=invoice.get

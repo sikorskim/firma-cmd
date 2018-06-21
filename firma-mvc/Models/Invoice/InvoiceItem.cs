@@ -4,21 +4,18 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace firma_mvc
 {
-    public class InvoiceItem
+    public class InvoiceItem : Item
     {
         public int Id { get; set; }
         public int InvoiceId { get; set; }
-        [DisplayName("Produkt")]
-        public int ItemId { get; set; }
         [DisplayName("Ilość")]
         public int Quantity { get; set; }
+        [ForeignKey("InvoiceId")]
+        public virtual Invoice Invoice { get; set; }
+
         public virtual decimal TotalPrice { get { return getTotalPrice(); } }
         public virtual decimal TotalPriceBrutto { get { return getTotalPriceBrutto(); } }
         public virtual decimal TotalVATValue { get { return getTotalVATValue(); } }
-        [ForeignKey("InvoiceId")]
-        public virtual Invoice Invoice { get; set; }
-        [ForeignKey("ItemId")]
-        public virtual Item Item { get; set; }
 
         public InvoiceItem()
         { }
@@ -32,7 +29,7 @@ namespace firma_mvc
         {
             try
             {
-                return Quantity * Item.Price;
+                return Quantity * Price;
             }
             catch (Exception e)
             {
@@ -44,7 +41,7 @@ namespace firma_mvc
         {
             try
             {
-                 return Quantity * Item.PriceBrutto;
+                 return Quantity * PriceBrutto;
             }
             catch (Exception e)
             {
