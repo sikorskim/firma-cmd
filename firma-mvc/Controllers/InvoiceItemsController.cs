@@ -36,7 +36,7 @@ namespace firma_mvc.Controllers
 
             var invoiceItem = await _context.InvoiceItem
                 .Include(i => i.Invoice)
-                .SingleOrDefaultAsync(m => m.Id == id);
+                .FirstOrDefaultAsync(m => m.Id == id);
             if (invoiceItem == null)
             {
                 return NotFound();
@@ -49,8 +49,8 @@ namespace firma_mvc.Controllers
         public IActionResult Create(int InvoiceId)
         {
             InvoiceItem invoiceItem = new InvoiceItem(InvoiceId);
-            
-            ViewData["ItemId"] = new SelectList(_context.Item, "Id", "Name",invoiceItem.Item);
+            //ViewBag.InvoiceId = InvoiceId;
+            ViewData["ItemId"] = new SelectList(_context.Item, "Id", "Name");
             return View(invoiceItem);
         }
 
@@ -59,16 +59,15 @@ namespace firma_mvc.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,ItemId,InvoiceId,Quantity")] InvoiceItem invoiceItem)
+        public async Task<IActionResult> Create([Bind("Id,InvoiceId,Quantity,Price,Name,VATValue,UnitOfMeasureShortName")] InvoiceItem invoiceItem)
         {
             if (ModelState.IsValid)
             {
                 _context.Add(invoiceItem);
                 await _context.SaveChangesAsync();
-                return RedirectToAction("Details", "Invoices", new {id=invoiceItem.InvoiceId});
-//                return RedirectToAction(nameof(Index));
-            }            
-           // ViewData["ItemId"] = new SelectList(_context.Item, "Id", "Name", invoiceItem.ItemId);
+                return RedirectToAction(nameof(Index));
+            }
+            ViewData["InvoiceId"] = new SelectList(_context.Invoice, "Id", "Discriminator", invoiceItem.InvoiceId);
             return View(invoiceItem);
         }
 
@@ -80,13 +79,12 @@ namespace firma_mvc.Controllers
                 return NotFound();
             }
 
-            var invoiceItem = await _context.InvoiceItem.SingleOrDefaultAsync(m => m.Id == id);
+            var invoiceItem = await _context.InvoiceItem.FindAsync(id);
             if (invoiceItem == null)
             {
                 return NotFound();
             }
-            ViewData["InvoiceId"] = new SelectList(_context.Invoice, "Id", "Id", invoiceItem.InvoiceId);
-           // ViewData["ItemId"] = new SelectList(_context.Item, "Id", "Id", invoiceItem.ItemId);
+            ViewData["InvoiceId"] = new SelectList(_context.Invoice, "Id", "Discriminator", invoiceItem.InvoiceId);
             return View(invoiceItem);
         }
 
@@ -95,7 +93,7 @@ namespace firma_mvc.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,InvoiceId,ItemId,Quantity")] InvoiceItem invoiceItem)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,InvoiceId,Quantity,Price,Name,VATValue,UnitOfMeasureShortName")] InvoiceItem invoiceItem)
         {
             if (id != invoiceItem.Id)
             {
@@ -122,8 +120,7 @@ namespace firma_mvc.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["InvoiceId"] = new SelectList(_context.Invoice, "Id", "Id", invoiceItem.InvoiceId);
-            //ViewData["ItemId"] = new SelectList(_context.Item, "Id", "Id", invoiceItem.ItemId);
+            ViewData["InvoiceId"] = new SelectList(_context.Invoice, "Id", "Discriminator", invoiceItem.InvoiceId);
             return View(invoiceItem);
         }
 
@@ -137,7 +134,7 @@ namespace firma_mvc.Controllers
 
             var invoiceItem = await _context.InvoiceItem
                 .Include(i => i.Invoice)
-                .SingleOrDefaultAsync(m => m.Id == id);
+                .FirstOrDefaultAsync(m => m.Id == id);
             if (invoiceItem == null)
             {
                 return NotFound();
@@ -151,10 +148,10 @@ namespace firma_mvc.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var invoiceItem = await _context.InvoiceItem.SingleOrDefaultAsync(m => m.Id == id);
+            var invoiceItem = await _context.InvoiceItem.FindAsync(id);
             _context.InvoiceItem.Remove(invoiceItem);
             await _context.SaveChangesAsync();
-            return RedirectToAction("Details", "Invoices", new { id = invoiceItem.InvoiceId });
+            return RedirectToAction(nameof(Index));
         }
 
         private bool InvoiceItemExists(int id)

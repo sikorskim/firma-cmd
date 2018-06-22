@@ -4,14 +4,20 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace firma_mvc
 {
-    public class InvoiceItem : Item
+    public class InvoiceItem
     {
+        public int Id { get; set; }
         public int InvoiceId { get; set; }
         [DisplayName("Ilość")]
         public int Quantity { get; set; }
         [ForeignKey("InvoiceId")]
         public virtual Invoice Invoice { get; set; }
-
+        [NotMapped]
+        public int ItemId { get; set; }        
+        public decimal Price { get; set; }
+        public string Name { get; set; }
+        public decimal VATValue { get; set; }
+        public string UnitOfMeasureShortName { get; set; }
         public virtual decimal TotalPrice { get { return getTotalPrice(); } }
         public virtual decimal TotalPriceBrutto { get { return getTotalPriceBrutto(); } }
         public virtual decimal TotalVATValue { get { return getTotalVATValue(); } }
@@ -40,7 +46,8 @@ namespace firma_mvc
         {
             try
             {
-                 return Quantity * PriceBrutto;
+                //return Quantity * PriceBrutto;
+                return 0;
             }
             catch (Exception e)
             {

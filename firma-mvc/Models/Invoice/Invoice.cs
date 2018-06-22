@@ -147,7 +147,7 @@ namespace firma_mvc
             int i = 1;
             foreach (InvoiceItem item in InvoiceItems)
             {
-                string newItem = string.Format(invoiceItem, i, item.Name, item.UnitOfMeasure.ShortName, item.Quantity, item.Price.ToString("0.00"), item.TotalPrice.ToString("0.00"), item.VAT.Value.ToString("0.00"), item.TotalVATValue.ToString("0.00"), item.TotalPriceBrutto.ToString("0.00"));
+                string newItem = string.Format(invoiceItem, i, item.Name, item.UnitOfMeasureShortName, item.Quantity, item.Price.ToString("0.00"), item.TotalPrice.ToString("0.00"), item.VATValue.ToString("0.00"), item.TotalVATValue.ToString("0.00"), item.TotalPriceBrutto.ToString("0.00"));
                 invoiceItemsTable += newItem;
                 i++;
             }
