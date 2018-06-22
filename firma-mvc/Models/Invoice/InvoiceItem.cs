@@ -6,7 +6,6 @@ namespace firma_mvc
 {
     public class InvoiceItem : Item
     {
-        public int Id { get; set; }
         public int InvoiceId { get; set; }
         [DisplayName("Ilość")]
         public int Quantity { get; set; }

@@ -127,26 +127,6 @@ namespace firmamvc.Migrations
                     b.HasDiscriminator<string>("Discriminator").HasValue("Invoice");
                 });
 
-            modelBuilder.Entity("firma_mvc.InvoiceItem", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd();
-
-                    b.Property<int>("InvoiceId");
-
-                    b.Property<int>("ItemId");
-
-                    b.Property<int>("Quantity");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("InvoiceId");
-
-                    b.HasIndex("ItemId");
-
-                    b.ToTable("InvoiceItem");
-                });
-
             modelBuilder.Entity("firma_mvc.InvoiceStatus", b =>
                 {
                     b.Property<int>("Id")
@@ -164,6 +144,9 @@ namespace firmamvc.Migrations
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd();
 
+                    b.Property<string>("Discriminator")
+                        .IsRequired();
+
                     b.Property<string>("Name");
 
                     b.Property<decimal>("Price");
@@ -179,6 +162,8 @@ namespace firmamvc.Migrations
                     b.HasIndex("VATId");
 
                     b.ToTable("Item");
+
+                    b.HasDiscriminator<string>("Discriminator").HasValue("Item");
                 });
 
             modelBuilder.Entity("firma_mvc.Models.ApplicationUser", b =>
@@ -542,6 +527,21 @@ namespace firmamvc.Migrations
                     b.HasDiscriminator().HasValue("InvoiceCorrection");
                 });
 
+            modelBuilder.Entity("firma_mvc.InvoiceItem", b =>
+                {
+                    b.HasBaseType("firma_mvc.Item");
+
+                    b.Property<int>("InvoiceId");
+
+                    b.Property<int>("Quantity");
+
+                    b.HasIndex("InvoiceId");
+
+                    b.ToTable("InvoiceItem");
+
+                    b.HasDiscriminator().HasValue("InvoiceItem");
+                });
+
             modelBuilder.Entity("firma_mvc.Invoice", b =>
                 {
                     b.HasOne("firma_mvc.Company", "Company")
@@ -562,19 +562,6 @@ namespace firmamvc.Migrations
                     b.HasOne("firma_mvc.PaymentMethod", "PaymentMethod")
                         .WithMany()
                         .HasForeignKey("PaymentMethodId")
-                        .OnDelete(DeleteBehavior.Cascade);
-                });
-
-            modelBuilder.Entity("firma_mvc.InvoiceItem", b =>
-                {
-                    b.HasOne("firma_mvc.Invoice", "Invoice")
-                        .WithMany("InvoiceItems")
-                        .HasForeignKey("InvoiceId")
-                        .OnDelete(DeleteBehavior.Cascade);
-
-                    b.HasOne("firma_mvc.Item", "Item")
-                        .WithMany()
-                        .HasForeignKey("ItemId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 
@@ -633,6 +620,14 @@ namespace firmamvc.Migrations
                     b.HasOne("firma_mvc.Models.ApplicationUser")
                         .WithMany()
                         .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("firma_mvc.InvoiceItem", b =>
+                {
+                    b.HasOne("firma_mvc.Invoice", "Invoice")
+                        .WithMany("InvoiceItems")
+                        .HasForeignKey("InvoiceId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 #pragma warning restore 612, 618
