@@ -11,6 +11,32 @@
 <p>
     @Html.ActionLink("Dodaj", "Create", null, htmlAttributes: new { @class = "btn btn-outline-success" })
 </p>
+
+<div class="my-2">
+    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
+        Dodaj w okienku
+    </button>
+
+    <!-- Modal -->
+    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Dodaj nowego kontrahenta</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    @*@await Component.InvokeAsync("ContractorCreate", new Contractor())*@
+                    @await Html.PartialAsync("CreatePartial", new Contractor())
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+                        </div>
+
 <table class="table table-responsive table-hover">
     <thead class="thead-light">
         <tr>
@@ -37,23 +63,23 @@
         }
         @foreach (var item in Model)
         {
-        <tr class="table-light" onclick="location.href = '@Url.Action("Details", "Contractors",new { id = item.Id})'">
-            <td>
-                @i
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Name)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.NIP)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Email)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Phone)
-            </td>
-        </tr>
+            <tr class="table-light" onclick="location.href = '@Url.Action("Details", "Contractors",new { id = item.Id})'">
+                <td>
+                    @i
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.NIP)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Email)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Phone)
+                </td>
+            </tr>
             i++;
         }
     </tbody>
