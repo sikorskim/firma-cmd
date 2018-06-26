@@ -58,7 +58,7 @@ namespace firma_mvc.Controllers
                 invoiceItem.VATValue = item.VAT.Value;
             }
 
-            ViewData["Item"] = new SelectList(_context.Item, "Id", "Name");
+            ViewData["ItemId"] = new SelectList(_context.Item, "Id", "Name");
             return View(invoiceItem);
         }
 
@@ -75,7 +75,8 @@ namespace firma_mvc.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["InvoiceId"] = new SelectList(_context.Invoice, "Id", "Discriminator", invoiceItem.InvoiceId);
+            //ViewData["InvoiceId"] = new SelectList(_context.Invoice, "Id", "Discriminator", invoiceItem.InvoiceId);
+            ViewData["ItemId"] = new SelectList(_context.Item, "Id", "Name");
             return View(invoiceItem);
         }
 

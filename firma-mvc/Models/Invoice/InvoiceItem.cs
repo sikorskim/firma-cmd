@@ -13,8 +13,8 @@ namespace firma_mvc
         public int Quantity { get; set; }
         [ForeignKey("InvoiceId")]
         public virtual Invoice Invoice { get; set; }
-        [NotMapped]
-        public int ItemId { get; set; }
+        //[NotMapped]
+        //public int ItemId { get; set; }
         //[RegularExpression(@"^\d*(\.|,|(\.\d{1,2})|(,\d{1,2}))?$", ErrorMessage = "Nieprawidłowy format!")]
         public decimal Price { get; set; }
         public string Name { get; set; }

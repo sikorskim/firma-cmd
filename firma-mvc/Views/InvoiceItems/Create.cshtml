@@ -14,7 +14,7 @@
             <div class="form-group">
                 <input type="hidden" asp-for="InvoiceId" class="form-control" />
             </div>
-            @Html.DropDownList("ItemId", (SelectList)ViewBag.Item, "Pozycja", new { onchange = "this.form.submit()", @class="custom-select"})
+            @Html.DropDownList("ItemId", (SelectList)ViewBag.ItemId, "Pozycja", new { onchange = "this.form.submit()", @class="custom-select"})
         </form>
 
         <form asp-action="Create">
@@ -34,7 +34,7 @@
             </div>
             <div class="form-group">
                 <label asp-for="Name" class="control-label"></label>
-                <input asp-for="Name" class="form-control" readonly/>
+                <input asp-for="Name" class="form-control" readonly />
                 <span asp-validation-for="Name" class="text-danger"></span>
             </div>
             <div class="form-group">
@@ -43,7 +43,7 @@
                 <span asp-validation-for="VATValue" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="UnitOfMeasureShortName" class="control-label" ></label>
+                <label asp-for="UnitOfMeasureShortName" class="control-label"></label>
                 <input asp-for="UnitOfMeasureShortName" class="form-control" readonly />
                 <span asp-validation-for="UnitOfMeasureShortName" class="text-danger"></span>
             </div>
