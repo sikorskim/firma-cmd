@@ -46,11 +46,19 @@ namespace firma_mvc.Controllers
         }
 
         // GET: InvoiceItems/Create
-        public IActionResult Create(int InvoiceId)
+        public IActionResult Create(int? InvoiceId, int? ItemId)
         {
-            InvoiceItem invoiceItem = new InvoiceItem(InvoiceId);
-            //ViewBag.InvoiceId = InvoiceId;
-            ViewData["ItemId"] = new SelectList(_context.Item, "Id", "Name");
+            InvoiceItem invoiceItem = new InvoiceItem((int)InvoiceId);
+            if (ItemId != null && ItemId!=0)
+            {
+                Item item = _context.Item.Include(i=>i.VAT).Include(i=>i.UnitOfMeasure).Single(p => p.Id == ItemId);               
+                invoiceItem.Name = item.Name;
+                invoiceItem.Price = item.Price;
+                invoiceItem.UnitOfMeasureShortName = item.UnitOfMeasure.ShortName;
+                invoiceItem.VATValue = item.VAT.Value;
+            }
+
+            ViewData["Item"] = new SelectList(_context.Item, "Id", "Name");
             return View(invoiceItem);
         }
 
@@ -157,6 +165,16 @@ namespace firma_mvc.Controllers
         private bool InvoiceItemExists(int id)
         {
             return _context.InvoiceItem.Any(e => e.Id == id);
+        }
+
+        // POST: InvoiceItems/Edit/5
+        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
+        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> SelectItem(int invoiceId, int itemId)
+        {
+            return RedirectToAction("Create", new { InvoiceId=invoiceId, ItemId=itemId });
         }
     }
 }

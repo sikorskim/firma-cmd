@@ -1,5 +1,6 @@
 ﻿using System;
 using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace firma_mvc
@@ -13,9 +14,11 @@ namespace firma_mvc
         [ForeignKey("InvoiceId")]
         public virtual Invoice Invoice { get; set; }
         [NotMapped]
-        public int ItemId { get; set; }        
+        public int ItemId { get; set; }
+        //[RegularExpression(@"^\d*(\.|,|(\.\d{1,2})|(,\d{1,2}))?$", ErrorMessage = "Nieprawidłowy format!")]
         public decimal Price { get; set; }
         public string Name { get; set; }
+        //[RegularExpression(@"^\d*(\.|,|(\.\d{1,2})|(,\d{1,2}))?$", ErrorMessage = "Nieprawidłowy format!")]
         public decimal VATValue { get; set; }
         public string UnitOfMeasureShortName { get; set; }
         public virtual decimal TotalPrice { get { return getTotalPrice(); } }

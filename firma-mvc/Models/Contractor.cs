@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
 using System.IO;
 using System.Linq;
 using System.Xml.Linq;
@@ -33,8 +34,10 @@ namespace firma_mvc
         public string PostalCode { get; set; }
         [DisplayName("Poczta")]
         public string PostOffice { get; set; }
+        [EmailAddress]
         [DisplayName("E-mail")]
         public string Email { get; set; }
+        [Phone]
         [DisplayName("Telefon")]
         public string Phone { get; set; }
         public virtual string FullAddress { get { return getFullAddress(); } }

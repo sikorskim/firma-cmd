@@ -11,6 +11,9 @@ using Microsoft.Extensions.DependencyInjection;
 using firma_mvc.Data;
 using firma_mvc.Models;
 using firma_mvc.Services;
+using Microsoft.AspNetCore.Localization;
+using System.Globalization;
+using System.Threading;
 
 namespace firma_mvc
 {
