@@ -126,7 +126,7 @@ namespace firma_mvc.Controllers
             return View(invoice);
         }
 
-        // GET: InvoiceHeaders/Create
+        // GET: Invoice/Create
         public IActionResult Create()
         {
             Invoice invoice = new Invoice();
@@ -138,7 +138,7 @@ namespace firma_mvc.Controllers
             return View(invoice);
         }
 
-        // POST: InvoiceHeaders/Create
+        // POST: Invoice/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
@@ -162,7 +162,7 @@ namespace firma_mvc.Controllers
             return View(invoice);
         }
 
-        // GET: InvoiceHeaders/Edit/5
+        // GET: Invoice/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -181,7 +181,7 @@ namespace firma_mvc.Controllers
             return View(invoice);
         }
 
-        // POST: InvoiceHeaders/Edit/5
+        // POST: Invoice/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
@@ -212,7 +212,7 @@ namespace firma_mvc.Controllers
                         throw;
                     }
                 }
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction(nameof(Details), new { id = invoice.Id });
             }
             ViewData["ContractorId"] = new SelectList(_context.Contractor, "Id", "Name", invoice.ContractorId);
             ViewData["PaymentMethodId"] = new SelectList(_context.PaymentMethod, "Id", "Name", invoice.PaymentMethodId);
@@ -220,7 +220,7 @@ namespace firma_mvc.Controllers
             return View(invoice);
         }
 
-        // GET: InvoiceHeaders/Delete/5
+        // GET: Invoice/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -240,7 +240,7 @@ namespace firma_mvc.Controllers
             return View(invoiceHeader);
         }
 
-        // POST: InvoiceHeaders/Delete/5
+        // POST: Invoice/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)

@@ -17,6 +17,22 @@
                 @Html.ActionLink("Korekta", "Create", new { id = Model.Id }, htmlAttributes: new { @class = "btn btn-outline-danger" })
             </p>
 
+            <div class="modal fade" id="addInvoiceItem" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Dodaj pozycję do faktury</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                @await Component.InvokeAsync("AddInvoiceItem", new InvoiceItem())
+            </div>
+        </div>
+    </div>
+</div>
+
             <div class="card bg-light">
                 <div class="card-header"><strong>Faktura nr @Model.Number</strong></div>
                 <div class="card-body">
@@ -34,7 +50,7 @@
                     </div>
                     <div class="row">
                         <div class="col-6 col-md-4">@Html.DisplayFor(model => model.Contractor.NIP)</div>
-                        <div class="col-12 col-md-8">@Html.DisplayFor(model => model.Contractor.Name)</div>
+                        <div class="col-12 col-md-8">@Html.DisplayFor(model => model.Contractor.FullName)</div>
                     </div>
                     <div class="row">
                         <div class="col-6 col-md-4"><strong>@Html.DisplayNameFor(model => model.TotalValue)</strong></div>
@@ -46,9 +62,11 @@
                     </div>
                     <div class="row">
                         <div class="col-6 col-md-4"><strong>@Html.DisplayNameFor(model => model.PaymentMethod)</strong></div>
+                        <div class="col-6 col-md-4"><strong>@Html.DisplayNameFor(model => model.PaymentMethod.DueTerm)</strong></div>
                     </div>
                     <div class="row">
                         <div class="col-6 col-md-4">@Html.DisplayFor(model => model.PaymentMethod.Name)</div>
+                        <div class="col-6 col-md-4">@Html.DisplayFor(model => model.PaymentDueTerm)</div>
                     </div>
                 </div>
             </div>
@@ -92,35 +110,35 @@
                             int i = 1;
                             foreach (var item in Model.InvoiceItems)
                             {
-                    <tr class="table-light" onclick="location.href = '@Url.Action("Edit", "InvoiceItems",new { id = item.Id})'">
-                        <td>
-                            @i
-                        </td>
-                        <td>
-                            @*@Html.DisplayFor(modelItem => item.Item.Name)*@
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.Quantity)
-                        </td>
-                        <td>
-                            @*@Html.DisplayFor(modelItem => item.Item.UnitOfMeasure.ShortName)*@
-                        </td>
-                        <td>
-                            @*@Html.DisplayFor(modelItem => item.Item.Price)*@
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.TotalPrice)
-                        </td>
-                        <td>
-                            @*@Html.DisplayFor(modelItem => item.Item.VAT.Value)*@
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.TotalVATValue)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.TotalPriceBrutto)
-                        </td>
-                    </tr>
+                                <tr class="table-light" onclick="location.href = '@Url.Action("Edit", "InvoiceItems",new { id = item.Id})'">
+                                    <td>
+                                        @i
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Name)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Quantity)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.UnitOfMeasureShortName)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Price)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.TotalPrice)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.VATValue)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.TotalVATValue)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.TotalPriceBrutto)
+                                    </td>
+                                </tr>
                                 i++;
                             }
                         }

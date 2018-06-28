@@ -49,8 +49,7 @@ namespace firma_mvc
         {
             try
             {
-                //return Quantity * PriceBrutto;
-                return 0;
+                return getTotalPrice()+getTotalVATValue();
             }
             catch (Exception e)
             {
@@ -60,7 +59,7 @@ namespace firma_mvc
 
         decimal getTotalVATValue()
         {
-            //   return getTotalPrice() * Item.VAT.Value / 100;
+            return getTotalPrice() * VATValue / 100;
             return 0;
         }
     }

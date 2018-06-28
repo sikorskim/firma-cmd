@@ -30,14 +30,17 @@ namespace firma_mvc
         public int ContractorId { get; set; }
         public int CompanyId { get; set; }
         [DisplayName("Forma płatności")]
-        public int PaymentMethodId { get; set; }     
+        public int PaymentMethodId { get; set; }
+        [DisplayName("Termin płatności")]
+        [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
+        public DateTime PaymentDueTerm { get { return getPaymentDueTerm(); } }
         [DisplayName("Ilość pozycji")]
         public virtual int ItemsCount
         {
             get { return countItems(); }
         }
         [DisplayName("Wartość netto")]
-        public decimal TotalValue 
+        public decimal TotalValue
         {
             get { return getTotalNettPrice(); }
         }
@@ -54,10 +57,10 @@ namespace firma_mvc
         public int InvoiceStatusId { get; set; }
 
         [DisplayName("Kontrahent")]
-        [ForeignKey("ContractorId")]            
-        public virtual Contractor Contractor { get; set; }    
+        [ForeignKey("ContractorId")]
+        public virtual Contractor Contractor { get; set; }
         [ForeignKey("InvoiceStatusId")]
-        public virtual InvoiceStatus InvoiceStatus {get; set; }
+        public virtual InvoiceStatus InvoiceStatus { get; set; }
         [DisplayName("Forma płatności")]
         [ForeignKey("PaymentMethodId")]
         public virtual PaymentMethod PaymentMethod { get; set; }
@@ -68,8 +71,8 @@ namespace firma_mvc
         public virtual Company Company { get; set; }
 
         public Invoice()
-        {}
-        
+        { }
+
         int countItems()
         {
             try
@@ -115,6 +118,18 @@ namespace firma_mvc
             catch (Exception)
             {
                 return 0;
+            }
+        }
+
+        DateTime getPaymentDueTerm()
+        {
+            try
+            {
+                return DateOfIssue.AddDays(PaymentMethod.DueTerm);
+            }
+            catch (Exception)
+            {
+                return DateOfIssue;
             }
         }
 
@@ -174,7 +189,7 @@ namespace firma_mvc
             output = output.Replace("^~^~", "}}");
             output = output.Replace("~^", "{");
             output = output.Replace("^~", "}");
-            File.WriteAllText("out.tex", output);            
+            File.WriteAllText("out.tex", output);
 
             Process process = new Process();
             process.StartInfo.FileName = "pdflatex";

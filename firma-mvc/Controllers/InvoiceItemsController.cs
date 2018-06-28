@@ -73,7 +73,7 @@ namespace firma_mvc.Controllers
             {
                 _context.Add(invoiceItem);
                 await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction(nameof(Details), "Invoices", new { id=invoiceItem.InvoiceId});
             }
             //ViewData["InvoiceId"] = new SelectList(_context.Invoice, "Id", "Discriminator", invoiceItem.InvoiceId);
             ViewData["ItemId"] = new SelectList(_context.Item, "Id", "Name");
@@ -93,7 +93,6 @@ namespace firma_mvc.Controllers
             {
                 return NotFound();
             }
-            ViewData["InvoiceId"] = new SelectList(_context.Invoice, "Id", "Discriminator", invoiceItem.InvoiceId);
             return View(invoiceItem);
         }
 
@@ -127,9 +126,8 @@ namespace firma_mvc.Controllers
                         throw;
                     }
                 }
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction(nameof(Details), "Invoices", new { id = invoiceItem.InvoiceId });
             }
-            ViewData["InvoiceId"] = new SelectList(_context.Invoice, "Id", "Discriminator", invoiceItem.InvoiceId);
             return View(invoiceItem);
         }
 
