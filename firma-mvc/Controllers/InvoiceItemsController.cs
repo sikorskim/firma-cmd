@@ -80,6 +80,41 @@ namespace firma_mvc.Controllers
             return View(invoiceItem);
         }
 
+        // GET: InvoiceItems/Create
+        public IActionResult CreatePopup(int? InvoiceId, int? ItemId)
+        {
+            InvoiceItem invoiceItem = new InvoiceItem((int)InvoiceId);
+            if (ItemId != null && ItemId != 0)
+            {
+                Item item = _context.Item.Include(i => i.VAT).Include(i => i.UnitOfMeasure).Single(p => p.Id == ItemId);
+                invoiceItem.Name = item.Name;
+                invoiceItem.Price = item.Price;
+                invoiceItem.UnitOfMeasureShortName = item.UnitOfMeasure.ShortName;
+                invoiceItem.VATValue = item.VAT.Value;
+            }
+
+            ViewData["ItemId"] = new SelectList(_context.Item, "Id", "Name");
+            return View(invoiceItem);
+        }
+
+        // POST: InvoiceItems/Create
+        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
+        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> CreatePopup([Bind("Id,InvoiceId,Quantity,Price,Name,VATValue,UnitOfMeasureShortName")] InvoiceItem invoiceItem)
+        {
+            if (ModelState.IsValid)
+            {
+                _context.Add(invoiceItem);
+                await _context.SaveChangesAsync();
+                return RedirectToAction(nameof(Details), "Invoices", new { id = invoiceItem.InvoiceId });
+            }
+            //ViewData["InvoiceId"] = new SelectList(_context.Invoice, "Id", "Discriminator", invoiceItem.InvoiceId);
+            ViewData["ItemId"] = new SelectList(_context.Item, "Id", "Name");
+            return View(invoiceItem);
+        }
+
         // GET: InvoiceItems/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
