@@ -21,5 +21,8 @@
     <Content Update="Views\Invoices\Components\AddInvoiceItem\Default.cshtml">
       <Pack>$(IncludeRazorContentInPack)</Pack>
     </Content>
+    <Content Update="Views\Invoices\Components\ContractorCreate\Default.cshtml">
+      <Pack>$(IncludeRazorContentInPack)</Pack>
+    </Content>
   </ItemGroup>
 </Project>

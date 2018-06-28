@@ -65,6 +65,28 @@ namespace firma_mvc.Controllers
             return View(contractor);
         }
 
+        // GET: Contractors/Create
+        public IActionResult CreatePopup()
+        {
+            return View();
+        }
+
+        // POST: Contractors/Create
+        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
+        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> CreatePopup([Bind("Id,NIP,FullName,Name,CountryCode,Voivodeship,County,Community,City,Street,BuldingNo,PostalCode,PostOffice,Email,Phone")] Contractor contractor)
+        {
+            if (ModelState.IsValid)
+            {
+                _context.Add(contractor);
+                await _context.SaveChangesAsync();
+                return RedirectToAction(nameof(Create), "Invoices", null );
+            }
+            return View(contractor);
+        }
+
         // GET: Contractors/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
