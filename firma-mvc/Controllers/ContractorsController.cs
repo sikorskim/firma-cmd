@@ -46,7 +46,8 @@ namespace firma_mvc.Controllers
         // GET: Contractors/Create
         public IActionResult Create()
         {
-            ViewData["Voivo"] = new SelectList(Enum.GetValues(typeof(Voivodeship)).Cast<Voivodeship>());
+            List<string> voivodeships = new List<string>() {"kujawsko-pomorskie", "lubuskie", "małopolskie","mazowieckie", "pomorskie", "śląskie", "warmińsko-mazurskie", "wielkopolskie", "zachodniopomorskie"};
+            ViewData["Voivodeships"] = new SelectList(voivodeships);
             return View();
         }
 
