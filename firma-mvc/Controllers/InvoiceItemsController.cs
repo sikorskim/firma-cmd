@@ -51,9 +51,13 @@ namespace firma_mvc.Controllers
             InvoiceItem invoiceItem = new InvoiceItem((int)InvoiceId);
             if (ItemId != null && ItemId!=0)
             {
-                Item item = _context.Item.Include(i=>i.VAT).Include(i=>i.UnitOfMeasure).Single(p => p.Id == ItemId);               
+                Item item = _context.Item.Include(i=>i.VAT).Include(i=>i.UnitOfMeasure).Single(p => p.Id == ItemId);
+                invoiceItem.Quantity = 1;
                 invoiceItem.Name = item.Name;
                 invoiceItem.Price = item.Price;
+                //decimal formatedPrice = decimal.Parse(item.Price.ToString(), System.Globalization.NumberStyles.Currency);
+                //invoiceItem.Price = formatedPrice;
+
                 invoiceItem.UnitOfMeasureShortName = item.UnitOfMeasure.ShortName;
                 invoiceItem.VATValue = item.VAT.Value;
             }

@@ -16,11 +16,14 @@ namespace firma_mvc
         //[NotMapped]
         //public int ItemId { get; set; }
         //[RegularExpression(@"^\d*(\.|,|(\.\d{1,2})|(,\d{1,2}))?$", ErrorMessage = "Nieprawidłowy format!")]
+        [DataType(DataType.Currency)]
         [DisplayName("Cena")]
         public decimal Price { get; set; }
         [DisplayName("Nazwa")]
         public string Name { get; set; }
         //[RegularExpression(@"^\d*(\.|,|(\.\d{1,2})|(,\d{1,2}))?$", ErrorMessage = "Nieprawidłowy format!")]
+        [DataType(DataType.Currency)]
+        //[DisplayFormat(DataFormatString = "{0:E}", ApplyFormatInEditMode = true)]
         [DisplayName("Stawka VAT")]
         public decimal VATValue { get; set; }
         [DisplayName("Jednostka miary")]
