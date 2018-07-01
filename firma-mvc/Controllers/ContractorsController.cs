@@ -46,6 +46,7 @@ namespace firma_mvc.Controllers
         // GET: Contractors/Create
         public IActionResult Create()
         {
+            ViewData["Voivo"] = new SelectList(Enum.GetValues(typeof(Voivodeship)).Cast<Voivodeship>());
             return View();
         }
 
