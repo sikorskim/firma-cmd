@@ -1,12 +1,11 @@
 ﻿@model firma_mvc.InvoiceItem
 
 @{
-    ViewData["Title"] = "Create";
+    ViewData["Title"] = "Nowa pozycja do faktury";
 }
-
-<h2>Create</h2>
-
-<h4>InvoiceItem</h4>
+<p>
+    <h2>Nowa pozycja do faktury</h2>
+</p>
 <hr />
 <div class="row">
     <div class="col-md-4">
@@ -48,7 +47,7 @@
                 <span asp-validation-for="UnitOfMeasureShortName" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-default" />
+                <input type="submit" value="Zapisz" class="btn btn-outline-success" />
             </div>
         </form>
     </div>

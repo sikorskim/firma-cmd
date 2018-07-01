@@ -1,6 +1,6 @@
 ﻿@model firma_mvc.Contractor
 
-    <form asp-action="Create">
+    <form asp-controller="Contractors" asp-action="CreatePopup">
         <div asp-validation-summary="ModelOnly" class="text-danger"></div>
 
         <div class="row">
@@ -90,8 +90,8 @@
             </div>
         </div>
         <div class="row col">
-            <div class="form-group md-2">
-                <input type="submit" value="Zapisz" class="btn btn-outline-success" />
+            <div class="form-group md-2">                
+                <input type="submit" asp-controller="Contractors" asp-action="CreatePopup" value="Zapisz" class="btn btn-outline-success" />
             </div>
             <div class="form-group col">
                 <button type="button" class="btn btn-outline-secondary" data-dismiss="modal">Anuluj</button>

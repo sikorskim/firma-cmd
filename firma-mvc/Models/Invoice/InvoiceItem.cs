@@ -16,10 +16,14 @@ namespace firma_mvc
         //[NotMapped]
         //public int ItemId { get; set; }
         //[RegularExpression(@"^\d*(\.|,|(\.\d{1,2})|(,\d{1,2}))?$", ErrorMessage = "Nieprawidłowy format!")]
+        [DisplayName("Cena")]
         public decimal Price { get; set; }
+        [DisplayName("Nazwa")]
         public string Name { get; set; }
         //[RegularExpression(@"^\d*(\.|,|(\.\d{1,2})|(,\d{1,2}))?$", ErrorMessage = "Nieprawidłowy format!")]
+        [DisplayName("Stawka VAT")]
         public decimal VATValue { get; set; }
+        [DisplayName("Jednostka miary")]
         public string UnitOfMeasureShortName { get; set; }
         public virtual decimal TotalPrice { get { return getTotalPrice(); } }
         public virtual decimal TotalPriceBrutto { get { return getTotalPriceBrutto(); } }

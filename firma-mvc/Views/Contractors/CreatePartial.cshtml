@@ -59,14 +59,14 @@
                 <span asp-validation-for="CountryCode" class="text-danger"></span>
             </div>
             @*<div class="form-group col-md-4">
-                <label asp-for="Voivodeship" class="control-label"></label>
-                <select asp-for="Voivodeship" class="form-control" asp-items="ViewBag.Voivodeships"></select>
-            </div>*@
+                    <label asp-for="Voivodeship" class="control-label"></label>
+                    <select asp-for="Voivodeship" class="form-control" asp-items="ViewBag.Voivodeships"></select>
+                </div>*@
             <div class="form-group col-md-4">
-            <label asp-for="Voivodeship" class="control-label"></label>
-            <input asp-for="Voivodeship" class="form-control" />
-            <span asp-validation-for="Voivodeship" class="text-danger"></span>
-        </div>
+                <label asp-for="Voivodeship" class="control-label"></label>
+                <input asp-for="Voivodeship" class="form-control" />
+                <span asp-validation-for="Voivodeship" class="text-danger"></span>
+            </div>
             <div class="form-group col-md-3">
                 <label asp-for="County" class="control-label"></label>
                 <input asp-for="County" class="form-control" />
@@ -90,9 +90,16 @@
                 <span asp-validation-for="Phone" class="text-danger"></span>
             </div>
         </div>
-        <div class="form-group">
-            <input type="submit" value="Zapisz" class="btn btn-outline-success" />
+        <div class="row col">
+            <div class="form-group">
+                <input type="submit" value="Zapisz" class="btn btn-outline-success" />
+            </div>
+            <div class="form-group col">
+                <button type="button" class="btn btn-outline-secondary" data-dismiss="modal">Anuluj</button>
+            </div>
         </div>
+
+
     </form>
 </div>
 
