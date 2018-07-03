@@ -28,6 +28,6 @@ namespace firma_mvc
         [DisplayName("Wartość zakupów nieopodatkowanych")]
         public decimal? TaxFreeBuysValue { get; set; }
         [DisplayName("Wartość zakupów, od których podatek VAT nie podlega odliczeniu")]
-        public decimal? NoTaxDeductibleBuysValue { get; set; }
+        public decimal? NoTaxDeductibleBuysValue { get; set; }        
     }
 }
