@@ -90,7 +90,7 @@ namespace firma_mvc.Controllers
 
             invoice.generate();
 
-            return RedirectToAction(nameof(GetPdfFile)); ;
+            return RedirectToAction(nameof(GetPdfFile));
         }
 
         // GET: Invoice/Details/5

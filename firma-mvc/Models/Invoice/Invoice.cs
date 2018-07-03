@@ -169,10 +169,10 @@ namespace firma_mvc
             invoiceItemsSummary = string.Format(invoiceItemsSummary, TotalValue.ToString("0.00"), TotalVATValue.ToString("0.00"), TotalValueInclVat.ToString("0.00"));
             invoiceItemsTable += invoiceItemsSummary;
 
-            string taxTableHeader = root.Element("TaxTableHeader").Value;
-            string tax = root.Element("Tax").Value;
-            string taxTableSummary = root.Element("TaxTableSummary").Value;
-            string taxTable = taxTableHeader + tax + taxTableSummary;
+            //string taxTableHeader = root.Element("TaxTableHeader").Value;
+            //string tax = root.Element("Tax").Value;
+            //string taxTableSummary = root.Element("TaxTableSummary").Value;
+            //string taxTable = taxTableHeader + tax + taxTableSummary;
 
             string priceSummary = root.Element("PriceSummary").Value;
             priceSummary = string.Format(priceSummary, TotalValueInclVat.ToString("0.00"), getValueInWords(TotalValueInclVat));
@@ -183,7 +183,8 @@ namespace firma_mvc
             string footer = paymentMethod + issuer;
 
 
-            string output = header + invoiceItemsTable + taxTable + priceSummary + footer;
+            string output = header + invoiceItemsTable + priceSummary + footer;
+            //string output = header + invoiceItemsTable + taxTable + priceSummary + footer;
 
             output = output.Replace("~^~^", "{{");
             output = output.Replace("^~^~", "}}");
