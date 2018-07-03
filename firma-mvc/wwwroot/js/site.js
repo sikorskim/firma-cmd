@@ -6,3 +6,11 @@ $('#btnVat50').click(function () {
     vat = vat.toFixed(2);
         $('#TaxDeductibleValue').val(vat);
 });
+
+$('#valNetto').change(function () {
+    var netto = $('#valNetto').val().replace(',', '.');
+    var brutto = $('#valBrutto').val().replace(',', '.');
+    var vat = brutto-netto;
+    vat = vat.toFixed(2);
+    $('#TaxDeductibleValue').val(vat);
+});
