@@ -17,11 +17,11 @@ namespace firma_mvc
             db = _context;
         }
 
-        public async Task<IViewComponentResult> InvokeAsync()
+        public async Task<IViewComponentResult> InvokeAsync(InvoiceItem invoiceItem)
         {
             string MyView = "Default";
             ViewData["ItemId"] = new SelectList(db.Item, "Id", "Name");
-            return View(MyView, new InvoiceItem());
+            return View(MyView, invoiceItem);
         }
     }
 }

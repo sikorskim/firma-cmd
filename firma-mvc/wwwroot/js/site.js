@@ -26,6 +26,10 @@ $('#valNetto').change(function () {
 $('#ItemIdDropDownList').change(function () {
     var itemId = $(this).val();
     $.get('/Items/GetItem', { id: itemId }, function (data) {
-        $('#invoiceCreateItemName').val(data.name);
+        $('#invoiceItemCreateQuantity').val(1);
+        $('#invoiceItemCreateName').val(data.name);
+        $('#invoiceItemCreatePrice').val(data.price);
+        $('#invoiceItemCreateUnit').val(data.unitOfMeasure.shortName);
+        $('#invoiceItemCreateVatValue').val(data.vat.value);
     });
 });

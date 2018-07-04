@@ -31,7 +31,7 @@
                             </button>
                         </div>
                         <div class="modal-body">
-                            @await Component.InvokeAsync("AddInvoiceItem", new InvoiceItem())
+                            @await Component.InvokeAsync("AddInvoiceItem", new InvoiceItem(Model.Id))
                         </div>
                     </div>
                 </div>

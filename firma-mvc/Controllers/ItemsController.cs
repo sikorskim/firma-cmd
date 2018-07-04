@@ -166,20 +166,11 @@ namespace firma_mvc.Controllers
         // GET: Items/GetItem/5
         public async Task<IActionResult> GetItem(int? id)
         {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
             var item = await _context.Item
                 .Include(i => i.UnitOfMeasure)
                 .Include(i => i.VAT)
                 .SingleOrDefaultAsync(m => m.Id == id);
-            if (item == null)
-            {
-                return NotFound();
-            }
-
+            
             return Json(item);
         }
     }
