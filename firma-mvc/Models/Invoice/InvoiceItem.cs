@@ -26,7 +26,7 @@ namespace firma_mvc
         //[DisplayFormat(DataFormatString = "{0:E}", ApplyFormatInEditMode = true)]
         [DisplayName("Stawka VAT")]
         public decimal VATValue { get; set; }
-        [DisplayName("Jednostka miary")]
+        [DisplayName("Jednostka")]
         public string UnitOfMeasureShortName { get; set; }
         public virtual decimal TotalPrice { get { return getTotalPrice(); } }
         public virtual decimal TotalPriceBrutto { get { return getTotalPriceBrutto(); } }

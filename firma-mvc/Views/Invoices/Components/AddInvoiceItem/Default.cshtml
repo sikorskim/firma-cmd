@@ -1,53 +1,55 @@
 ﻿@model firma_mvc.InvoiceItem
-<div class="row">
-    <div class="col-md-4">
-        @*<form asp-action="SelectItem" >
-            <div class="form-group">
-                <input type="hidden" asp-for="InvoiceId" class="form-control" />
-            </div>*@
-            @Html.DropDownList("ItemId", (SelectList)ViewBag.ItemId, "Pozycja", new {@class = "custom-select", @id="ItemIdDropDownList" })
-        @*</form>*@
 
-        <form asp-action="Create">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="form-group">
-                <input type="hidden" asp-for="InvoiceId" class="form-control" />
+<div class="row">
+    <div class="form-group col-md-6">
+        <label class="control-label">Wybierz</label>
+        @Html.DropDownList("ItemId", (SelectList)ViewBag.ItemId, "Pozycja", new { @class = "custom-select", @id = "ItemIdDropDownList" })
+    </div>
+
+    <form asp-action="Create">
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+        <div class="form-group">
+            <input type="hidden" asp-for="InvoiceId" class="form-control" />
+        </div>
+
+        <div class="row col">
+            <div class="form-group col-md-6">
+                <label asp-for="Name" class="control-label"></label>
+                <input asp-for="Name" class="form-control" id="invoiceItemCreateName" />
+                <span asp-validation-for="Name" class="text-danger"></span>
             </div>
-            <div class="form-group">
+        </div>
+
+        <div class="row col">
+            <div class="form-group col-md-3">
                 <label asp-for="Quantity" class="control-label"></label>
                 <input asp-for="Quantity" class="form-control" id="invoiceItemCreateQuantity" />
                 <span asp-validation-for="Quantity" class="text-danger"></span>
             </div>
-            <div class="form-group">
+            <div class="form-group col-md-3">
+                <label asp-for="UnitOfMeasureShortName" class="control-label"></label>
+                <input asp-for="UnitOfMeasureShortName" class="form-control" id="invoiceItemCreateUnit" />
+                <span asp-validation-for="UnitOfMeasureShortName" class="text-danger"></span>
+            </div>
+        </div>
+
+        <div class="row col">
+            <div class="form-group col-md-3">
                 <label asp-for="Price" class="control-label"></label>
                 <input asp-for="Price" class="form-control" id="invoiceItemCreatePrice" />
                 <span asp-validation-for="Price" class="text-danger"></span>
             </div>
-            <div class="form-group">
-                <label asp-for="Name" class="control-label"></label>
-                <input asp-for="Name" class="form-control" id="invoiceItemCreateName"/>
-                <span asp-validation-for="Name" class="text-danger"></span>
-            </div>
-            <div class="form-group">
+            <div class="form-group col-md-3">
                 <label asp-for="VATValue" class="control-label"></label>
-                <input asp-for="VATValue" class="form-control" id="invoiceItemCreateVatValue"/>
+                <input asp-for="VATValue" class="form-control" id="invoiceItemCreateVatValue" />
                 <span asp-validation-for="VATValue" class="text-danger"></span>
             </div>
-            <div class="form-group">
-                <label asp-for="UnitOfMeasureShortName" class="control-label"></label>
-                <input asp-for="UnitOfMeasureShortName" class="form-control"  id="invoiceItemCreateUnit"/>
-                <span asp-validation-for="UnitOfMeasureShortName" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <input type="submit" asp-controller="InvoiceItems" asp-action="Create" value="Zapisz" class="btn btn-outline-success" />
-                <button type="button" class="btn btn-outline-secondary" data-dismiss="modal">Anuluj</button>
-            </div>
-        </form>
-    </div>
-</div>
-
-<div>
-    <a asp-action="Index">Back to List</a>
+        </div>
+        <div class="form-group col">
+            <input type="submit" asp-controller="InvoiceItems" asp-action="Create" value="Zapisz" class="btn btn-outline-success" />
+            <button type="button" class="btn btn-outline-secondary" data-dismiss="modal">Anuluj</button>
+        </div>
+    </form>
 </div>
 
 @section Scripts {
