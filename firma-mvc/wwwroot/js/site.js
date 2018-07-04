@@ -1,6 +1,4 @@
-﻿//import { Modal } from "../lib/bootstrap/dist/js/bootstrap.bundle";
-
-// count 50% of VAT tax on VATRegisterBuy create view
+﻿// count 50% of VAT tax on VATRegisterBuy create view
 $('#btnVat50').click(function () {
     var vat = $('#TaxDeductibleValue').val();
     vat = vat.replace(',', '.')
@@ -9,6 +7,7 @@ $('#btnVat50').click(function () {
     $('#TaxDeductibleValue').val(vat);
 });
 
+// count VAT value in VATRegisterBuy create view
 $('#valNetto').change(function () {
     var netto = $('#valNetto').val().replace(',', '.');
     var brutto = $('#valBrutto').val().replace(',', '.');
@@ -29,6 +28,8 @@ $('#ItemIdDropDownList').change(function () {
         var vat = data.vat.value.toFixed(2);
         var brutto = vat / 100 * netto + +netto;
         brutto = brutto.toFixed(2);
+        netto = netto.replace('.', ',');
+        vat = vat.replace('.', ',');
 
         $('#invoiceItemCreateVatValue').val(vat);
         $('#invoiceItemCreatePrice').val(netto);
