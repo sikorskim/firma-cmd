@@ -22,7 +22,7 @@ namespace firma_mvc.Controllers
         // GET: VATRegisterBuys
         public async Task<IActionResult> Index()
         {
-            return View(await _context.VATRegisterBuy.ToListAsync());
+            return View(await _context.VATRegisterBuy.Include(i=>i.Contractor).ToListAsync());
         }
 
         // GET: VATRegisterBuys/Details/5
@@ -46,7 +46,12 @@ namespace firma_mvc.Controllers
         // GET: VATRegisterBuys/Create
         public IActionResult Create()
         {
-            return View();
+            ViewData["ContractorId"] = new SelectList(_context.Contractor, "Id", "Name");
+            VATRegisterBuy vATRegisterBuy = new VATRegisterBuy();
+            DateTime currDate = DateTime.Now;
+            vATRegisterBuy.DateOfIssue = currDate;
+            vATRegisterBuy.DeliveryDate = currDate;
+            return View(vATRegisterBuy);
         }
 
         // POST: VATRegisterBuys/Create
@@ -54,8 +59,9 @@ namespace firma_mvc.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Number,DeliveryDate,DateOfIssue,DocumentNumber,Contractor,ValueBrutto,ValueNetto,TaxDeductibleValue,TaxFreeBuysValue,NoTaxDeductibleBuysValue")] VATRegisterBuy vATRegisterBuy)
+        public async Task<IActionResult> Create([Bind("Id,Number,DeliveryDate,DateOfIssue,DocumentNumber,ContractorId,ValueBrutto,ValueNetto,TaxDeductibleValue,TaxFreeBuysValue,NoTaxDeductibleBuysValue")] VATRegisterBuy vATRegisterBuy)
         {
+            ViewData["ContractorId"] = new SelectList(_context.Contractor, "Id", "Name");
             if (ModelState.IsValid)
             {
                 _context.Add(vATRegisterBuy);

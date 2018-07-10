@@ -338,7 +338,7 @@ namespace firmamvc.Migrations
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<string>("Contractor");
+                    b.Property<int>("ContractorId");
 
                     b.Property<DateTime>("DateOfIssue");
 
@@ -359,6 +359,8 @@ namespace firmamvc.Migrations
                     b.Property<decimal>("ValueNetto");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("ContractorId");
 
                     b.ToTable("VATRegisterBuy");
                 });
@@ -587,6 +589,14 @@ namespace firmamvc.Migrations
                     b.HasOne("firma_mvc.VAT", "VAT")
                         .WithMany()
                         .HasForeignKey("VATId")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("firma_mvc.VATRegisterBuy", b =>
+                {
+                    b.HasOne("firma_mvc.Contractor", "Contractor")
+                        .WithMany()
+                        .HasForeignKey("ContractorId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 
