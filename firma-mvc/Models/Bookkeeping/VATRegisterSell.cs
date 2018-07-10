@@ -54,6 +54,11 @@ namespace firma_mvc
 
         [DisplayName("Suma VAT")]
         public decimal VATSummary { get { return getVATSummary(); } }
+        [DisplayName("Miesiąc")]
+        public int Month { get; set; }
+        [DisplayName("Rok")]
+        public int Year { get; set; }
+
 
         decimal getVATSummary()
         {

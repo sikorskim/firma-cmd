@@ -10,6 +10,10 @@
     \usepackage~^geometry^~
     \usepackage[table]~^xcolor^~
 
+\usepackage~^graphicx^~
+\graphicspath~^ ~^../wwwroot/images/^~ ^~
+\usepackage~^wrapfig^~
+
     \geometry~^
     a4paper,
     total=~^170mm,257mm^~,
@@ -23,15 +27,22 @@
     \begin~^document^~
 
     \noindent
+    \begin~^wrapfigure^~~^l^~~^0.1\textwidth^~
+	  \begin~^center^~
+		\includegraphics[width=0.1\textwidth]~^logo_fv.png^~
+	  \end~^center^~
+    \end~^wrapfigure^~
+
+
+    \noindent
     \textbf~^{0}^~\\
     {1}\\
-    NIP {2} REGON {3}\\
-    Tel. {4}\\
-    E-mail: {5}\\
-    {6}\\
+    Tel. {2}\\
+    E-mail: {3}\\
+    {4}\\
     \\
-    {7}
-    {8}\\
+    {5}
+    {6}\\
     \\
   </Header>
   <DatePlace>

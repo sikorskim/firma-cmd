@@ -51,6 +51,8 @@ namespace firma_mvc.Controllers
             DateTime currDate = DateTime.Now;
             vATRegisterBuy.DateOfIssue = currDate;
             vATRegisterBuy.DeliveryDate = currDate;
+            vATRegisterBuy.Month = currDate.Month;
+            vATRegisterBuy.Year = currDate.Year;
             return View(vATRegisterBuy);
         }
 
@@ -59,7 +61,7 @@ namespace firma_mvc.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Number,DeliveryDate,DateOfIssue,DocumentNumber,ContractorId,ValueBrutto,ValueNetto,TaxDeductibleValue,TaxFreeBuysValue,NoTaxDeductibleBuysValue")] VATRegisterBuy vATRegisterBuy)
+        public async Task<IActionResult> Create([Bind("Id,Number,DeliveryDate,DateOfIssue,DocumentNumber,ContractorId,ValueBrutto,ValueNetto,TaxDeductibleValue,TaxFreeBuysValue,NoTaxDeductibleBuysValue,Month,Year")] VATRegisterBuy vATRegisterBuy)
         {
             ViewData["ContractorId"] = new SelectList(_context.Contractor, "Id", "Name");
             if (ModelState.IsValid)

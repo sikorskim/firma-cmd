@@ -36,5 +36,10 @@ namespace firma_mvc
         [DisplayName("Kontrahent")]
         [ForeignKey("ContractorId")]
         public virtual Contractor Contractor { get; set; }
+
+        [DisplayName("Miesiąc")]
+        public int Month { get; set; }
+        [DisplayName("Rok")]
+        public int Year { get; set; }
     }
 }

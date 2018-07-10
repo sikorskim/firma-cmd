@@ -346,6 +346,8 @@ namespace firmamvc.Migrations
 
                     b.Property<string>("DocumentNumber");
 
+                    b.Property<int>("Month");
+
                     b.Property<decimal?>("NoTaxDeductibleBuysValue");
 
                     b.Property<int>("Number");
@@ -357,6 +359,8 @@ namespace firmamvc.Migrations
                     b.Property<decimal>("ValueBrutto");
 
                     b.Property<decimal>("ValueNetto");
+
+                    b.Property<int>("Year");
 
                     b.HasKey("Id");
 
@@ -377,6 +381,8 @@ namespace firmamvc.Migrations
                     b.Property<DateTime>("DeliveryDate");
 
                     b.Property<string>("DocumentNumber");
+
+                    b.Property<int>("Month");
 
                     b.Property<int>("Number");
 
@@ -399,6 +405,8 @@ namespace firmamvc.Migrations
                     b.Property<decimal?>("ValueNoTax");
 
                     b.Property<decimal?>("ValueTaxFree");
+
+                    b.Property<int>("Year");
 
                     b.HasKey("Id");
 

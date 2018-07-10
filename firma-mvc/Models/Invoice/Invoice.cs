@@ -12,6 +12,8 @@ using System.IO;
 using System.Xml.Linq;
 using System.Diagnostics;
 using System.Threading.Tasks;
+using System.Security.Cryptography;
+using System.Text;
 
 namespace firma_mvc
 {
@@ -133,14 +135,14 @@ namespace firma_mvc
             }
         }
 
-        public void generate()
+        public string generate()
         {
-            string path = "invoiceTemplate.xml";
+            string path = "templates/invoice.xml";
             XDocument doc = XDocument.Load(path);
             XElement root = doc.Element("Template");
 
             string header = root.Element("Header").Value;
-            header = string.Format(header, Company.Name, Company.FullAddress, Company.NIP, Company.REGON, Company.Phone, Company.Email, Company.Website, Company.BankName, Company.BankAccountNumber);
+            header = string.Format(header, Company.Name, Company.FullAddress, Company.Phone, Company.Email, Company.Website, Company.BankName, Company.BankAccountNumber);
 
             string cityOfIssue = root.Element("DatePlace").Value;
             string dateOfIssue = DateOfIssue.ToShortDateString();
@@ -190,16 +192,41 @@ namespace firma_mvc
             output = output.Replace("^~^~", "}}");
             output = output.Replace("~^", "{");
             output = output.Replace("^~", "}");
-            File.WriteAllText("out.tex", output);
+
+
+            string time = DateTime.Now.ToFileTime().ToString();
+
+            string outputFile = getHash(sellerBuyer + time);
+            File.WriteAllText("tmp/"+outputFile + ".tex", output);
 
             Process process = new Process();
+            process.StartInfo.WorkingDirectory = "tmp";
             process.StartInfo.FileName = "pdflatex";
-            process.StartInfo.Arguments = "out.tex";
+            process.StartInfo.Arguments = outputFile + ".tex";
             process.Start();
 
             // wait to avoid FileNotFoundException
-            Task.Delay(1000);
+            //Task.Delay(5000);
+            process.Dispose();
+            return outputFile+".pdf";
         }
+
+        string getHash(string input)
+        {
+            string hashAlgo = "SHA256";
+            HashAlgorithm algo = HashAlgorithm.Create(hashAlgo);
+            byte[] hashBytes = algo.ComputeHash(Encoding.UTF8.GetBytes(input));
+
+            StringBuilder sb = new StringBuilder();
+            foreach (byte b in hashBytes)
+            {
+                sb.Append(b.ToString("X2"));
+            }
+            string computedHash = sb.ToString();
+
+            return computedHash;
+        }
+
 
         string getValueInWords(decimal d)
         {

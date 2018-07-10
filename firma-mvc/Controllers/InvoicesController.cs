@@ -34,16 +34,16 @@ namespace firma_mvc.Controllers
             return View(await applicationDbContext.ToListAsync());
         }
 
-        [HttpGet, Route("out.pdf/pdf", Name = "GetPdfFile")]
         public IActionResult GetPdfFile(string filename)
         {
             const string contentType = "application/pdf";
             HttpContext.Response.ContentType = contentType;
             FileContentResult result = null;
-
+            filename = "tmp/" + filename;
+            
             try
             {
-                result = new FileContentResult(System.IO.File.ReadAllBytes(@"out.pdf"), contentType)
+                result = new FileContentResult(System.IO.File.ReadAllBytes(filename), contentType)
                 {
                     FileDownloadName = $"out.pdf"
                 };
@@ -88,9 +88,9 @@ namespace firma_mvc.Controllers
             // to change
             invoice.Company = _context.Company.FirstOrDefault();
 
-            invoice.generate();
-
-            return RedirectToAction(nameof(GetPdfFile));
+            string pdfFilename = invoice.generate();
+            await Task.Delay(1000);
+            return RedirectToAction("GetPdfFile", new { filename = pdfFilename });
         }
 
         // GET: Invoice/Details/5
