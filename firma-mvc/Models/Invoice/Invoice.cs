@@ -227,6 +227,18 @@ namespace firma_mvc
             return computedHash;
         }
 
+       public static void deleteTempFiles(string filename)
+        {
+            DirectoryInfo dir = new DirectoryInfo("tmp");
+            foreach (FileInfo file in dir.GetFiles())
+            {
+                if (file.Name.Contains(filename))
+                {
+                    file.Delete();
+                }
+            }
+        }
+
 
         string getValueInWords(decimal d)
         {
