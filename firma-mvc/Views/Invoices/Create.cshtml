@@ -33,17 +33,21 @@
                         </div>
                         <div class="form-group">
                             @*<div class="my-2 col-md-4">*@
-                                <label asp-for="ContractorId" class="control-label"></label>
-                                <select asp-for="ContractorId" class="form-control" asp-items="ViewBag.ContractorId"></select>
+                            <label asp-for="ContractorId" class="control-label"></label>
+                            <select asp-for="ContractorId" class="form-control" asp-items="ViewBag.ContractorId"></select>
                             @*</div>*@
                             @*<div class="my-2">
-                    @Html.ActionLink("Dodaj kontrahenta", "Create", "Contractors", null, htmlAttributes: new { @class = "btn btn-outline-primary" })
-                </div>*@
+                @Html.ActionLink("Dodaj kontrahenta", "Create", "Contractors", null, htmlAttributes: new { @class = "btn btn-outline-primary" })
+            </div>*@
 
                         </div>
                         <div class="form-group">
                             <label asp-for="PaymentMethodId" class="control-label"></label>
                             <select asp-for="PaymentMethodId" class="form-control" asp-items="ViewBag.PaymentMethodId"></select>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="Paid" class="control-label"></label>
+                            <input asp-for="Paid" class="form-control" />
                         </div>
                         <div class="form-group">
                             <input type="submit" asp-action="Create" asp-controller="Invoices" value="Zapisz" class="btn btn-outline-success" />

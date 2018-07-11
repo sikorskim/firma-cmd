@@ -133,6 +133,7 @@ namespace firma_mvc.Controllers
             invoice.Number = getNumber();
             invoice.DateOfIssue = DateTime.Now;
             invoice.DateOfDelivery = invoice.DateOfIssue;
+            invoice.Paid = false;
 
             ViewData["ContractorId"] = new SelectList(_context.Contractor, "Id", "Name");
             ViewData["PaymentMethodId"] = new SelectList(_context.PaymentMethod, "Id", "Name");
@@ -144,7 +145,7 @@ namespace firma_mvc.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Number,DateOfIssue,DateOfDelivery,ContractorId,PaymentMethodId,InvoiceStatusId")] Invoice invoice)
+        public async Task<IActionResult> Create([Bind("Id,Number,DateOfIssue,DateOfDelivery,ContractorId,PaymentMethodId,InvoiceStatusId,Paid")] Invoice invoice)
         {
             invoice.InvoiceStatusId = _context.InvoiceStatus.Single(p => p.Name == "nowa").Id;
 
@@ -187,7 +188,7 @@ namespace firma_mvc.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Number,DateOfIssue,DateOfDelivery,ContractorId,PaymentMethodId,InvoiceStatusId")] Invoice invoice)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,Number,DateOfIssue,DateOfDelivery,ContractorId,PaymentMethodId,InvoiceStatusId,Paid")] Invoice invoice)
         {
             if (id != invoice.Id)
             {
@@ -299,6 +300,30 @@ namespace firma_mvc.Controllers
         int getCompanyId()
         {
             return _context.Company.Single(p => p.Name == "Computerman").Id;
+        }
+
+        // GET: Invoice/Confirm
+        public async Task<IActionResult> Confirm(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            Invoice invoice = await _context.Invoice.SingleOrDefaultAsync(m => m.Id == id);
+            invoice.InvoiceStatusId = _context.InvoiceStatus.Single(p => p.Name == "zatwierdzona").Id;
+
+            VATRegisterSell sell = new VATRegisterSell();
+            // to change
+            sell.Number = 1;
+
+            sell.DeliveryDate = invoice.DateOfDelivery;
+            sell.DateOfIssue = invoice.DateOfIssue;
+            sell.DocumentNumber = invoice.Number;
+           // sell.Contractor = invoice.Contractor;
+
+
+            return View();
         }
     }
 }

@@ -31,6 +31,7 @@ namespace firma_mvc
         [DisplayName("Kontrahent")]
         public int ContractorId { get; set; }
         public int CompanyId { get; set; }
+        public bool Paid { get; set; }
         [DisplayName("Forma płatności")]
         public int PaymentMethodId { get; set; }
         [DisplayName("Termin płatności")]
