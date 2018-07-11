@@ -310,7 +310,7 @@ namespace firma_mvc.Controllers
                 return NotFound();
             }
 
-            Invoice invoice = await _context.Invoice.SingleOrDefaultAsync(m => m.Id == id);
+            Invoice invoice = await _context.Invoice.Include(p=>p.InvoiceItems).SingleOrDefaultAsync(m => m.Id == id);
             invoice.InvoiceStatusId = _context.InvoiceStatus.Single(p => p.Name == "zatwierdzona").Id;
 
             VATRegisterSell sell = new VATRegisterSell();
@@ -319,11 +319,28 @@ namespace firma_mvc.Controllers
 
             sell.DeliveryDate = invoice.DateOfDelivery;
             sell.DateOfIssue = invoice.DateOfIssue;
+            sell.Month = sell.DateOfIssue.Month;
+            sell.Year = sell.DateOfIssue.Year;
+
             sell.DocumentNumber = invoice.Number;
-           // sell.Contractor = invoice.Contractor;
+            sell.ContractorId = invoice.ContractorId;
 
+            sell.ValueBrutto = invoice.TotalValueInclVat;
 
-            return View();
+            // TO DO: add other VAT rates support
+            foreach (InvoiceItem item in invoice.InvoiceItems)
+            {
+                if (item.VATValue == 23)
+                {
+                    sell.ValueNetto23 += item.TotalPrice;
+                    sell.VATValue23 += item.TotalVATValue;                    
+                }
+            }
+            _context.Add(sell);
+            _context.Update(invoice);
+            await _context.SaveChangesAsync();
+
+            return RedirectToAction(nameof(Details), new { id = invoice.Id });
         }
     }
 }

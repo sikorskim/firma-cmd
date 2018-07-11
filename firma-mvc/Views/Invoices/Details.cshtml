@@ -14,7 +14,7 @@
                     Dodaj pozycję
                 </button>
                 @Html.ActionLink("Dodaj pozycję 2", "Create", "InvoiceItems", new { InvoiceId = Model.Id }, htmlAttributes: new { @class = "btn btn-outline-primary" })
-                @Html.ActionLink("Zatwierdź", "Create", new { id = Model.Id }, htmlAttributes: new { @class = "btn btn-outline-primary" })
+                @Html.ActionLink("Zatwierdź", "Confirm", new { id = Model.Id }, htmlAttributes: new { @class = "btn btn-outline-primary" })
                 @Html.ActionLink("Drukuj", "GenerateInvoice", new { id = Model.Id }, htmlAttributes: new { @class = "btn btn-outline-dark" })
                 @Html.ActionLink("Edytuj", "Edit", new { id = Model.Id }, htmlAttributes: new { @class = "btn btn-outline-warning" })
                 @Html.ActionLink("Korekta", "Create", new { id = Model.Id }, htmlAttributes: new { @class = "btn btn-outline-danger" })
