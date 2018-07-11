@@ -13,7 +13,23 @@
             </p>
             <form>
                 <div class="form-row align-items-center">
-                    <div class="col-sm-2 my-1">
+
+                    <div class="col-sm-1">
+                        <select class="custom-select" id="inlineFormCustomSelectPref">
+                            <option selected>Miesiąc</option>
+                            <option value="1">styczeń</option>
+                            <option value="2">luty</option>
+                            <option value="3">marzec</option>
+                        </select>
+                    </div>
+                    <div class="col-sm-1">
+                        <select class="custom-select" id="inlineFormCustomSelectPref">
+                            <option selected>Rok</option>
+                            <option value="1">2018</option>
+                        </select>
+                    </div>
+
+                    <div class="col-sm-1">
                         <select class="custom-select" id="inlineFormCustomSelectPref">
                             <option selected>Status</option>
                             <option value="1">One</option>
@@ -25,7 +41,7 @@
                     <div class="col-sm-3 my-1">
                         <input class="form-control" type="text" name="searchQuery" placeholder="Nr faktury, NIP lub nazwa kontrahenta" aria-label="Search">
                     </div>
-                    <button class="btn btn-outline-primary" type="submit">Szukaj</button>
+                    <button class="btn btn-outline-primary" type="submit"><i class="fas fa-search"></i> Szukaj</button>
                 </div>
             </form>
 
@@ -81,7 +97,19 @@
                             @Html.DisplayFor(modelItem => item.TotalValue)
                         </td>
                         <td>
-                            <span class="badge badge-primary">@Html.DisplayFor(modelItem => item.InvoiceStatus.Name)</span>
+                            @{
+                                string statusName = item.InvoiceStatus.Name;
+                                string badgeStyle = string.Empty;
+                                if (statusName == "nowa")
+                                {
+                                    badgeStyle = "badge-primary";
+                                }
+                                else if (statusName == "zatwierdzona")
+                                {
+                                    badgeStyle = "badge-success";
+                                }
+                            }
+                            <span class="badge @badgeStyle">@statusName</span>
                         </td>
                     </tr>
                         i++;

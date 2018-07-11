@@ -28,7 +28,7 @@ $('#ItemIdDropDownList').change(function () {
         var netto = data.price.toFixed(2);
         var vat = data.vat.value.toFixed(2);
         var brutto = vat / 100 * netto + +netto;
-        brutto = brutto.toFixed(2);
+        brutto = brutto.toFixed(2).replace('.', ',');
         netto = netto.replace('.', ',');
         vat = vat.replace('.', ',');
 
@@ -40,8 +40,9 @@ $('#ItemIdDropDownList').change(function () {
 
 // invoiceItem/create count brutto price
 $('#invoiceItemCreatePrice').change(function () {
-    var netto = $('#invoiceItemCreatePrice').val();
-    var vat = $('#invoiceItemCreateVatValue').val();
-    var brutto = vat / 100 * netto+ +netto;    
+    var netto = $('#invoiceItemCreatePrice').val().replace(',', '.');
+    var vat = $('#invoiceItemCreateVatValue').val().replace(',', '.');
+    var brutto = vat / 100 * netto + +netto;    
+    brutto = brutto.toFixed(2).replace('.', ',');
     $('#invoiceItemCreatePriceBrutto').val(brutto);
 });

@@ -8,14 +8,35 @@
     <h2>Rejestr VAT sprzedaży</h2>
 </p>
 
-<p>
+
+<div class="form-row align-items-center">
     @Html.ActionLink("Dodaj", "Create", null, htmlAttributes: new { @class = "btn btn-outline-success" })
-</p>
+    <button type="button" class="btn btn-outline-dark">
+        <i class="fas fa-print"></i> Drukuj
+    </button>
+
+    <div class="col-sm-1">
+        <select class="custom-select" id="inlineFormCustomSelectPref">
+            <option selected>Miesiąc</option>
+            <option value="1">styczeń</option>
+            <option value="2">luty</option>
+            <option value="3">marzec</option>
+        </select>
+    </div>
+    <div class="col-sm-1">
+        <select class="custom-select" id="inlineFormCustomSelectPref">
+            <option selected>Rok</option>
+            <option value="1">2018</option>
+        </select>
+    </div>
+</div>
+
+<hr />
 <table class="table table-responsive table-hover table-bordered">
     <thead class="thead-light">
         <tr>
             <th colspan="6"></th>
-            <th colspan="7"> 
+            <th colspan="7">
                 Sprzedaż opodatkowana
             </th>
             <th colspan="3"></th>
@@ -153,7 +174,7 @@
             totalVATvalue23 += (decimal)item.VATValue23;
             totalVATSummary += (decimal)item.VATSummary;
         }
-        <tr class="table-light">
+        <tr class="table-active">
             <td></td>
             <td></td>
             <td>
@@ -185,5 +206,5 @@
                 @totalVATSummary.ToString("0.00")
             </td>
         </tr>
-    </thead>
+        </thead>
 </table>

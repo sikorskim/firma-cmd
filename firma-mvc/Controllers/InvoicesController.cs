@@ -340,7 +340,8 @@ namespace firma_mvc.Controllers
             _context.Update(invoice);
             await _context.SaveChangesAsync();
 
-            return RedirectToAction(nameof(Details), new { id = invoice.Id });
+            //return RedirectToAction(nameof(Details), new { id = invoice.Id });
+            return RedirectToAction(nameof(Index));
         }
     }
 }

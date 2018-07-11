@@ -2,6 +2,15 @@
 
 @{
     ViewData["Title"] = "Details";
+    string statusName = Model.InvoiceStatus.Name;
+    string btnDisabled = string.Empty;
+    string addBtnToggle = "modal";
+
+    if (statusName != "nowa")
+    {
+        btnDisabled = " disabled";
+        addBtnToggle = string.Empty;
+    }
 }
 
 <div class="container-fluid">
@@ -10,13 +19,18 @@
         <div class="col-10">
             <br />
             <p>
-                <button type="button" class="btn btn-outline-success" data-toggle="modal" data-target="#addInvoiceItem">
+                <button type="button" class="btn btn-outline-success @btnDisabled" data-toggle=@addBtnToggle data-target="#addInvoiceItem">
                     Dodaj pozycję
                 </button>
-                @Html.ActionLink("Dodaj pozycję 2", "Create", "InvoiceItems", new { InvoiceId = Model.Id }, htmlAttributes: new { @class = "btn btn-outline-primary" })
-                @Html.ActionLink("Zatwierdź", "Confirm", new { id = Model.Id }, htmlAttributes: new { @class = "btn btn-outline-primary" })
+                @Html.ActionLink("Dodaj pozycję 2", "Create", "InvoiceItems", new { InvoiceId = Model.Id }, htmlAttributes: new { @class = "btn btn-outline-primary"+btnDisabled })
+
+
+                @Html.ActionLink("Zatwierdź", "Confirm", new { id = Model.Id }, htmlAttributes: new { @class = "btn btn-outline-primary"+btnDisabled })
+
+
+
                 @Html.ActionLink("Drukuj", "GenerateInvoice", new { id = Model.Id }, htmlAttributes: new { @class = "btn btn-outline-dark" })
-                @Html.ActionLink("Edytuj", "Edit", new { id = Model.Id }, htmlAttributes: new { @class = "btn btn-outline-warning" })
+                @Html.ActionLink("Edytuj", "Edit", new { id = Model.Id }, htmlAttributes: new { @class = "btn btn-outline-warning"+btnDisabled })
                 @Html.ActionLink("Korekta", "Create", new { id = Model.Id }, htmlAttributes: new { @class = "btn btn-outline-danger" })
             </p>
 
@@ -44,8 +58,19 @@
                         <div class="col-6 col-md-4"><strong>@Html.DisplayNameFor(model => model.InvoiceStatus.Name)</strong></div>
                     </div>
                     <div class="row">
+                        @{
+                            string badgeStyle = string.Empty;
+                            if (statusName == "nowa")
+                            {
+                                badgeStyle = "badge-primary";
+                            }
+                            else if (statusName == "zatwierdzona")
+                            {
+                                badgeStyle = "badge-success";
+                            }
+                        }
                         <div class="col-6 col-md-4">@Html.DisplayFor(model => model.DateOfIssue)</div>
-                        <div class="col-6 col-md-4"><span class="badge badge-primary">@Html.DisplayFor(model => model.InvoiceStatus.Name)</span></div>
+                        <div class="col-6 col-md-4"><span class="badge @badgeStyle">@statusName</span></div>
                     </div>
                     <div class="row">
                         <div class="col-6 col-md-4"><strong>@Html.DisplayNameFor(model => model.Contractor.NIP)</strong></div>
