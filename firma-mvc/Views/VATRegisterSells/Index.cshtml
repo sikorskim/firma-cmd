@@ -88,57 +88,102 @@
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model) {
-        <tr class="table-light" onclick="location.href = '@Url.Action("Details", "VATRegisterSells",new { id = item.Id})'">
+        @{
+            int count = 0;
+            decimal totalVATSummary = 0;
+            decimal totalValueBrutto = 0;
+            decimal totalValueNetto23 = 0;
+            decimal totalVATvalue23 = 0;
+        }
+        @foreach (var item in Model)
+        {
+            <tr class="table-light" onclick="location.href = '@Url.Action("Details", "VATRegisterSells",new { id = item.Id})'">
+                <td>
+                    @Html.DisplayFor(modelItem => item.Number)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.DeliveryDate)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.DateOfIssue)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.DocumentNumber)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Contractor.FullName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ValueBrutto)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ValueNetto23)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.VATValue23)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ValueNetto7_8)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.VATValue7_8)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ValueNetto3_5)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.VATValue3_5)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ValueNetto0)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ValueTaxFree)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ValueNoTax)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.VATSummary)
+                </td>
+            </tr>
+            count++;
+            totalValueBrutto += (decimal)item.ValueBrutto;
+            totalValueNetto23 += (decimal)item.ValueNetto23;
+            totalVATvalue23 += (decimal)item.VATValue23;
+            totalVATSummary += (decimal)item.VATSummary;
+        }
+        <tr class="table-light">
+            <td></td>
+            <td></td>
             <td>
-                @Html.DisplayFor(modelItem => item.Number)
+                Ilość pozycji
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.DeliveryDate)
+                @count
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.DateOfIssue)
+                Razem
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.DocumentNumber)
+                @totalValueBrutto.ToString("0.00")
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Contractor.FullName)
+                @totalValueNetto23.ToString("0.00")
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.ValueBrutto)
+                @totalVATvalue23.ToString("0.00")
             </td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
             <td>
-                @Html.DisplayFor(modelItem => item.ValueNetto23)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.VATValue23)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.ValueNetto7_8)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.VATValue7_8)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.ValueNetto3_5)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.VATValue3_5)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.ValueNetto0)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.ValueTaxFree)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.ValueNoTax)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.VATSummary)
+                @totalVATSummary.ToString("0.00")
             </td>
         </tr>
-}
-    </tbody>
+    </thead>
 </table>
