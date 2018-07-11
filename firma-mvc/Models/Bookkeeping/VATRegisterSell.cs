@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -18,7 +19,7 @@ namespace firma_mvc
         [DisplayName("Numer dokumentu")]
         public string DocumentNumber { get; set; }
         [DisplayName("Kontrahent")]
-        public string Contractor { get; set; }
+        public int ContractorId { get; set; }
 
         public string TaxedSellHeader { get { return "Sprzedaż opodatkowana"; } }
         [DisplayName("Brutto")]
@@ -59,6 +60,9 @@ namespace firma_mvc
         [DisplayName("Rok")]
         public int Year { get; set; }
 
+        [DisplayName("Kontrahent")]
+        [ForeignKey("ContractorId")]
+        public virtual Contractor Contractor { get; set; }
 
         decimal getVATSummary()
         {

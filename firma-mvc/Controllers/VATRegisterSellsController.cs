@@ -22,7 +22,7 @@ namespace firma_mvc.Controllers
         // GET: VATRegisterSells
         public async Task<IActionResult> Index()
         {
-            return View(await _context.VATRegisterSell.ToListAsync());
+            return View(await _context.VATRegisterSell.Include(i=>i.Contractor).ToListAsync());
         }
 
         // GET: VATRegisterSells/Details/5
@@ -46,6 +46,7 @@ namespace firma_mvc.Controllers
         // GET: VATRegisterSells/Create
         public IActionResult Create()
         {
+            ViewData["ContractorId"] = new SelectList(_context.Contractor, "Id", "Name");
             return View();
         }
 
@@ -56,6 +57,7 @@ namespace firma_mvc.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("Id,Number,DeliveryDate,DateOfIssue,DocumentNumber,Contractor,ValueBrutto,ValueNetto23,VATValue23,ValueNetto7_8,VATValue7_8,ValueNetto3_5,VATValue3_5,ValueNetto0,ValueTaxFree,ValueNoTax")] VATRegisterSell vATRegisterSell)
         {
+            ViewData["ContractorId"] = new SelectList(_context.Contractor, "Id", "Name");
             if (ModelState.IsValid)
             {
                 _context.Add(vATRegisterSell);
