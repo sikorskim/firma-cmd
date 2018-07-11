@@ -9,7 +9,7 @@
     \usepackage~^float^~
     \usepackage~^geometry^~
     \usepackage[table]~^xcolor^~
-
+\usepackage~^blindtext,titlefoot^~
 \usepackage~^graphicx^~
 \graphicspath~^ ~^../wwwroot/images/^~ ^~
 \usepackage~^wrapfig^~
@@ -122,6 +122,8 @@
   \noindent
     \textbf~^Fakturę wystawił^~\\
     {0}
+    \vfill
+    \unmarkedfntext~^Wygenerowano za pomocą programu Computerman Firma.^~
     \end~^document^~
   </Issuer>
 </Template>

@@ -7,14 +7,15 @@
 <p>
     <h2>Towary i usługi</h2>
 </p>
-<p>
+@*<p>
     @Html.ActionLink("Dodaj", "Create", null, htmlAttributes: new { @class = "btn btn-outline-success" })
+</p>*@
+
+<p>
+    <button type="button" class="btn btn-outline-success" data-toggle="modal" data-target="#exampleModal">
+        Dodaj
+    </button>
 </p>
-
-
-<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
-    Dodaj w okienku
-</button>
 
 <!-- Modal -->
 <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -33,7 +34,7 @@
     </div>
 </div>
 
-<ul class="nav nav-tabs" id="myTab" role="tablist">
+@*<ul class="nav nav-tabs" id="myTab" role="tablist">
     <li class="nav-item">
         <a class="nav-link active" id="services-tab" data-toggle="tab" href="#services" role="tab" aria-controls="services" aria-selected="true">Usługi</a>
     </li>
@@ -42,7 +43,7 @@
     </li>
 </ul>
 <div class="tab-content" id="myTabContent">
-    <div class="tab-pane fade show active" id="services" role="tabpanel" aria-labelledby="services-tab">
+    <div class="tab-pane fade show active" id="services" role="tabpanel" aria-labelledby="services-tab">*@
         <table class="table table-responsive table-hover">
             <thead class="thead-light">
                 <tr>
@@ -90,9 +91,9 @@
                 }
             </tbody>
         </table>
-    </div>
+    @*</div>
     <div class="tab-pane fade" id="products" role="tabpanel" aria-labelledby="productse-tab">
 
         towary
     </div>
-</div>
+</div>*@
