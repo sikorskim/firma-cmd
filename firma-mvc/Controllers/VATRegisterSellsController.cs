@@ -70,6 +70,7 @@ namespace firma_mvc.Controllers
         // GET: VATRegisterSells/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
+            ViewData["ContractorId"] = new SelectList(_context.Contractor, "Id", "Name");
             if (id == null)
             {
                 return NotFound();
@@ -90,6 +91,7 @@ namespace firma_mvc.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, [Bind("Id,Number,DeliveryDate,DateOfIssue,DocumentNumber,Contractor,ValueBrutto,ValueNetto23,VATValue23,ValueNetto7_8,VATValue7_8,ValueNetto3_5,VATValue3_5,ValueNetto0,ValueTaxFree,ValueNoTax")] VATRegisterSell vATRegisterSell)
         {
+            ViewData["ContractorId"] = new SelectList(_context.Contractor, "Id", "Name");
             if (id != vATRegisterSell.Id)
             {
                 return NotFound();

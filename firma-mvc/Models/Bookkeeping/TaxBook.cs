@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -21,12 +22,7 @@ namespace firma_mvc
         [DisplayName("Nr dowodu księgowego")]
         public string InvoiceNumber { get; set; }
         #region Contractor
-        public string ContractorHeader { get { return "Kontrahent"; } }
-        [DisplayName("Nazwa kontrahenta")]
-        public string Name { get; set; }
-        public string NIP { get; set; }
-        [DisplayName("Adres")]
-        public string Address { get; set; }
+        public int ContractorId { get; set; }
         #endregion
         [DisplayName("Opis zdarzenia gospodarczego")]
         public string Description { get; set; }
@@ -63,5 +59,9 @@ namespace firma_mvc
         #endregion
         [DisplayName("Uwagi")]
         public string Comments { get; set; }
+
+        [DisplayName("Kontrahent")]
+        [ForeignKey("ContractorId")]
+        public virtual Contractor Contractor { get; set; }
     }
 }

@@ -270,13 +270,13 @@ namespace firmamvc.Migrations
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<string>("Address");
-
                     b.Property<decimal?>("BuysSideEffects");
 
                     b.Property<decimal?>("Column15");
 
                     b.Property<string>("Comments");
+
+                    b.Property<int>("ContractorId");
 
                     b.Property<string>("CostDescription");
 
@@ -287,10 +287,6 @@ namespace firmamvc.Migrations
                     b.Property<decimal?>("GoodsBuys");
 
                     b.Property<string>("InvoiceNumber");
-
-                    b.Property<string>("NIP");
-
-                    b.Property<string>("Name");
 
                     b.Property<int>("Number");
 
@@ -305,6 +301,8 @@ namespace firmamvc.Migrations
                     b.Property<decimal?>("SellValue");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("ContractorId");
 
                     b.ToTable("TaxBookItem");
                 });
@@ -601,6 +599,14 @@ namespace firmamvc.Migrations
                     b.HasOne("firma_mvc.VAT", "VAT")
                         .WithMany()
                         .HasForeignKey("VATId")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("firma_mvc.TaxBook", b =>
+                {
+                    b.HasOne("firma_mvc.Contractor", "Contractor")
+                        .WithMany()
+                        .HasForeignKey("ContractorId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 

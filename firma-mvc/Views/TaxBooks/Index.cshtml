@@ -24,13 +24,13 @@
                     @Html.DisplayNameFor(model => model.InvoiceNumber)
                 </th>
                 <th>
-                    @Html.DisplayNameFor(model => model.Name)
+                    @Html.DisplayNameFor(model => model.Contractor.FullName)
                 </th>
                 <th>
-                    @Html.DisplayNameFor(model => model.NIP)
+                    @Html.DisplayNameFor(model => model.Contractor.NIP)
                 </th>
                 <th>
-                    @Html.DisplayNameFor(model => model.Address)
+                    @Html.DisplayNameFor(model => model.Contractor.FullAddress)
                 </th>
                 <th>
                     @Html.DisplayNameFor(model => model.Description)
@@ -80,13 +80,13 @@
                 @Html.DisplayFor(modelItem => item.InvoiceNumber)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Name)
+                @Html.DisplayFor(modelItem => item.Contractor.FullName)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.NIP)
+                @Html.DisplayFor(modelItem => item.Contractor.NIP)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Address)
+                @Html.DisplayFor(modelItem => item.Contractor.FullAddress)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Description)

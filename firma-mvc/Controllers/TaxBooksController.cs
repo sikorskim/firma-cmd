@@ -22,7 +22,7 @@ namespace firma_mvc.Controllers
         // GET: TaxBooks
         public async Task<IActionResult> Index()
         {
-            return View(await _context.TaxBookItem.ToListAsync());
+            return View(await _context.TaxBookItem.Include(i=>i.Contractor).ToListAsync());
         }
 
         // GET: TaxBooks/Details/5
@@ -33,7 +33,7 @@ namespace firma_mvc.Controllers
                 return NotFound();
             }
 
-            var taxBook = await _context.TaxBookItem
+            var taxBook = await _context.TaxBookItem.Include(i=>i.Contractor)
                 .SingleOrDefaultAsync(m => m.Id == id);
             if (taxBook == null)
             {
@@ -46,6 +46,7 @@ namespace firma_mvc.Controllers
         // GET: TaxBooks/Create
         public IActionResult Create()
         {
+            ViewData["ContractorId"] = new SelectList(_context.Contractor, "Id", "Name");
             return View();
         }
 
@@ -54,8 +55,10 @@ namespace firma_mvc.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Number,Date,InvoiceNumber,Name,NIP,Address,Description,SellValue,OtherIncome,GoodsBuys,BuysSideEffects,Salary,OtherCosts,Column15,CostDescription,ResearchCostValue,Comments")] TaxBook taxBook)
+        public async Task<IActionResult> Create([Bind("Id,Number,Date,InvoiceNumber,ContractorId,Description,SellValue,OtherIncome,GoodsBuys,BuysSideEffects,Salary,OtherCosts,Column15,CostDescription,ResearchCostValue,Comments")] TaxBook taxBook)
         {
+            ViewData["ContractorId"] = new SelectList(_context.Contractor, "Id", "Name");
+
             if (ModelState.IsValid)
             {
                 _context.Add(taxBook);
@@ -68,6 +71,8 @@ namespace firma_mvc.Controllers
         // GET: TaxBooks/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
+            ViewData["ContractorId"] = new SelectList(_context.Contractor, "Id", "Name");
+
             if (id == null)
             {
                 return NotFound();
@@ -86,8 +91,10 @@ namespace firma_mvc.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Number,Date,InvoiceNumber,Name,NIP,Address,Description,SellValue,OtherIncome,GoodsBuys,BuysSideEffects,Salary,OtherCosts,Column15,CostDescription,ResearchCostValue,Comments")] TaxBook taxBook)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,Number,Date,InvoiceNumber,ContractorId,Description,SellValue,OtherIncome,GoodsBuys,BuysSideEffects,Salary,OtherCosts,Column15,CostDescription,ResearchCostValue,Comments")] TaxBook taxBook)
         {
+            ViewData["ContractorId"] = new SelectList(_context.Contractor, "Id", "Name");
+
             if (id != taxBook.Id)
             {
                 return NotFound();

@@ -336,6 +336,12 @@ namespace firma_mvc.Controllers
                     sell.VATValue23 += item.TotalVATValue;                    
                 }
             }
+
+            TaxBook taxBook = new TaxBook();
+            //taxBook.
+
+
+
             _context.Add(sell);
             _context.Update(invoice);
             await _context.SaveChangesAsync();
