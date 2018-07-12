@@ -338,10 +338,14 @@ namespace firma_mvc.Controllers
             }
 
             TaxBook taxBook = new TaxBook();
-            
+            taxBook.Number = 1;
+            taxBook.Date = invoice.DateOfIssue;
+            taxBook.InvoiceNumber = invoice.Number;
+            taxBook.ContractorId = invoice.ContractorId;
+            taxBook.SellValue = invoice.TotalValue;
+            taxBook.Description = "sprzedaż";
 
-
-
+            _context.Add(taxBook);
             _context.Add(sell);
             _context.Update(invoice);
             await _context.SaveChangesAsync();

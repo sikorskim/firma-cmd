@@ -33,7 +33,7 @@ namespace firma_mvc
         [DisplayName("Pozostałe przychody")]
         public decimal? OtherIncome { get; set; } = 0;
         [DisplayName("Razem przychód")]
-        public decimal? VATValue { get { return SellValue + OtherIncome; } }
+        public decimal? TotalIncome { get { return SellValue + OtherIncome; } }
         #endregion
         [DisplayName("Zakup towarów handlowych i materiałów wg cen zakupu")]
         public decimal? GoodsBuys { get; set; } = 0;

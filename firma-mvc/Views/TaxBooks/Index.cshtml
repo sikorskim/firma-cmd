@@ -14,57 +14,63 @@
 <table class="table table-responsive table-hover table-bordered">
     <thead class="thead-light">
         <tr>
-                <th>
-                    @Html.DisplayNameFor(model => model.Number)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.Date)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.InvoiceNumber)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.Contractor.FullName)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.Contractor.NIP)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.Contractor.FullAddress)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.Description)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.SellValue)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.OtherIncome)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.GoodsBuys)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.BuysSideEffects)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.Salary)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.OtherCosts)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.Column15)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.CostDescription)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.ResearchCostValue)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.Comments)
-                </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Number)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Date)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.InvoiceNumber)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Contractor.FullName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Contractor.NIP)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Contractor.FullAddress)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Description)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.SellValue)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.OtherIncome)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.TotalIncome)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.GoodsBuys)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.BuysSideEffects)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Salary)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.OtherCosts)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.TotalCosts)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Column15)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CostDescription)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ResearchCostValue)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Comments)
+            </th>
         </tr>
     </thead>
     <tbody>
@@ -98,6 +104,9 @@
                 @Html.DisplayFor(modelItem => item.OtherIncome)
             </td>
             <td>
+                @Html.DisplayFor(modelItem => item.TotalIncome)
+            </td>
+            <td>
                 @Html.DisplayFor(modelItem => item.GoodsBuys)
             </td>
             <td>
@@ -108,6 +117,9 @@
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.OtherCosts)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.TotalCosts)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Column15)
