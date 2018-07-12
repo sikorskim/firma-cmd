@@ -1,0 +1,84 @@
+\documentclass[a4paper,10pt,landscape]{article}
+\usepackage{latexsym}
+\usepackage[polish]{babel}
+\usepackage[utf8]{inputenc} 
+\usepackage[MeX]{polski}
+\usepackage{float}
+\usepackage{geometry}
+\usepackage[table]{xcolor}
+\usepackage{blindtext,titlefoot}
+\usepackage{graphicx}
+\graphicspath{ {../img/} }
+\usepackage{wrapfig}
+\usepackage{multirow}
+\usepackage{array}
+
+\geometry{
+	a4paper,
+	total={257mm, 170mm},
+	left=10mm,
+	top=15mm,
+}
+
+\pagenumbering{gobble}
+\date{}
+
+\begin{document}
+	
+	%\noindent
+	%\begin{wrapfigure}{l}{0.1\textwidth}
+	%	\begin{center}
+	%		\includegraphics[width=0.1\textwidth]{logo.png}
+	%	\end{center}
+	%\end{wrapfigure}
+	
+	\noindent
+	\textbf{\huge{Podatkowa księga przychodów i rozchodów}} \hfill okres 05/2018\\
+	
+	\noindent
+		\textbf{COMPUTERMAN Maciej Sikorski}\\
+		ul. Leśna 15, 63-100 Psarskie\\							
+		NIP 7851769827\\	
+	
+	
+	\begin{table}[H]
+		\scriptsize
+		%\raggedleft
+		\begin{tabular}{| m{0,3cm} | m{1,35cm}  | m{2cm} | p{2cm}| p{2cm} | p{1,2cm} | p{1cm} | p{1cm} | p{1cm} | p{1cm} | p{1cm} | p{1cm} | p{1cm} | p{1cm} | p{0,6cm} | p{1cm} | p{1cm} | p{1cm} |}
+			\hline
+			\multirow{3}{*}{Lp.} & 
+			\multirow{3}{*}{\parbox[t]{1,35cm}{Data zdarzenia gospodarczego}} & 
+			\multirow{3}{*}{\parbox[t]{2,2cm}{Nr dowodu księgowego}} & 
+			\multicolumn{2}{ c |}{Kontrahent} & 
+			Opis zdarzenia gospodarczego & 
+			\multicolumn{3}{ c |}{Przychód} &
+			Zakup towarów handl. i mat. wg cen zakupu &
+			Koszty uboczne zakupu &
+			\multicolumn{4}{ c |}{Wydatki (koszty)} &
+			 \multicolumn{2}{ c |}{\parbox[t]{2cm}{Koszty działalności badawczo-rozwojowej, o których mowa w art. 26e ustawy o podatku dochodowym}} &
+			Uwagi \\ \cline{4-5} \cline{7-9} \cline{12-17}
+			
+			& & & \multirow{2}{*}{\parbox[t]{2cm}{imię i nazwisko (firma)}} & \multirow{2}{*}{adres} & & wartość sprzedanych towarów i usług & pozostałe przychody & razem przychód (7+8) & & & \parbox[t]{1cm}{wynag-\\rodzenia w gotówce i w naturze} & pozostałe wydatki & razem wydatki 12+13 & & opis kosztu & wartość & \\ \cline{7-15} \cline{17-17}
+			& & & & & & zł gr & zł gr & zł gr & zł gr & zł gr & zł gr & zł gr & zł gr & zł gr & & zł gr &\\ 
+			\hline
+			\centering{1} & \centering{2} & \centering{3} & \centering{4} & \centering{5} & \centering{6} & \centering{7} & \centering{8} & \centering{9} & \centering{10} & \centering{11} & \centering{12} & \centering{13} & \centering{14} & \centering{15} & \multicolumn{2}{ c |}{16} & 17 \\ \hline
+			
+			123 & 2018-07-01 &  \parbox[t]{2cm}{FV/2018/07/123\\565458458} & Polski Koncern Naftowy ORLEN S.A. & ul. Chemików 7, 00-001 Płock & sprzedaż & 162,11 & 18,64 & 1462,10 & & & & & & & & & \\ \hline
+			
+		\end{tabular}
+	\end{table}
+
+	
+	\begin{tabular}{ |p{3cm}|l|l|l|l|}
+		\hline
+		
+		\multirow{3}{*}{\parbox[t]{5cm}{wynagr-\\odzenia\\ w\\}} & LB & \multicolumn{2}{ c |}{Kontrahent}  & dupa 3\\ \cline{2-4}
+									& DC & \multirow{2}{*}{dupa 2} & \multirow{2}{*}{dupa 12} & dupa 5\\ \cline{2-2}
+									& DC &  &  & dupa 8\\ \cline{2-3}
+		\hline
+	\end{tabular}
+	
+	
+	
+	\unmarkedfntext{Wygenerowano za pomocą programu Computerman Firma.}
+\end{document}
