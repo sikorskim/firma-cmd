@@ -23,15 +23,15 @@ namespace firma_mvc
         public string DocumentNumber { get; set; }
         public int ContractorId { get; set; }
         [DisplayName("Wartość brutto")]
-        public decimal ValueBrutto { get; set; }
+        public decimal ValueBrutto { get; set; } = 0;
         [DisplayName("Wartość netto")]
-        public decimal ValueNetto { get; set; }
+        public decimal ValueNetto { get; set; } = 0;
         [DisplayName("Kwota podatku podlegającego odliczeniu")]
-        public decimal? TaxDeductibleValue { get; set; }
+        public decimal? TaxDeductibleValue { get; set; } = 0;
         [DisplayName("Wartość zakupów nieopodatkowanych")]
-        public decimal? TaxFreeBuysValue { get; set; }
+        public decimal? TaxFreeBuysValue { get; set; } = 0;
         [DisplayName("Wartość zakupów, od których podatek VAT nie podlega odliczeniu")]
-        public decimal? NoTaxDeductibleBuysValue { get; set; }
+        public decimal? NoTaxDeductibleBuysValue { get; set; } = 0;
 
         [DisplayName("Kontrahent")]
         [ForeignKey("ContractorId")]

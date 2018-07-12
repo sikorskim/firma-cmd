@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Threading.Tasks;
@@ -13,8 +14,10 @@ namespace firma_mvc
         [DisplayName("L.p.")]
         public int Number { get; set; }
         [DisplayName("Data dostawy")]
+        [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
         public DateTime DeliveryDate { get; set; }
         [DisplayName("Data wystawienia")]
+        [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
         public DateTime DateOfIssue { get; set; }
         [DisplayName("Numer dokumentu")]
         public string DocumentNumber { get; set; }

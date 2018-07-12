@@ -338,7 +338,7 @@ namespace firma_mvc.Controllers
             }
 
             TaxBook taxBook = new TaxBook();
-            //taxBook.
+            
 
 
 
