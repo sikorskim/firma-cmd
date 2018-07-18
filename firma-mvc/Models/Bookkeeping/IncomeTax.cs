@@ -12,5 +12,17 @@ namespace firma_mvc
         public int Month { get; set; }
         public bool Paid { get; set; }
         public decimal Value { get; set; }
+
+        // tax scale
+        decimal compute(decimal income, decimal costs)
+        {
+            decimal taxRelief = 556.02M;
+            decimal socialSecurityContribution = 519.28M;
+            decimal healthSecurityRelief = 275.51M;
+            decimal taxRate = 0.18M;
+
+            decimal tax = (income - costs - socialSecurityContribution) * taxRate - taxRelief-healthSecurityRelief;
+            return tax;
+        }
     }
 }
