@@ -1,4 +1,4 @@
-﻿namespace firma_lib
+﻿namespace firma_mvc
 {
     public class SprzedazCtrl
     {

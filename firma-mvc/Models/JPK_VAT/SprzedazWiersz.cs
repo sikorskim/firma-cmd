@@ -4,12 +4,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace firma_lib
+namespace firma_mvc
 {
     class SprzedazWiersz
     {
         public int LpSprzedazy { get; set; }        
-        public int NrKontrahenta { get; set; }
+        public string NrKontrahenta { get; set; }
         public string NazwaKontrahenta { get; set; }
         public string AdresKontrahenta { get; set; }
         public string DowodSprzedazy { get; set; }

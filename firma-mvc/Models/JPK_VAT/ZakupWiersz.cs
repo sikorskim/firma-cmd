@@ -1,11 +1,11 @@
 ﻿using System;
 
-namespace firma_lib
+namespace firma_mvc
 {
     public class ZakupWiersz
     {
         public int LpZakupu { get; set; }        
-        public int NrDostawcy { get; set; }
+        public string NrDostawcy { get; set; }
         public string NazwaDostawcy { get; set; }
         public string AdresDostawcy { get; set; }
         public string DowodZakupu { get; set; }

@@ -1,13 +1,16 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace firma_lib
+﻿namespace firma_mvc
 {
     public class Podmiot
     {
-        public IdentyfikatorPodmiotu IdentyfikatorPodmiotu { get; set; }  
+        public string NIP { get; set; }
+        public string PelnaNazwa { get; set; }
+        public string Email { get; set; }
+
+        public Podmiot(Company company)
+        {
+            NIP = company.NIP;
+            PelnaNazwa = company.FullName;
+            Email = company.Email;
+        }
     }
 }

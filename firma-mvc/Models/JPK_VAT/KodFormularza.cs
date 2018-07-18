@@ -1,8 +1,8 @@
-﻿namespace firma_lib
+﻿namespace firma_mvc
 {
     public class KodFormularza
     {
-        public string KodSystemowy { get; set; }
-        public string WersjaSchemy { get; set; }
+        public string KodSystemowy { get { return "JPK_VAT (3)"; } }
+        public string WersjaSchemy { get { return "1-1"; } }
     }
 }
