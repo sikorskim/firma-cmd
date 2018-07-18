@@ -14,7 +14,7 @@ namespace firma_mvc
         public decimal Value { get; set; }
 
         // tax scale
-        decimal compute(decimal income, decimal costs)
+        public decimal compute(decimal income, decimal costs)
         {
             decimal taxRelief = 556.02M;
             decimal socialSecurityContribution = 519.28M;
@@ -22,6 +22,7 @@ namespace firma_mvc
             decimal taxRate = 0.18M;
 
             decimal tax = (income - costs - socialSecurityContribution) * taxRate - taxRelief-healthSecurityRelief;
+            tax = Math.Round(tax);
             return tax;
         }
     }

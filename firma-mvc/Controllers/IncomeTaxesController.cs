@@ -46,7 +46,17 @@ namespace firma_mvc.Controllers
         // GET: IncomeTaxes/Create
         public IActionResult Create()
         {
-            return View();
+            IncomeTax incomeTax = new IncomeTax();
+            DateTime currDate = DateTime.Now;
+            incomeTax.Year = currDate.Year;
+            incomeTax.Month = currDate.Month - 1;
+            incomeTax.Paid = false;
+
+            decimal income = (decimal)_context.VATRegisterSell.Where(p=>p.Month==incomeTax.Month && p.Year==incomeTax.Year).Sum(p=>p.ValueNetto23);
+            decimal costs = (decimal)_context.VATRegisterBuy.Where(p => p.Month == incomeTax.Month && p.Year == incomeTax.Year).Sum(p => p.ValueNetto);
+            incomeTax.Value = incomeTax.compute(income, costs);
+
+            return View(incomeTax);
         }
 
         // POST: IncomeTaxes/Create

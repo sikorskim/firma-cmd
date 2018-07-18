@@ -90,6 +90,24 @@ namespace firmamvc.Migrations
                     b.ToTable("FixedAssets");
                 });
 
+            modelBuilder.Entity("firma_mvc.IncomeTax", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<int>("Month");
+
+                    b.Property<bool>("Paid");
+
+                    b.Property<decimal>("Value");
+
+                    b.Property<int>("Year");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("IncomeTax");
+                });
+
             modelBuilder.Entity("firma_mvc.Invoice", b =>
                 {
                     b.Property<int>("Id")
