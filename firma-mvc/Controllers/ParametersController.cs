@@ -54,7 +54,7 @@ namespace firma_mvc.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Name,Description")] Parameter parameter)
+        public async Task<IActionResult> Create([Bind("Id,Name,Description,Value")] Parameter parameter)
         {
             if (ModelState.IsValid)
             {
@@ -86,7 +86,7 @@ namespace firma_mvc.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Name,Description")] Parameter parameter)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,Name,Description,Value")] Parameter parameter)
         {
             if (id != parameter.Id)
             {

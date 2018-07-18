@@ -246,6 +246,8 @@ namespace firmamvc.Migrations
 
                     b.Property<string>("Name");
 
+                    b.Property<string>("Value");
+
                     b.HasKey("Id");
 
                     b.ToTable("Parameter");

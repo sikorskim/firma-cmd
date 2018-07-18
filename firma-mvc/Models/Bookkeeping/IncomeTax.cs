@@ -10,6 +10,7 @@ namespace firma_mvc
         public int Id { get; set; }
         public int Year { get; set; }
         public int Month { get; set; }
-
+        public bool Paid { get; set; }
+        public decimal Value { get; set; }
     }
 }
