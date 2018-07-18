@@ -1,4 +1,5 @@
-﻿using System;
+﻿using firma_mvc.Data;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -13,12 +14,14 @@ namespace firma_mvc
         public bool Paid { get; set; }
         public decimal Value { get; set; }
 
-        public decimal compute(decimal owing, decimal charged)
+        public decimal compute(ApplicationDbContext _context)
         {
+            decimal owing = (decimal)_context.VATRegisterSell.Where(p => p.Month == Month && p.Year == Year).Sum(p => p.VATValue23 + p.VATValue7_8 + p.VATValue3_5);
+            decimal charged = (decimal)_context.VATRegisterBuy.Where(p => p.Month == Month && p.Year == Year).Sum(p => p.TaxDeductibleValue);
             owing = Math.Round(owing);
             charged = Math.Round(charged);
-            
-            return owing-charged;
+            decimal toPay = owing - charged;
+            return toPay;
         }
     }
 }

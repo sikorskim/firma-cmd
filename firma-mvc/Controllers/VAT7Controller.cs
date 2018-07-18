@@ -51,10 +51,7 @@ namespace firma_mvc.Controllers
             vat7.Year = currDate.Year;
             vat7.Month = currDate.Month - 1;
             vat7.Paid = false;
-
-            decimal owing = (decimal)_context.VATRegisterSell.Where(p => p.Month == vat7.Month && p.Year == vat7.Year).Sum(p => p.VATValue23+ p.VATValue7_8+p.VATValue3_5);
-            decimal charged = (decimal)_context.VATRegisterBuy.Where(p => p.Month == vat7.Month && p.Year == vat7.Year).Sum(p => p.TaxDeductibleValue);
-            vat7.Value = vat7.compute(owing, charged);
+            vat7.Value = vat7.compute(_context);
 
             return View(vat7);
         }
