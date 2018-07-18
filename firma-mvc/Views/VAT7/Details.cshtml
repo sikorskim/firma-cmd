@@ -1,0 +1,42 @@
+﻿@model firma_mvc.VAT7
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>VAT7</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Year)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Year)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Month)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Month)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Paid)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Paid)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Value)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Value)
+        </dd>
+    </dl>
+</div>
+<div>
+    <a asp-action="Edit" asp-route-id="@Model.Id">Edit</a> |
+    <a asp-action="Index">Back to List</a>
+</div>

@@ -353,6 +353,24 @@ namespace firmamvc.Migrations
                     b.ToTable("VAT");
                 });
 
+            modelBuilder.Entity("firma_mvc.VAT7", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<int>("Month");
+
+                    b.Property<bool>("Paid");
+
+                    b.Property<decimal>("Value");
+
+                    b.Property<int>("Year");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("VAT7");
+                });
+
             modelBuilder.Entity("firma_mvc.VATRegisterBuy", b =>
                 {
                     b.Property<int>("Id")

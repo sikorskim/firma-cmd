@@ -14,6 +14,7 @@ namespace firma_mvc
         public decimal Value { get; set; }
 
         // tax scale
+        // dane z księgi?
         public decimal compute(decimal income, decimal costs)
         {
             decimal taxRelief = 556.02M;

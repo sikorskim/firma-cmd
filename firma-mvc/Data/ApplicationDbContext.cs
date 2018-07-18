@@ -43,5 +43,6 @@ namespace firma_mvc.Data
         public DbSet<VATRegisterSell> VATRegisterSell { get; set; }
         public DbSet<VATRegisterBuy> VATRegisterBuy { get; set; }
         public DbSet<IncomeTax> IncomeTax { get; set; }
+        public DbSet<VAT7> VAT7 { get; set; }
     }
 }
