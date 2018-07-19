@@ -4,6 +4,18 @@
     <h2>Generator JPK</h2>
 </p>
 
+@{
+    if (!string.IsNullOrEmpty(ViewBag.Info))
+    {
+        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                @ViewBag.Info
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+    }
+}
+
 <hr />
 <div class="row">
     <div class="col-md-1">
@@ -25,6 +37,6 @@
                 <input type="submit" value="Generuj" class="btn btn-outline-success" />
             </div>
         </form>
-            @*@Html.ActionLink("Generuj", "Generate", new { month = Model.Month, year = Model.Year, jpkTypeCode = Model.JPKTypeId }, htmlAttributes: new { @class = "btn btn-outline-dark" })*@
+        @*@Html.ActionLink("Generuj", "Generate", new { month = Model.Month, year = Model.Year, jpkTypeCode = Model.JPKTypeId }, htmlAttributes: new { @class = "btn btn-outline-dark" })*@
     </div>
 </div>

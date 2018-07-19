@@ -22,9 +22,9 @@ namespace firma_mvc
         public Naglowek Naglowek { get; set; }
         public Podmiot Podmiot { get; set; }
         List<SprzedazWiersz> SprzedazWierszList { get; set; }
-        SprzedazCtrl SprzedazCtrl { get; set; }
+        public SprzedazCtrl SprzedazCtrl { get; set; }
         List<ZakupWiersz> ZakupWierszList { get; set; }
-        ZakupCtrl ZakupCtrl { get; set; }
+        public ZakupCtrl ZakupCtrl { get; set; }
 
         public JPK_VAT(int month, int year, ApplicationDbContext _context)
         {
