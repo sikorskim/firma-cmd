@@ -54,19 +54,6 @@ namespace firma_mvc.Controllers
             return View(jpkViewModel);
         }
 
-        // GET: JPK/Generate
-        public async Task<IActionResult> Generate(int jpkTypeCode, int month, int year)
-        {
-            if (jpkTypeCode == 1)
-            {
-                JPK_VAT jpk_vat = new JPK_VAT(month, year, _context);
-                string xmlFilename = jpk_vat.generate();
-                //await Task.Delay(1000);
-                return RedirectToAction("GetXmlFile", new { filename = xmlFilename });
-            }
-            return View();
-        }
-
         public IActionResult GetXmlFile(string filename)
         {
             const string contentType = "application/xml";
