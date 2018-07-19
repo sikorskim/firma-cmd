@@ -57,7 +57,7 @@ namespace firma_mvc
                 SprzedazCtrl.PodatekNalezny = Tools.decimalRound(SprzedazCtrl.PodatekNalezny);
                 i++;
             }
-            SprzedazCtrl.LiczbaWierszySprzedazy = i;
+            SprzedazCtrl.LiczbaWierszySprzedazy = sprzedaz.Count();
 
             i = 1;
             var zakupy = _context.VATRegisterBuy.Include(j => j.Contractor).Where(p => p.Month == month && p.Year == year);
@@ -81,7 +81,7 @@ namespace firma_mvc
                 ZakupCtrl.PodatekNaliczony = Tools.decimalRound(ZakupCtrl.PodatekNaliczony);
                 i++;
             }
-            ZakupCtrl.LiczbaWierszyZakupow = i;
+            ZakupCtrl.LiczbaWierszyZakupow = zakupy.Count();
         }
 
         public string generate()
