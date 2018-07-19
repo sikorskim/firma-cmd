@@ -18,36 +18,11 @@ namespace firma_mvc.Controllers
             _context = context;
         }
 
-        Dictionary<int, string> months = new Dictionary<int, string>()
-            {
-                { 1, "styczeń" },
-                { 2, "luty" },
-                { 3, "marzec"},
-                {4, "kwiecień" },
-                {5, "maj" },
-                {6,"czerwiec" },
-                {7,"lipiec" },
-                {8,"sierpień" },
-                {9,"wrzesień" },
-                {10, "październik" },
-                {11, "listopad" },
-                {12, "grudzień" }
-            };
-
-        List<int> years = new List<int>()
-            { 2018 };
-
-        Dictionary<int, string> jpkType = new Dictionary<int, string>()
-            {
-                {1,"JPK_VAT" },
-            {2, "JPK Księga" }
-            };
-
         public IActionResult Index()
         {
-            ViewData["Month"] = new SelectList(months, "Key", "Value");
-            ViewData["Year"] = new SelectList(years);
-            ViewData["JPKType"] = new SelectList(jpkType, "Key", "Value");
+            ViewData["Month"] = new SelectList(Tools.getMonthsDictionary(), "Key", "Value");
+            ViewData["Year"] = new SelectList(Tools.getYearsList());
+            ViewData["JPKType"] = new SelectList(Tools.getJPKtypes(), "Key", "Value");
             return View();
         }
 
@@ -61,10 +36,6 @@ namespace firma_mvc.Controllers
                 //await Task.Delay(1000);
                 return RedirectToAction("GetXmlFile", new { filename = xmlFilename });
             }
-
-            ViewData["Month"] = new SelectList(months, "Key", "Value");
-            ViewData["Year"] = new SelectList(years);
-            ViewData["JPKType"] = new SelectList(jpkType, "Key", "Value");
             return View();
         }
 

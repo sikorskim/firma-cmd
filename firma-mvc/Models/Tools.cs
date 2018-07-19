@@ -42,5 +42,45 @@ namespace firma_mvc
                 }
             }
         }
+
+        public static Dictionary<int, string> getMonthsDictionary()
+        {
+            Dictionary<int, string> months = new Dictionary<int, string>()
+            {
+                { 1, "styczeń" },
+                { 2, "luty" },
+                { 3, "marzec"},
+                {4, "kwiecień" },
+                {5, "maj" },
+                {6,"czerwiec" },
+                {7,"lipiec" },
+                {8,"sierpień" },
+                {9,"wrzesień" },
+                {10, "październik" },
+                {11, "listopad" },
+                {12, "grudzień" }
+            };
+
+            return months;
+        }
+
+        public static List<int> getYearsList()
+        {
+            List<int> years = new List<int>()
+            { 2018 };
+            return years;
+        }
+
+        public static Dictionary<int, string> getJPKtypes()
+        {
+            Dictionary<int, string> jpkTypes = new Dictionary<int, string>()
+            {
+                {1,"JPK_VAT" },
+            {2, "JPK_Ksiega" },
+                { 3, "JPK_Faktura"}
+            };
+
+            return jpkTypes;
+        }
     }
 }
