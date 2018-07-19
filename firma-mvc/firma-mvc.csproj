@@ -25,7 +25,4 @@
       <Pack>$(IncludeRazorContentInPack)</Pack>
     </Content>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Views\JPK\" />
-  </ItemGroup>
 </Project>

@@ -197,7 +197,7 @@ namespace firma_mvc
 
             string time = DateTime.Now.ToFileTime().ToString();
 
-            string outputFile = getHash(sellerBuyer + time);
+            string outputFile = Tools.getHash(sellerBuyer + time);
             File.WriteAllText("tmp/"+outputFile + ".tex", output);
 
             Process process = new Process();
@@ -211,35 +211,6 @@ namespace firma_mvc
             process.Dispose();
             return outputFile+".pdf";
         }
-
-        string getHash(string input)
-        {
-            string hashAlgo = "SHA256";
-            HashAlgorithm algo = HashAlgorithm.Create(hashAlgo);
-            byte[] hashBytes = algo.ComputeHash(Encoding.UTF8.GetBytes(input));
-
-            StringBuilder sb = new StringBuilder();
-            foreach (byte b in hashBytes)
-            {
-                sb.Append(b.ToString("X2"));
-            }
-            string computedHash = sb.ToString();
-
-            return computedHash;
-        }
-
-       public static void deleteTempFiles(string filename)
-        {
-            DirectoryInfo dir = new DirectoryInfo("tmp");
-            foreach (FileInfo file in dir.GetFiles())
-            {
-                if (file.Name.Contains(filename))
-                {
-                    file.Delete();
-                }
-            }
-        }
-
 
         string getValueInWords(decimal d)
         {

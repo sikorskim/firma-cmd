@@ -47,7 +47,7 @@ namespace firma_mvc.Controllers
                 {
                     FileDownloadName = $"out.pdf"
                 };
-                Invoice.deleteTempFiles(filename.Substring(4,64));
+                Tools.deleteTempFiles(filename.Substring(4,64));
                 return result;
             }
             catch (FileNotFoundException e)
