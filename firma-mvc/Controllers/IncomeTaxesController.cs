@@ -68,6 +68,12 @@ namespace firma_mvc.Controllers
         {
             if (ModelState.IsValid)
             {
+                if (incomeTax.Value == 0)
+                {
+                    decimal income = (decimal)_context.VATRegisterSell.Where(p => p.Month == incomeTax.Month && p.Year == incomeTax.Year).Sum(p => p.ValueNetto23);
+                    decimal costs = (decimal)_context.VATRegisterBuy.Where(p => p.Month == incomeTax.Month && p.Year == incomeTax.Year).Sum(p => p.ValueNetto);
+                    incomeTax.Value = incomeTax.compute(income, costs);
+                }
                 _context.Add(incomeTax);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));

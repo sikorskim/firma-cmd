@@ -65,10 +65,13 @@ namespace firma_mvc.Controllers
         {
             if (ModelState.IsValid)
             {
+                if (vAT7.Value == 0)
+                    vAT7.Value = vAT7.compute(_context);
+            }
                 _context.Add(vAT7);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
-            }
+            
             return View(vAT7);
         }
 
