@@ -22,6 +22,8 @@ namespace firma_mvc.Controllers
         // GET: IncomeTaxes
         public async Task<IActionResult> Index()
         {
+            ViewData["Month"] = new SelectList(Tools.getMonthsDictionary(), "Key", "Value");
+            ViewData["Year"] = new SelectList(Tools.getYearsList());
             return View(await _context.IncomeTax.ToListAsync());
         }
 
@@ -46,6 +48,9 @@ namespace firma_mvc.Controllers
         // GET: IncomeTaxes/Create
         public IActionResult Create()
         {
+            ViewData["Month"] = new SelectList(Tools.getMonthsDictionary(), "Key", "Value");
+            ViewData["Year"] = new SelectList(Tools.getYearsList());
+
             IncomeTax incomeTax = new IncomeTax();
             incomeTax.Year = DateTime.Now.Year;
             incomeTax.Month = DateTime.Now.Month - 1;
@@ -59,8 +64,11 @@ namespace firma_mvc.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         //public async Task<IActionResult> Create([Bind("Id,Year,Month,Paid,Value,Income,Loss,IncomeIncr,SocialSecContr,SocialSecContrIncr,HealthSec,HealthSecIncr")] IncomeTax incomeTax)
-            public async Task<IActionResult> Create([Bind("Id,Year,Month")] IncomeTax incomeTax)
+        public async Task<IActionResult> Create([Bind("Id,Year,Month")] IncomeTax incomeTax)
         {
+            ViewData["Month"] = new SelectList(Tools.getMonthsDictionary(), "Key", "Value");
+            ViewData["Year"] = new SelectList(Tools.getYearsList());
+
             if (ModelState.IsValid)
             {
                 incomeTax = incomeTax.compute(_context);

@@ -7,11 +7,38 @@
 <p>
     <h2>Zaliczka na podatek dochodowy</h2>
 </p>
-<p>
-    <a asp-action="Create">Dodaj</a>
-</p>
-<table class="table">
-    <thead>
+@*<p>
+    <a asp-action="Create" class="btn btn-outline-success">Dodaj</a>
+</p>*@
+
+<div class="my-2">
+    <button type="button" class="btn btn-outline-success" data-toggle="modal" data-target="#exampleModal">
+        Oblicz zaliczkę
+    </button>
+
+    <!-- Modal -->
+    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Oblicz zaliczkę</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="container-fluid">
+                        @await Html.PartialAsync("CreatePartial",new IncomeTax(DateTime.Now.Year, DateTime.Now.Month-1))
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<table class="table table-responsive table-hover">
+    <thead class="thead-light">
         <tr>
             <th>
                 @Html.DisplayNameFor(model => model.Month)
@@ -55,7 +82,7 @@
         }
         @foreach (var item in Model)
         {
-            <tr>
+            <tr onclick="location.href = '@Url.Action("Details", "IncomeTaxes",new { id = item.Id})'">
                 <td>
                     @Html.DisplayFor(modelItem => item.Month)
                 </td>
@@ -93,7 +120,7 @@
             totalHealthSec += (decimal)item.HealthSec;
             totalTaxValue += (decimal)item.Value;
         }
-        <tr>
+        <tr class="table-active">
             <td></td>
             <td>
                 @Tools.decimalRound(totalIncome)

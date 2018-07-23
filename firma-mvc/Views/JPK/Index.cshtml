@@ -9,14 +9,7 @@
             <label class="control-label">Typ JPK</label>
             <select class="form-control" asp-items="ViewBag.JPKType"></select>
         </div>
-        <div class="form-group">
-            <label class="control-label">Rok</label>
-            <select class="form-control" asp-items="ViewBag.Year"></select>
-        </div>
-        <div class="form-group">
-            <label class="control-label">Miesiąc</label>
-            <select class="form-control" asp-items="ViewBag.Month"></select>
-        </div>
+
         @Html.ActionLink("Generuj", "Generate", new { month=6, year=2018, jpkTypeCode=1 }, htmlAttributes: new { @class = "btn btn-outline-dark" })
     </div>
 </div>

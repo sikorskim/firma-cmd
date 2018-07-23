@@ -33,6 +33,15 @@ namespace firma_mvc
         [DisplayName("Ubezpieczenie zdrowotne narastająco")]
         public decimal HealthSecIncr { get; set; }
 
+        public IncomeTax()
+        { }
+
+        public IncomeTax(int year, int month)
+        {
+            Year = year;
+            Month = month;
+        }
+
         // tax scale
         // dane z księgi?
         public IncomeTax compute(ApplicationDbContext _context)
