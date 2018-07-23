@@ -14,16 +14,7 @@
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.Year)
-            </th>
-            <th>
                 @Html.DisplayNameFor(model => model.Month)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Paid)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Value)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.Income)
@@ -46,46 +37,83 @@
             <th>
                 @Html.DisplayNameFor(model => model.HealthSecIncr)
             </th>
-            <th></th>
+            <th>
+                @Html.DisplayNameFor(model => model.Value)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Paid)
+            </th>
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model) {
+        @{
+            decimal totalIncome = 0;
+            decimal totalLoss = 0;
+            decimal totalSocialSecContr = 0;
+            decimal totalHealthSec = 0;
+            decimal totalTaxValue = 0;
+        }
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Month)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Income)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Loss)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.IncomeIncr)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.SocialSecContr)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.SocialSecContrIncr)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.HealthSec)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.HealthSecIncr)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Value)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Paid)
+                </td>
+            </tr>
+            totalIncome += (decimal)item.Income;
+            totalLoss += (decimal)item.Loss;
+            totalSocialSecContr += (decimal)item.SocialSecContr;
+            totalHealthSec += (decimal)item.HealthSec;
+            totalTaxValue += (decimal)item.Value;
+        }
         <tr>
+            <td></td>
             <td>
-                @Html.DisplayFor(modelItem => item.Year)
+                @Tools.decimalRound(totalIncome)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Month)
+                @Tools.decimalRound(totalLoss)
             </td>
+            <td></td>
             <td>
-                @Html.DisplayFor(modelItem => item.Paid)
+                @Tools.decimalRound(totalSocialSecContr)
             </td>
+            <td></td>
             <td>
-                @Html.DisplayFor(modelItem => item.Value)
+                @Tools.decimalRound(totalHealthSec)
             </td>
+            <td></td>
             <td>
-                @Html.DisplayFor(modelItem => item.Income)
+                @Tools.decimalRound(totalTaxValue)
             </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Loss)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.IncomeIncr)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.SocialSecContr)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.SocialSecContrIncr)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.HealthSec)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.HealthSecIncr)
-            </td>
+            <td></td>
         </tr>
-}
     </tbody>
 </table>
