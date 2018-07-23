@@ -47,14 +47,8 @@ namespace firma_mvc.Controllers
         public IActionResult Create()
         {
             IncomeTax incomeTax = new IncomeTax();
-            DateTime currDate = DateTime.Now;
-            incomeTax.Year = currDate.Year;
-            incomeTax.Month = currDate.Month - 1;
-            incomeTax.Paid = false;
-
-            decimal income = (decimal)_context.VATRegisterSell.Where(p=>p.Month==incomeTax.Month && p.Year==incomeTax.Year).Sum(p=>p.ValueNetto23);
-            decimal costs = (decimal)_context.VATRegisterBuy.Where(p => p.Month == incomeTax.Month && p.Year == incomeTax.Year).Sum(p => p.ValueNetto);
-            incomeTax.Value = incomeTax.compute(income, costs);
+            incomeTax.Year = DateTime.Now.Year;
+            incomeTax.Month = DateTime.Now.Month - 1;
 
             return View(incomeTax);
         }
@@ -64,16 +58,12 @@ namespace firma_mvc.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Year,Month,Paid,Value")] IncomeTax incomeTax)
+        //public async Task<IActionResult> Create([Bind("Id,Year,Month,Paid,Value,Income,Loss,IncomeIncr,SocialSecContr,SocialSecContrIncr,HealthSec,HealthSecIncr")] IncomeTax incomeTax)
+            public async Task<IActionResult> Create([Bind("Id,Year,Month")] IncomeTax incomeTax)
         {
             if (ModelState.IsValid)
             {
-                if (incomeTax.Value == 0)
-                {
-                    decimal income = (decimal)_context.VATRegisterSell.Where(p => p.Month == incomeTax.Month && p.Year == incomeTax.Year).Sum(p => p.ValueNetto23);
-                    decimal costs = (decimal)_context.VATRegisterBuy.Where(p => p.Month == incomeTax.Month && p.Year == incomeTax.Year).Sum(p => p.ValueNetto);
-                    incomeTax.Value = incomeTax.compute(income, costs);
-                }
+                incomeTax = incomeTax.compute(_context);
                 _context.Add(incomeTax);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
@@ -102,7 +92,7 @@ namespace firma_mvc.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Year,Month,Paid,Value")] IncomeTax incomeTax)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,Year,Month,Paid,Value,Income,Loss,IncomeIncr,SocialSecContr,SocialSecContrIncr,HealthSec,HealthSecIncr")] IncomeTax incomeTax)
         {
             if (id != incomeTax.Id)
             {

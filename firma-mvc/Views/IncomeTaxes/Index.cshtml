@@ -4,10 +4,11 @@
     ViewData["Title"] = "Index";
 }
 
-<h2>Index</h2>
-
 <p>
-    <a asp-action="Create">Create New</a>
+    <h2>Zaliczka na podatek dochodowy</h2>
+</p>
+<p>
+    <a asp-action="Create">Dodaj</a>
 </p>
 <table class="table">
     <thead>
@@ -23,6 +24,27 @@
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.Value)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Income)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Loss)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.IncomeIncr)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.SocialSecContr)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.SocialSecContrIncr)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.HealthSec)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.HealthSecIncr)
             </th>
             <th></th>
         </tr>
@@ -43,9 +65,25 @@
                 @Html.DisplayFor(modelItem => item.Value)
             </td>
             <td>
-                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                @Html.DisplayFor(modelItem => item.Income)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Loss)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.IncomeIncr)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.SocialSecContr)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.SocialSecContrIncr)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.HealthSec)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.HealthSecIncr)
             </td>
         </tr>
 }

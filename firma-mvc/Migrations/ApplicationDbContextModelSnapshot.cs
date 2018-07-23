@@ -95,9 +95,23 @@ namespace firmamvc.Migrations
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd();
 
+                    b.Property<decimal>("HealthSec");
+
+                    b.Property<decimal>("HealthSecIncr");
+
+                    b.Property<decimal>("Income");
+
+                    b.Property<decimal>("IncomeIncr");
+
+                    b.Property<decimal>("Loss");
+
                     b.Property<int>("Month");
 
                     b.Property<bool>("Paid");
+
+                    b.Property<decimal>("SocialSecContr");
+
+                    b.Property<decimal>("SocialSecContrIncr");
 
                     b.Property<decimal>("Value");
 
