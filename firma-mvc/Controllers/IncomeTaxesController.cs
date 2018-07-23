@@ -55,7 +55,7 @@ namespace firma_mvc.Controllers
             incomeTax.Year = DateTime.Now.Year;
             incomeTax.Month = DateTime.Now.Month - 1;
 
-            return View(incomeTax);
+            return PartialView(incomeTax);
         }
 
         // POST: IncomeTaxes/Create
@@ -76,7 +76,7 @@ namespace firma_mvc.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            return View(incomeTax);
+            return PartialView(incomeTax);
         }
 
         // GET: IncomeTaxes/Edit/5

@@ -1,0 +1,25 @@
+﻿@model firma_mvc.IncomeTax
+
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Create">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label class="control-label">Rok</label>                
+                <select asp-for="Year" class="form-control" asp-items="ViewBag.Year"></select>
+            </div>
+            <div class="form-group">
+                <label class="control-label">Miesiąc</label>                
+                <select asp-for="Month" class="form-control" asp-items="ViewBag.Month"></select>
+            </div>
+            <div class="row col">
+                <div class="form-group">
+                    <input type="submit" value="Oblicz" class="btn btn-outline-success" />
+                </div>
+                <div class="form-group col">
+                    <button type="button" class="btn btn-outline-secondary" data-dismiss="modal">Anuluj</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
