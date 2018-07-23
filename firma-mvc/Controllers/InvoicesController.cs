@@ -24,6 +24,10 @@ namespace firma_mvc.Controllers
         // GET: Invoice
         public async Task<IActionResult> Index(string searchQuery)
         {
+            ViewData["Month"] = new SelectList(Tools.getMonthsDictionary(), "Key", "Value");
+            ViewData["Year"] = new SelectList(Tools.getYearsList());
+            ViewData["Status"] = new SelectList(_context.InvoiceStatus.ToList(), "Id", "Name");
+
             var applicationDbContext = _context.Invoice.Include(i => i.Contractor).Include(i => i.PaymentMethod).Include(i => i.InvoiceItems).Include(i => i.InvoiceStatus);
 
             if (!String.IsNullOrEmpty(searchQuery))

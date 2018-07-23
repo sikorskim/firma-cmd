@@ -6,7 +6,7 @@
 
 <div class="container-fluid">
     <div class="row">
-    @await Html.PartialAsync("SideMenuPartial")
+        @await Html.PartialAsync("SideMenuPartial")
         <div class="col-10">
             <p>
                 <h2>Faktury</h2>
@@ -15,27 +15,13 @@
                 <div class="form-row align-items-center">
 
                     <div class="col-sm-1">
-                        <select class="custom-select" id="inlineFormCustomSelectPref">
-                            <option selected>Miesiąc</option>
-                            <option value="1">styczeń</option>
-                            <option value="2">luty</option>
-                            <option value="3">marzec</option>
-                        </select>
+                        <select class="custom-select" asp-items="ViewBag.Year"></select>
                     </div>
                     <div class="col-sm-1">
-                        <select class="custom-select" id="inlineFormCustomSelectPref">
-                            <option selected>Rok</option>
-                            <option value="1">2018</option>
-                        </select>
+                        <select class="custom-select" asp-items="ViewBag.Month"></select>
                     </div>
-
                     <div class="col-sm-1">
-                        <select class="custom-select" id="inlineFormCustomSelectPref">
-                            <option selected>Status</option>
-                            <option value="1">One</option>
-                            <option value="2">Two</option>
-                            <option value="3">Three</option>
-                        </select>
+                        <select class="custom-select" asp-items="ViewBag.Status"></select>
                     </div>
 
                     <div class="col-sm-3 my-1">
@@ -77,41 +63,41 @@
                     }
                     @foreach (var item in Model)
                     {
-                    <tr class="table-light" onclick="location.href = '@Url.Action("Details", "Invoices",new { id = item.Id})'">
-                        <td>
-                            @i
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.Number)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.DateOfIssue)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.Contractor.Name)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.Contractor.NIP)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.TotalValue)
-                        </td>
-                        <td>
-                            @{
-                                string statusName = item.InvoiceStatus.Name;
-                                string badgeStyle = string.Empty;
-                                if (statusName == "nowa")
-                                {
-                                    badgeStyle = "badge-primary";
+                        <tr class="table-light" onclick="location.href = '@Url.Action("Details", "Invoices",new { id = item.Id})'">
+                            <td>
+                                @i
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Number)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.DateOfIssue)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Contractor.Name)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Contractor.NIP)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.TotalValue)
+                            </td>
+                            <td>
+                                @{
+                                    string statusName = item.InvoiceStatus.Name;
+                                    string badgeStyle = string.Empty;
+                                    if (statusName == "nowa")
+                                    {
+                                        badgeStyle = "badge-primary";
+                                    }
+                                    else if (statusName == "zatwierdzona")
+                                    {
+                                        badgeStyle = "badge-success";
+                                    }
                                 }
-                                else if (statusName == "zatwierdzona")
-                                {
-                                    badgeStyle = "badge-success";
-                                }
-                            }
-                            <span class="badge @badgeStyle">@statusName</span>
-                        </td>
-                    </tr>
+                                <span class="badge @badgeStyle">@statusName</span>
+                            </td>
+                        </tr>
                         i++;
                     }
                 </tbody>
