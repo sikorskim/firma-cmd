@@ -63,6 +63,7 @@ namespace firma_mvc.Controllers
         {
             if (ModelState.IsValid)
             {
+                item.Price = Tools.decimalRound(item.Price);
                 _context.Add(item);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
