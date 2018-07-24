@@ -22,6 +22,11 @@ namespace firma_mvc.Controllers
         // GET: TaxBooks
         public async Task<IActionResult> Index()
         {
+            ViewData["ContractorId"] = new SelectList(_context.Contractor, "Id", "Name");
+            TaxBook taxBook = new TaxBook();
+            taxBook.Number = 2;
+            taxBook.Date = DateTime.Now.Date;
+            ViewData["TaxBook"] = taxBook;
             return View(await _context.TaxBookItem.Include(i=>i.Contractor).ToListAsync());
         }
 
@@ -44,10 +49,10 @@ namespace firma_mvc.Controllers
         }
 
         // GET: TaxBooks/Create
-        public IActionResult Create()
+        public IActionResult CreatePartial()
         {
             ViewData["ContractorId"] = new SelectList(_context.Contractor, "Id", "Name");
-            return View();
+            return PartialView();
         }
 
         // POST: TaxBooks/Create

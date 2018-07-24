@@ -22,6 +22,7 @@ namespace firma_mvc
         [DisplayName("Nr dowodu księgowego")]
         public string InvoiceNumber { get; set; }
         #region Contractor
+        [DisplayName("Kontrahent")]
         public int ContractorId { get; set; }
         #endregion
         [DisplayName("Opis zdarzenia gospodarczego")]
