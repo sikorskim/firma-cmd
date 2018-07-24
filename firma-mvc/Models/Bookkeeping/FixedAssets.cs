@@ -1,4 +1,5 @@
-﻿using System;
+﻿using firma_mvc.Data;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
@@ -33,5 +34,22 @@ namespace firma_mvc
         public DateTime? LiquidationDate { get; set; }
         [DisplayName("Przyczyna likwidacji")]
         public string LiquidationReason { get; set; }
+
+        public string getNumber(ApplicationDbContext _context)
+        {
+            string num;
+            try
+            {
+                num = _context.FixedAssets.Last().Identfier;
+                int i = Int32.Parse(num.Substring(num.IndexOf('-') + 1, num.Length - num.IndexOf('-') - 1));
+                i++;
+                num = num.Substring(0, num.IndexOf('-') + 1) + i.ToString();
+                return num;
+            }
+            catch (Exception)
+            {
+                return "ST-1";
+            }
+        }
     }
 }

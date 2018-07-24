@@ -1,0 +1,78 @@
+﻿@model firma_mvc.FixedAssets
+
+<div class="row">
+        <form asp-action="Create">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="row align-items-end">
+                <div class="col-3">
+                    <label asp-for="DateOfBuy" class="control-label"></label>
+                    <input asp-for="DateOfBuy" class="form-control" />
+                    <span asp-validation-for="DateOfBuy" class="text-danger"></span>
+                </div>
+                <div class="col-3">
+                    <label asp-for="DateOfUseStart" class="control-label"></label>
+                    <input asp-for="DateOfUseStart" class="form-control" />
+                    <span asp-validation-for="DateOfUseStart" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-3">
+                    <label asp-for="Identfier" class="control-label"></label>
+                    <input asp-for="Identfier" class="form-control" />
+                    <span asp-validation-for="Identfier" class="text-danger"></span>
+                </div>
+                <div class="col-9">
+                    <label asp-for="Name" class="control-label"></label>
+                    <input asp-for="Name" class="form-control" />
+                    <span asp-validation-for="Name" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="row align-items-end">
+                <div class="col-3">
+                    <label asp-for="OriginalValue" class="control-label"></label>
+                    <input asp-for="OriginalValue" class="form-control" />
+                    <span asp-validation-for="OriginalValue" class="text-danger"></span>
+                </div>
+                <div class="col-3">
+                    <label asp-for="DepreciationRate" class="control-label"></label>
+                    <input asp-for="DepreciationRate" class="form-control" />
+                    <span asp-validation-for="DepreciationRate" class="text-danger"></span>
+                </div>
+                <div class="col-3">
+                    <label asp-for="UpgradeValue" class="control-label"></label>
+                    <input asp-for="UpgradeValue" class="form-control" />
+                    <span asp-validation-for="UpgradeValue" class="text-danger"></span>
+                </div>
+                <div class="col-3">
+                    <label asp-for="UpdatedOriginalValue" class="control-label"></label>
+                    <input asp-for="UpdatedOriginalValue" class="form-control" />
+                    <span asp-validation-for="UpdatedOriginalValue" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="row align-items-end">
+                <div class="col-3">
+                    <label asp-for="LiquidationDate" class="control-label"></label>
+                    <input asp-for="LiquidationDate" class="form-control" />
+                    <span asp-validation-for="LiquidationDate" class="text-danger"></span>
+                </div>
+                <div class="col-9">
+                    <label asp-for="LiquidationReason" class="control-label"></label>
+                    <input asp-for="LiquidationReason" class="form-control" />
+                    <span asp-validation-for="LiquidationReason" class="text-danger"></span>
+                </div>
+            </div>
+            </br>
+            <div class="row col">
+                <div class="form-group">
+                    <input type="submit" value="Dodaj" class="btn btn-outline-success" />
+                </div>
+                <div class="form-group col">
+                    <button type="button" class="btn btn-outline-secondary" data-dismiss="modal">Anuluj</button>
+                </div>
+            </div>
+        </form>
+    </div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

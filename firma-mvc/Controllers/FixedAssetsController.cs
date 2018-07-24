@@ -22,6 +22,11 @@ namespace firma_mvc.Controllers
         // GET: FixedAssets
         public async Task<IActionResult> Index()
         {
+            FixedAssets fixedAssets = new FixedAssets();
+            fixedAssets.DateOfBuy = DateTime.Now.Date;
+            fixedAssets.DateOfUseStart = DateTime.Now.Date;
+            fixedAssets.Identfier = fixedAssets.getNumber(_context);
+            ViewData["FixedAssets"] = fixedAssets;
             return View(await _context.FixedAssets.ToListAsync());
         }
 
