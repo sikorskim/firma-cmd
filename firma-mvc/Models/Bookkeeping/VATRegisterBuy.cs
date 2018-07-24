@@ -1,4 +1,5 @@
-﻿using System;
+﻿using firma_mvc.Data;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
@@ -21,6 +22,7 @@ namespace firma_mvc
         public DateTime DateOfIssue { get; set; }
         [DisplayName("Numer dokumentu")]
         public string DocumentNumber { get; set; }
+        [DisplayName("Kontrahent")]
         public int ContractorId { get; set; }
         [DisplayName("Wartość brutto")]
         public decimal ValueBrutto { get; set; } = 0;
@@ -41,5 +43,17 @@ namespace firma_mvc
         public int Month { get; set; }
         [DisplayName("Rok")]
         public int Year { get; set; }
+
+        public int getOrderNumber(ApplicationDbContext _context)
+        {
+            try
+            {
+                return _context.VATRegisterBuy.Where(p => p.Month == Month && p.Year == Year).Last().Number+1;
+            }
+            catch (Exception)
+            {
+                return 1;
+            }
+        }
     }
 }

@@ -22,6 +22,12 @@ namespace firma_mvc.Controllers
         // GET: VATRegisterBuys
         public async Task<IActionResult> Index()
         {
+            VATRegisterBuy vATRegisterBuy = new VATRegisterBuy();
+            vATRegisterBuy.DateOfIssue = DateTime.Now.Date;
+            vATRegisterBuy.DeliveryDate = DateTime.Now.Date;            
+            ViewData["VATRegisterBuy"] = vATRegisterBuy;
+            ViewData["ContractorId"] = new SelectList(_context.Contractor, "Id", "Name");
+
             return View(await _context.VATRegisterBuy.Include(i=>i.Contractor).ToListAsync());
         }
 
@@ -53,6 +59,7 @@ namespace firma_mvc.Controllers
             vATRegisterBuy.DeliveryDate = currDate;
             vATRegisterBuy.Month = currDate.Month;
             vATRegisterBuy.Year = currDate.Year;
+
             return View(vATRegisterBuy);
         }
 
@@ -61,11 +68,14 @@ namespace firma_mvc.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Number,DeliveryDate,DateOfIssue,DocumentNumber,ContractorId,ValueBrutto,ValueNetto,TaxDeductibleValue,TaxFreeBuysValue,NoTaxDeductibleBuysValue,Month,Year")] VATRegisterBuy vATRegisterBuy)
+        public async Task<IActionResult> Create([Bind("Id,DeliveryDate,DateOfIssue,DocumentNumber,ContractorId,ValueBrutto,ValueNetto,TaxDeductibleValue,TaxFreeBuysValue,NoTaxDeductibleBuysValue")] VATRegisterBuy vATRegisterBuy)
         {
             ViewData["ContractorId"] = new SelectList(_context.Contractor, "Id", "Name");
             if (ModelState.IsValid)
             {
+                vATRegisterBuy.Month = vATRegisterBuy.DateOfIssue.Month;
+                vATRegisterBuy.Year = vATRegisterBuy.DateOfIssue.Year;
+                vATRegisterBuy.Number = vATRegisterBuy.getOrderNumber(_context);
                 _context.Add(vATRegisterBuy);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
