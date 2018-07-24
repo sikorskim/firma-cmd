@@ -22,6 +22,9 @@ namespace firma_mvc.Controllers
         // GET: VATRegisterSells
         public async Task<IActionResult> Index()
         {
+            ViewData["ContractorId"] = new SelectList(_context.Contractor, "Id", "Name");
+            VATRegisterSell vATRegisterSell = new VATRegisterSell(DateTime.Now);
+            ViewData["VATRegisterSell"] = vATRegisterSell;
             return View(await _context.VATRegisterSell.Include(i=>i.Contractor).ToListAsync());
         }
 
@@ -55,11 +58,12 @@ namespace firma_mvc.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Number,DeliveryDate,DateOfIssue,DocumentNumber,Contractor,ValueBrutto,ValueNetto23,VATValue23,ValueNetto7_8,VATValue7_8,ValueNetto3_5,VATValue3_5,ValueNetto0,ValueTaxFree,ValueNoTax")] VATRegisterSell vATRegisterSell)
+        public async Task<IActionResult> Create([Bind("Id,DeliveryDate,DateOfIssue,DocumentNumber,Contractor,ValueBrutto,ValueNetto23,VATValue23,ValueNetto7_8,VATValue7_8,ValueNetto3_5,VATValue3_5,ValueNetto0,ValueTaxFree,ValueNoTax")] VATRegisterSell vATRegisterSell)
         {
             ViewData["ContractorId"] = new SelectList(_context.Contractor, "Id", "Name");
             if (ModelState.IsValid)
             {
+                vATRegisterSell.Number = vATRegisterSell.getOrderNumber(_context);
                 _context.Add(vATRegisterSell);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));

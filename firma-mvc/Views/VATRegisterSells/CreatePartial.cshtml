@@ -1,0 +1,95 @@
+﻿@model firma_mvc.VATRegisterSell
+
+<div class="row">
+    <form asp-action="Create">
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+        <div class="row">
+            <div class="col-3">
+                <label asp-for="DeliveryDate" class="control-label"></label>
+                <input asp-for="DeliveryDate" class="form-control" />
+                <span asp-validation-for="DeliveryDate" class="text-danger"></span>
+            </div>
+            <div class="col-3">
+                <label asp-for="DateOfIssue" class="control-label"></label>
+                <input asp-for="DateOfIssue" class="form-control" />
+                <span asp-validation-for="DateOfIssue" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-4">
+                <label asp-for="DocumentNumber" class="control-label"></label>
+                <input asp-for="DocumentNumber" class="form-control" />
+                <span asp-validation-for="DocumentNumber" class="text-danger"></span>
+            </div>
+            <div class="col-4">
+                <label asp-for="ContractorId" class="control-label"></label>
+                <select asp-for="ContractorId" class="form-control custom-select" asp-items="ViewBag.ContractorId"></select>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-3">
+                <label asp-for="ValueBrutto" class="control-label"></label>
+                <input asp-for="ValueBrutto" class="form-control" />
+                <span asp-validation-for="ValueBrutto" class="text-danger"></span>
+            </div>
+            <div class="col-3">
+                <label asp-for="ValueNetto23" class="control-label"></label>
+                <input asp-for="ValueNetto23" class="form-control" />
+                <span asp-validation-for="ValueNetto23" class="text-danger"></span>
+            </div>
+            <div class="col-3">
+                <label asp-for="VATValue23" class="control-label"></label>
+                <input asp-for="VATValue23" class="form-control" />
+                <span asp-validation-for="VATValue23" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-3">
+                <label asp-for="ValueNetto7_8" class="control-label"></label>
+                <input asp-for="ValueNetto7_8" class="form-control" />
+                <span asp-validation-for="ValueNetto7_8" class="text-danger"></span>
+            </div>
+            <div class="col-3">
+                <label asp-for="VATValue7_8" class="control-label"></label>
+                <input asp-for="VATValue7_8" class="form-control" />
+                <span asp-validation-for="VATValue7_8" class="text-danger"></span>
+            </div>
+            <div class="col-3">
+                <label asp-for="ValueNetto3_5" class="control-label"></label>
+                <input asp-for="ValueNetto3_5" class="form-control" />
+                <span asp-validation-for="ValueNetto3_5" class="text-danger"></span>
+            </div>
+            <div class="col-3">
+                <label asp-for="VATValue3_5" class="control-label"></label>
+                <input asp-for="VATValue3_5" class="form-control" />
+                <span asp-validation-for="VATValue3_5" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="row align-items-end">
+            <div class="col-3">
+                <label asp-for="ValueNetto0" class="control-label"></label>
+                <input asp-for="ValueNetto0" class="form-control" />
+                <span asp-validation-for="ValueNetto0" class="text-danger"></span>
+            </div>
+            <div class="col-3">
+                <label asp-for="ValueTaxFree" class="control-label"></label>
+                <input asp-for="ValueTaxFree" class="form-control" />
+                <span asp-validation-for="ValueTaxFree" class="text-danger"></span>
+            </div>
+            <div class="col-3">
+                <label asp-for="ValueNoTax" class="control-label"></label>
+                <input asp-for="ValueNoTax" class="form-control" />
+                <span asp-validation-for="ValueNoTax" class="text-danger"></span>
+            </div>
+        </div>
+        <br />
+        <div class="row col">
+            <div class="form-group">
+                <input type="submit" value="Dodaj" class="btn btn-outline-success" />
+            </div>
+            <div class="form-group col">
+                <button type="button" class="btn btn-outline-secondary" data-dismiss="modal">Anuluj</button>
+            </div>
+        </div>
+    </form>
+</div>

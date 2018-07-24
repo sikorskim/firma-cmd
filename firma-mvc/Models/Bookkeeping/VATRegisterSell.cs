@@ -1,4 +1,5 @@
-﻿using System;
+﻿using firma_mvc.Data;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
@@ -67,9 +68,30 @@ namespace firma_mvc
         [ForeignKey("ContractorId")]
         public virtual Contractor Contractor { get; set; }
 
+        public VATRegisterSell()
+        { }
+
+        public VATRegisterSell(DateTime dt)
+        {
+            DateOfIssue = dt.Date;
+            DeliveryDate = dt.Date;
+        }
+
         decimal getVATSummary()
         {
             return (decimal)VATValue23 + (decimal)VATValue7_8 + (decimal)VATValue3_5;            
+        }
+
+        public int getOrderNumber(ApplicationDbContext _context)
+        {
+            try
+            {
+               return _context.VATRegisterSell.Where(p => p.Month == Month && p.Year == Year).Last().Number + 1;
+            }
+            catch (Exception)
+            {
+                return 1;
+            }
         }
     }
 }
