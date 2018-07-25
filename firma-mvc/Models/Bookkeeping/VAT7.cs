@@ -1,6 +1,7 @@
 ﻿using firma_mvc.Data;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -9,9 +10,13 @@ namespace firma_mvc
     public class VAT7
     {
         public int Id { get; set; }
+        [DisplayName("Rok")]
         public int Year { get; set; }
+        [DisplayName("Miesiąc")]
         public int Month { get; set; }
+        [DisplayName("Opłacone")]
         public bool Paid { get; set; }
+        [DisplayName("Wartość")]
         public decimal Value { get; set; }
 
         public decimal compute(ApplicationDbContext _context)

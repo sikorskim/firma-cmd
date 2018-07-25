@@ -82,7 +82,7 @@
         }
         @foreach (var item in Model)
         {
-            <tr onclick="location.href = '@Url.Action("Details", "IncomeTaxes",new { id = item.Id})'">
+            <tr onclick="location.href = '@Url.Action("Details", "IncomeTaxes", new { id = item.Id })'">
                 <td>
                     @Html.DisplayFor(modelItem => item.Month)
                 </td>

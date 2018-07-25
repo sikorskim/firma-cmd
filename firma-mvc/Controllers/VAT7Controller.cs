@@ -22,6 +22,12 @@ namespace firma_mvc.Controllers
         // GET: VAT7
         public async Task<IActionResult> Index()
         {
+            VAT7 vat7 = new VAT7();
+            vat7.Year = DateTime.Now.Year;
+            vat7.Month = DateTime.Now.Month - 1;
+            ViewData["VAT7"] = vat7;
+            ViewData["Month"] = new SelectList(Tools.getMonthsDictionary(), "Key", "Value");
+            ViewData["Year"] = new SelectList(Tools.getYearsList());
             return View(await _context.VAT7.ToListAsync());
         }
 
@@ -43,34 +49,21 @@ namespace firma_mvc.Controllers
             return View(vAT7);
         }
 
-        // GET: VAT7/Create
-        public IActionResult Create()
-        {
-            VAT7 vat7 = new VAT7();
-            DateTime currDate = DateTime.Now;
-            vat7.Year = currDate.Year;
-            vat7.Month = currDate.Month - 1;
-            vat7.Paid = false;
-            vat7.Value = vat7.compute(_context);
-
-            return View(vat7);
-        }
-
         // POST: VAT7/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Year,Month,Paid,Value")] VAT7 vAT7)
+        public async Task<IActionResult> Create([Bind("Id,Year,Month")] VAT7 vAT7)
         {
             if (ModelState.IsValid)
             {
-                if (vAT7.Value == 0)
-                    vAT7.Value = vAT7.compute(_context);
-            }
+                vAT7.Paid = false;
+                vAT7.Value = vAT7.compute(_context);
                 _context.Add(vAT7);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
+            }
             
             return View(vAT7);
         }
