@@ -14,7 +14,7 @@ namespace firma_mvc
         public int Year { get; set; }
         [DisplayName("Miesiąc")]
         public int Month { get; set; }
-        [DisplayName("Opłacone")]
+        [DisplayName("Status")]
         public bool Paid { get; set; }
         [DisplayName("Zaliczka na podatek")]
         public decimal Value { get; set; }

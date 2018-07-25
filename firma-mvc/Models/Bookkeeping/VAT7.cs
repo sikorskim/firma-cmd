@@ -14,7 +14,7 @@ namespace firma_mvc
         public int Year { get; set; }
         [DisplayName("Miesiąc")]
         public int Month { get; set; }
-        [DisplayName("Opłacone")]
+        [DisplayName("Status")]
         public bool Paid { get; set; }
         [DisplayName("Wartość")]
         public decimal Value { get; set; }

@@ -111,7 +111,14 @@
                     @Html.DisplayFor(modelItem => item.Value)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.Paid)
+                    @if (item.Paid)
+                    {
+                        <span class="badge badge-success">Opłacone</span>
+                    }
+                    else
+                    {
+                        <span class="badge badge-danger">Do zapłaty</span>
+                    }
                 </td>
             </tr>
             totalIncome += (decimal)item.Income;
