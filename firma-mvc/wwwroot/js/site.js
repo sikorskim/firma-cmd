@@ -46,3 +46,10 @@ $('#invoiceItemCreatePrice').change(function () {
     brutto = brutto.toFixed(2).replace('.', ',');
     $('#invoiceItemCreatePriceBrutto').val(brutto);
 });
+
+// invoiceItem/create action for items selectlist
+$('#MonthDropDownList').change(function () {
+    var monthId = $(this).val();
+    $.get('Invoices', { month: monthId }, function (data) {
+    });
+});
