@@ -20,9 +20,17 @@ namespace firma_mvc.Controllers
         }
 
         // GET: Contractors
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(string searchQuery)
         {
-            return View(await _context.Contractor.ToListAsync());
+            var applicationDbContext = _context.Contractor;
+
+            if (!String.IsNullOrEmpty(searchQuery))
+            {
+                var searchResult = applicationDbContext.Where(p => p.Name.Contains(searchQuery) || p.NIP.Contains(searchQuery));
+                return View(await searchResult.ToListAsync());
+            }
+
+            return View(await applicationDbContext.ToListAsync());
         }
 
         // GET: Contractors/Details/5

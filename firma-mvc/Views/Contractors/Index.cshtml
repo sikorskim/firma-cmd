@@ -8,31 +8,40 @@
     <h2>Kontrahenci</h2>
 </p>
 
-<div class="my-2">
-    <button type="button" class="btn btn-outline-success" data-toggle="modal" data-target="#exampleModal">
-        Dodaj
-    </button>
+<form>
+    <div class="form-row align-items-center">
+        <div class="my-2">
+            <button type="button" class="btn btn-outline-success" data-toggle="modal" data-target="#exampleModal">
+                Dodaj
+            </button>
 
-    <!-- Modal -->
-    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-lg" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Dodaj nowego kontrahenta</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    <div class="container-fluid">
-                        @await Html.PartialAsync("CreatePartial", new Contractor())
+            <!-- Modal -->
+            <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog modal-lg" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel">Dodaj nowego kontrahenta</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <div class="container-fluid">
+                                @await Html.PartialAsync("CreatePartial", new Contractor())
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
+        <div class="col-sm-3 my-1">
+            <input class="form-control" type="text" name="searchQuery" placeholder="NIP lub nazwa kontrahenta" aria-label="Search">
+        </div>
+        <div class="my-1">
+            <button class="btn btn-outline-primary" type="submit"><i class="fas fa-search"></i> Szukaj</button>
+        </div>
     </div>
-</div>
-                        
+</form>
 
 <table class="table table-bordered table-hover">
     <thead class="thead-light">
