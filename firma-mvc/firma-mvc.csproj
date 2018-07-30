@@ -24,5 +24,8 @@
     <Content Update="Views\Invoices\Components\ContractorCreate\Default.cshtml">
       <Pack>$(IncludeRazorContentInPack)</Pack>
     </Content>
+    <Content Update="Views\Shared\SidebarInvoices.cshtml">
+      <Pack>$(IncludeRazorContentInPack)</Pack>
+    </Content>
   </ItemGroup>
 </Project>
