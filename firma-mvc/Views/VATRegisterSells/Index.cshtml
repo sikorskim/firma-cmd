@@ -36,24 +36,17 @@
         </div>
     </div>
 
-
-    <button type="button" class="btn btn-outline-dark">
-        <i class="fas fa-print"></i> Drukuj
-    </button>
+    <div class="col-sm-1">
+        <button type="button" class="btn btn-outline-dark">
+            <i class="fas fa-print"></i> Drukuj
+        </button>
+    </div>
 
     <div class="col-sm-1">
-        <select class="custom-select" id="inlineFormCustomSelectPref">
-            <option selected>Miesiąc</option>
-            <option value="1">styczeń</option>
-            <option value="2">luty</option>
-            <option value="3">marzec</option>
-        </select>
+        <select id="yearDropDown" class="custom-select" asp-items="ViewBag.Year"></select>
     </div>
     <div class="col-sm-1">
-        <select class="custom-select" id="inlineFormCustomSelectPref">
-            <option selected>Rok</option>
-            <option value="1">2018</option>
-        </select>
+        <select id="monthDropDown" class="custom-select" asp-items="ViewBag.Month"></select>
     </div>
 </div>
 
