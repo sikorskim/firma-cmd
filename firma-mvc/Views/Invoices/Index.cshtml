@@ -96,6 +96,12 @@
                                     }
                                 }
                                 <span class="badge @badgeStyle">@statusName</span>
+                                @{
+                                    if (item.Paid)
+                                    {
+                                <i class="fas fa-dollar-sign"></i>
+                                    }
+                                }
                             </td>
                         </tr>
                         i++;
