@@ -23,12 +23,19 @@
                     Dodaj pozycję
                 </button>
 
-                @Html.ActionLink("Zatwierdź", "Confirm", new { id = Model.Id }, htmlAttributes: new { @class = "btn btn-outline-primary"+btnDisabled })
-
-
+                @{
+                    if (Model.InvoiceStatus.Name == "nowa")
+                    {
+                        @Html.ActionLink("Zatwierdź", "Confirm", new { id = Model.Id }, htmlAttributes: new { @class = "btn btn-outline-primary"})
+                    }
+                    else
+                    {
+                        @Html.ActionLink("Odtwierdź", "Confirm", new { id = Model.Id }, htmlAttributes: new { @class = "btn btn-outline-primary"})
+                    }
+                }
 
                 @Html.ActionLink("Drukuj", "GenerateInvoice", new { id = Model.Id }, htmlAttributes: new { @class = "btn btn-outline-dark" })
-                @Html.ActionLink("Edytuj", "Edit", new { id = Model.Id }, htmlAttributes: new { @class = "btn btn-outline-warning"+btnDisabled })
+                @Html.ActionLink("Edytuj", "Edit", new { id = Model.Id }, htmlAttributes: new { @class = "btn btn-outline-warning" + btnDisabled })
                 @Html.ActionLink("Korekta", "Create", new { id = Model.Id }, htmlAttributes: new { @class = "btn btn-outline-danger" })
             </p>
 
@@ -54,6 +61,7 @@
                     <div class="row">
                         <div class="col-6 col-md-4"><strong>@Html.DisplayNameFor(model => model.DateOfIssue)</strong></div>
                         <div class="col-6 col-md-4"><strong>@Html.DisplayNameFor(model => model.InvoiceStatus.Name)</strong></div>
+                        <div class="col-6 col-md-4"><strong>@Html.DisplayNameFor(model => model.Paid)</strong></div>
                     </div>
                     <div class="row">
                         @{
@@ -67,8 +75,25 @@
                                 badgeStyle = "badge-success";
                             }
                         }
+
+                        @{
+                            string paidBadgeStyle = string.Empty;
+                            string paidText = string.Empty;
+                            if (Model.Paid)
+                            {
+                                paidBadgeStyle = "badge-success";
+                                paidText = "tak";
+                            }
+                            else
+                            {
+                                paidBadgeStyle = "badge-danger";
+                                paidText = "nie";
+                            }
+                        }
+
                         <div class="col-6 col-md-4">@Html.DisplayFor(model => model.DateOfIssue)</div>
                         <div class="col-6 col-md-4"><span class="badge @badgeStyle">@statusName</span></div>
+                        <div class="col-6 col-md-4"><span class="badge @paidBadgeStyle">@paidText</span></div>
                     </div>
                     <div class="row">
                         <div class="col-6 col-md-4"><strong>@Html.DisplayNameFor(model => model.Contractor.NIP)</strong></div>

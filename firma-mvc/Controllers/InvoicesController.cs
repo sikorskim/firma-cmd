@@ -28,6 +28,16 @@ namespace firma_mvc.Controllers
             ViewData["Year"] = new SelectList(Tools.getYearsList(), DateTime.Now.Year);
             ViewData["Status"] = new SelectList(_context.InvoiceStatus.ToList(), "Id", "Name");
 
+            ViewData["ContractorId"] = new SelectList(_context.Contractor, "Id", "Name");
+            ViewData["PaymentMethodId"] = new SelectList(_context.PaymentMethod, "Id", "Name");
+
+            Invoice invoice = new Invoice();
+            invoice.Number = getNumber();
+            invoice.DateOfIssue = DateTime.Now;
+            invoice.DateOfDelivery = invoice.DateOfIssue;
+            ViewData["Invoice"] = invoice;
+
+
             var applicationDbContext = _context.Invoice.Include(i => i.Contractor).Include(i => i.PaymentMethod).Include(i => i.InvoiceItems).Include(i => i.InvoiceStatus);
 
             if (!String.IsNullOrEmpty(searchQuery))
@@ -73,7 +83,6 @@ namespace firma_mvc.Controllers
                 return NotFound();
             }
         }
-
 
         // GET: GenerateInvoice        
         public async Task<IActionResult> GenerateInvoice(int? id)
@@ -162,12 +171,12 @@ namespace firma_mvc.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Number,DateOfIssue,DateOfDelivery,ContractorId,PaymentMethodId,InvoiceStatusId,Paid")] Invoice invoice)
+        public async Task<IActionResult> Create([Bind("Id,Number,DateOfIssue,DateOfDelivery,ContractorId,PaymentMethodId")] Invoice invoice)
         {
             invoice.InvoiceStatusId = _context.InvoiceStatus.Single(p => p.Name == "nowa").Id;
-
+            invoice.Paid = false;
             //to change
-            invoice.CompanyId =getCompanyId();
+            invoice.CompanyId = getCompanyId();
 
             if (ModelState.IsValid)
             {
