@@ -6,7 +6,7 @@
 
 <div class="container-fluid">
     <div class="row">
-        @await Html.PartialAsync("SideMenuPartial")
+        @*@await Html.PartialAsync("SideMenuPartial")*@
         <div class="col-10">
             <p>
                 <h2>Faktury</h2>
@@ -15,10 +15,10 @@
                 <div class="form-row align-items-center">
 
                     <div class="col-sm-1">
-                        <select id ="yearDropDown" class="custom-select" asp-items="ViewBag.Year"></select>
+                        <select id="yearDropDown" class="custom-select" asp-items="ViewBag.Year"></select>
                     </div>
                     <div class="col-sm-1">
-                        <select id ="monthDropDown"class="custom-select" asp-items="ViewBag.Month"></select>
+                        <select id="monthDropDown" class="custom-select" asp-items="ViewBag.Month"></select>
                     </div>
                     <div class="col-sm-1">
                         <select class="custom-select" asp-items="ViewBag.Status"></select>
@@ -99,7 +99,7 @@
                                 @{
                                     if (item.Paid)
                                     {
-                                <i class="fas fa-dollar-sign"></i>
+                                        <i class="fas fa-dollar-sign"></i>
                                     }
                                 }
                             </td>
