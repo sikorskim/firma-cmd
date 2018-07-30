@@ -20,15 +20,31 @@ namespace firma_mvc.Controllers
         }
 
         // GET: VATRegisterBuys
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(int? year, int? month)
         {
             VATRegisterBuy vATRegisterBuy = new VATRegisterBuy();
             vATRegisterBuy.DateOfIssue = DateTime.Now.Date;
             vATRegisterBuy.DeliveryDate = DateTime.Now.Date;            
             ViewData["VATRegisterBuy"] = vATRegisterBuy;
             ViewData["ContractorId"] = new SelectList(_context.Contractor, "Id", "Name");
+            ViewData["Month"] = new SelectList(Tools.getMonthsDictionary(), "Key", "Value", DateTime.Now.Month);
+            ViewData["Year"] = new SelectList(Tools.getYearsList(), DateTime.Now.Year);
 
-            return View(await _context.VATRegisterBuy.Include(i=>i.Contractor).ToListAsync());
+            var applicationDbContext = _context.VATRegisterBuy.Include(i => i.Contractor);
+
+            if (month != null)
+            {
+                var filteredResult = applicationDbContext.Where(p => p.DateOfIssue.Month == month);
+                ViewData["Month"] = new SelectList(Tools.getMonthsDictionary(), "Key", "Value", month);
+                if (year != null)
+                {
+                    filteredResult = applicationDbContext.Where(p => p.DateOfIssue.Month == month && p.DateOfIssue.Year == year);
+                    ViewData["Year"] = new SelectList(Tools.getYearsList(), year);
+                }
+                return View(await filteredResult.ToListAsync());
+            }
+
+            return View(await applicationDbContext.ToListAsync());
         }
 
         // GET: VATRegisterBuys/Details/5
