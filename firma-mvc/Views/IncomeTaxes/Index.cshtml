@@ -7,147 +7,149 @@
 <p>
     <h2>Zaliczka na podatek dochodowy</h2>
 </p>
-@*<p>
-    <a asp-action="Create" class="btn btn-outline-success">Dodaj</a>
-</p>*@
 
-<div class="my-2">
-    <button type="button" class="btn btn-outline-success" data-toggle="modal" data-target="#exampleModal">
-        Oblicz zaliczkę
-    </button>
+<div class="form-row align-items-center">
+    <div class="my-2">
+        <button type="button" class="btn btn-outline-success" data-toggle="modal" data-target="#exampleModal">
+            Oblicz zaliczkę
+        </button>
 
-    <!-- Modal -->
-    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-sm" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Oblicz zaliczkę</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    <div class="container-fluid">
-                        @await Component.InvokeAsync("IncomeTaxCreate", new IncomeTax())
+        <!-- Modal -->
+        <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-sm" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Oblicz zaliczkę</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="container-fluid">
+                            @await Component.InvokeAsync("IncomeTaxCreate", new IncomeTax())
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
+
+    <div class="col-sm-1">
+        <select id="yearTaxDropDown" class="custom-select" asp-items="ViewBag.Year"></select>
+    </div>
 </div>
 
-
-<table class="table table-bordered table-hover">
-    <thead class="thead-light">
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.Month)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Income)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Loss)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.IncomeIncr)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.SocialSecContr)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.SocialSecContrIncr)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.HealthSec)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.HealthSecIncr)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Value)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Paid)
-            </th>
-        </tr>
-    </thead>
-    <tbody>
-        @{
-            decimal totalIncome = 0;
-            decimal totalLoss = 0;
-            decimal totalSocialSecContr = 0;
-            decimal totalHealthSec = 0;
-            decimal totalTaxValue = 0;
-        }
-        @foreach (var item in Model)
-        {
-            <tr onclick="location.href = '@Url.Action("Details", "IncomeTaxes", new { id = item.Id })'">
-                <td>
-                    @Html.DisplayFor(modelItem => item.Month)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Income)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Loss)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.IncomeIncr)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.SocialSecContr)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.SocialSecContrIncr)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.HealthSec)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.HealthSecIncr)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Value)
-                </td>
-                <td>
-                    @if (item.Paid)
-                    {
-                        <span class="badge badge-success">Opłacone</span>
-                    }
-                    else
-                    {
-                        <span class="badge badge-danger">Do zapłaty</span>
-                    }
-                </td>
+    <table class="table table-bordered table-hover">
+        <thead class="thead-light">
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.Month)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Income)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Loss)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.IncomeIncr)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.SocialSecContr)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.SocialSecContrIncr)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.HealthSec)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.HealthSecIncr)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Value)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Paid)
+                </th>
             </tr>
-            totalIncome += (decimal)item.Income;
-            totalLoss += (decimal)item.Loss;
-            totalSocialSecContr += (decimal)item.SocialSecContr;
-            totalHealthSec += (decimal)item.HealthSec;
-            totalTaxValue += (decimal)item.Value;
-        }
-        <tr class="table-active">
-            <td></td>
-            <td>
-                @Tools.decimalRound(totalIncome)
-            </td>
-            <td>
-                @Tools.decimalRound(totalLoss)
-            </td>
-            <td></td>
-            <td>
-                @Tools.decimalRound(totalSocialSecContr)
-            </td>
-            <td></td>
-            <td>
-                @Tools.decimalRound(totalHealthSec)
-            </td>
-            <td></td>
-            <td>
-                @Tools.decimalRound(totalTaxValue)
-            </td>
-            <td></td>
-        </tr>
-    </tbody>
-</table>
+        </thead>
+        <tbody>
+            @{
+                decimal totalIncome = 0;
+                decimal totalLoss = 0;
+                decimal totalSocialSecContr = 0;
+                decimal totalHealthSec = 0;
+                decimal totalTaxValue = 0;
+            }
+            @foreach (var item in Model)
+            {
+                <tr onclick="location.href = '@Url.Action("Details", "IncomeTaxes", new { id = item.Id })'">
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Month)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Income)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Loss)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.IncomeIncr)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.SocialSecContr)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.SocialSecContrIncr)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.HealthSec)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.HealthSecIncr)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Value)
+                    </td>
+                    <td>
+                        @if (item.Paid)
+                        {
+                            <span class="badge badge-success">Opłacone</span>
+                        }
+                        else
+                        {
+                            <span class="badge badge-danger">Do zapłaty</span>
+                        }
+                    </td>
+                </tr>
+                totalIncome += (decimal)item.Income;
+                totalLoss += (decimal)item.Loss;
+                totalSocialSecContr += (decimal)item.SocialSecContr;
+                totalHealthSec += (decimal)item.HealthSec;
+                totalTaxValue += (decimal)item.Value;
+            }
+            <tr class="table-active">
+                <td></td>
+                <td>
+                    @Tools.decimalRound(totalIncome)
+                </td>
+                <td>
+                    @Tools.decimalRound(totalLoss)
+                </td>
+                <td></td>
+                <td>
+                    @Tools.decimalRound(totalSocialSecContr)
+                </td>
+                <td></td>
+                <td>
+                    @Tools.decimalRound(totalHealthSec)
+                </td>
+                <td></td>
+                <td>
+                    @Tools.decimalRound(totalTaxValue)
+                </td>
+                <td></td>
+            </tr>
+        </tbody>
+    </table>

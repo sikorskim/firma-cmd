@@ -20,11 +20,22 @@ namespace firma_mvc.Controllers
         }
 
         // GET: IncomeTaxes
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(int? year)
         {
-            ViewData["Month"] = new SelectList(Tools.getMonthsDictionary(), "Key", "Value");
-            ViewData["Year"] = new SelectList(Tools.getYearsList());
-            return View(await _context.IncomeTax.ToListAsync());
+            ViewData["Month"] = new SelectList(Tools.getMonthsDictionary(), "Key", "Value",DateTime.Now.Month-1);
+            ViewData["Year"] = new SelectList(Tools.getYearsList(), DateTime.Now.Year);
+
+            var applicationDbContext = _context.IncomeTax;
+
+            if (year != null)
+            {
+                var filteredResult = applicationDbContext.Where(p => p.Year == year);
+                ViewData["Year"] = new SelectList(Tools.getYearsList(), year);
+                return View(await filteredResult.ToListAsync());
+            }
+
+
+            return View(await applicationDbContext.ToListAsync());
         }
 
         // GET: IncomeTaxes/Details/5

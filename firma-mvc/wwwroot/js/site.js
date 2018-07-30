@@ -61,3 +61,8 @@ $('#yearDropDown').change(function () {
     window.location.href = '?month=' + monthId+'&year='+year;
 });
 
+// index action for tax related items years selectlist
+$('#yearTaxDropDown').change(function () {
+    var year = $('#yearTaxDropDown').val();
+    window.location.href = '?year=' + year;
+});
