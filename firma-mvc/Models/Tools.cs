@@ -67,7 +67,10 @@ namespace firma_mvc
         public static List<int> getYearsList()
         {
             List<int> years = new List<int>()
-            { 2018 };
+            {
+                2018,
+                2019
+            };
             return years;
         }
 

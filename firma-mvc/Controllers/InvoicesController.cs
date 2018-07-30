@@ -25,7 +25,7 @@ namespace firma_mvc.Controllers
         public async Task<IActionResult> Index(string searchQuery, int? year, int? month, int? statusId)
         {
             ViewData["Month"] = new SelectList(Tools.getMonthsDictionary(), "Key", "Value");
-            ViewData["Year"] = new SelectList(Tools.getYearsList());
+            ViewData["Year"] = new SelectList(Tools.getYearsList(), DateTime.Now.Year);
             ViewData["Status"] = new SelectList(_context.InvoiceStatus.ToList(), "Id", "Name");
 
             var applicationDbContext = _context.Invoice.Include(i => i.Contractor).Include(i => i.PaymentMethod).Include(i => i.InvoiceItems).Include(i => i.InvoiceStatus);
@@ -38,7 +38,13 @@ namespace firma_mvc.Controllers
 
             if (month!=null)
             {
-                var filteredResult = applicationDbContext.Where(p=>p.DateOfIssue.Month==month);
+                var filteredResult = applicationDbContext.Where(p => p.DateOfIssue.Month == month);
+                ViewData["Month"] = new SelectList(Tools.getMonthsDictionary(), "Key", "Value", month);
+                if (year != null)
+                {
+                    filteredResult = applicationDbContext.Where(p => p.DateOfIssue.Month == month && p.DateOfIssue.Year==year);
+                    ViewData["Year"] = new SelectList(Tools.getYearsList(), year);
+                }
                 return View(await filteredResult.ToListAsync());
             }
 

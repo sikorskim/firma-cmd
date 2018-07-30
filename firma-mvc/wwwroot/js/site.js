@@ -47,9 +47,16 @@ $('#invoiceItemCreatePrice').change(function () {
     $('#invoiceItemCreatePriceBrutto').val(brutto);
 });
 
-// invoiceItem/create action for items selectlist
-$('#MonthDropDownList').change(function () {
-    var monthId = $(this).val();
-    $.get('Invoices', { month: monthId }, function (data) {
-    });
+// invoiceItem/create action for items months selectlist
+$('#monthDropDown').change(function () {
+    var monthId = $('#monthDropDown').val();
+    var year = $('#yearDropDown').val();
+    window.location.href = 'Invoices?month=' + monthId + '&year=' + year;
+});
+
+// invoiceItem/create action for items years selectlist
+$('#yearDropDown').change(function () {
+    var monthId = $('#monthDropDown').val();
+    var year = $('#yearDropDown').val();
+    window.location.href = 'Invoices?month=' + monthId+'&year='+year;
 });
