@@ -24,7 +24,7 @@ namespace firma_mvc.Controllers
         // GET: Invoice
         public async Task<IActionResult> Index(string searchQuery, int? year, int? month, int? statusId)
         {
-            ViewData["Month"] = new SelectList(Tools.getMonthsDictionary(), "Key", "Value");
+            ViewData["Month"] = new SelectList(Tools.getMonthsDictionary(), "Key", "Value", DateTime.Now.Month);
             ViewData["Year"] = new SelectList(Tools.getYearsList(), DateTime.Now.Year);
             ViewData["Status"] = new SelectList(_context.InvoiceStatus.ToList(), "Id", "Name");
 

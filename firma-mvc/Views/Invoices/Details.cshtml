@@ -22,8 +22,6 @@
                 <button type="button" class="btn btn-outline-success @btnDisabled" data-toggle=@addBtnToggle data-target="#addInvoiceItem">
                     Dodaj pozycję
                 </button>
-                @Html.ActionLink("Dodaj pozycję 2", "Create", "InvoiceItems", new { InvoiceId = Model.Id }, htmlAttributes: new { @class = "btn btn-outline-primary"+btnDisabled })
-
 
                 @Html.ActionLink("Zatwierdź", "Confirm", new { id = Model.Id }, htmlAttributes: new { @class = "btn btn-outline-primary"+btnDisabled })
 

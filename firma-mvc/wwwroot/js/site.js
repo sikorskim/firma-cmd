@@ -47,16 +47,17 @@ $('#invoiceItemCreatePrice').change(function () {
     $('#invoiceItemCreatePriceBrutto').val(brutto);
 });
 
-// invoiceItem/create action for items months selectlist
+// invoice/index action for items months selectlist
 $('#monthDropDown').change(function () {
     var monthId = $('#monthDropDown').val();
     var year = $('#yearDropDown').val();
-    window.location.href = 'Invoices?month=' + monthId + '&year=' + year;
+    window.location.href = '?month=' + monthId + '&year=' + year;
 });
 
-// invoiceItem/create action for items years selectlist
+// invoice/index action for items years selectlist
 $('#yearDropDown').change(function () {
     var monthId = $('#monthDropDown').val();
     var year = $('#yearDropDown').val();
-    window.location.href = 'Invoices?month=' + monthId+'&year='+year;
+    window.location.href = '?month=' + monthId+'&year='+year;
 });
+

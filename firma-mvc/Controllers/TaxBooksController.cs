@@ -20,14 +20,31 @@ namespace firma_mvc.Controllers
         }
 
         // GET: TaxBooks
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(int? year, int? month)
         {
+            ViewData["Month"] = new SelectList(Tools.getMonthsDictionary(), "Key", "Value", DateTime.Now.Month);
+            ViewData["Year"] = new SelectList(Tools.getYearsList(), DateTime.Now.Year);
             ViewData["ContractorId"] = new SelectList(_context.Contractor, "Id", "Name");
             TaxBook taxBook = new TaxBook();
             taxBook.Number = 2;
             taxBook.Date = DateTime.Now.Date;
             ViewData["TaxBook"] = taxBook;
-            return View(await _context.TaxBookItem.Include(i=>i.Contractor).ToListAsync());
+
+            var applicationDbContext = _context.TaxBookItem.Include(i => i.Contractor);
+
+            if (month != null)
+            {
+                var filteredResult = applicationDbContext.Where(p => p.Date.Month == month);
+                ViewData["Month"] = new SelectList(Tools.getMonthsDictionary(), "Key", "Value", month);
+                if (year != null)
+                {
+                    filteredResult = applicationDbContext.Where(p => p.Date.Month == month && p.Date.Year == year);
+                    ViewData["Year"] = new SelectList(Tools.getYearsList(), year);
+                }
+                return View(await filteredResult.ToListAsync());
+            }
+
+            return View(await applicationDbContext.ToListAsync());
         }
 
         // GET: TaxBooks/Details/5

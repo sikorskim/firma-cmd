@@ -8,28 +8,38 @@
     <h2>Księga przychodów i rozchodów</h2>
 </p>
 
-<div class="my-2">
-    <button type="button" class="btn btn-outline-success" data-toggle="modal" data-target="#exampleModal">
-        Dodaj
-    </button>
+<div class="form-row align-items-center">
+    <div class="my-2">
+        <button type="button" class="btn btn-outline-success" data-toggle="modal" data-target="#exampleModal">
+            Dodaj
+        </button>
 
-    <!-- Modal -->
-    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-lg" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Dodaj wpis do księgi</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    <div class="container-fluid">
-                        @await Html.PartialAsync("CreatePartial", @ViewData["TaxBook"])
+        <!-- Modal -->
+        <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-lg" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Dodaj wpis do księgi</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="container-fluid">
+                            @await Html.PartialAsync("CreatePartial", @ViewData["TaxBook"])
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
+    </div>
+
+
+    <div class="col-sm-1">
+        <select id="yearDropDown" class="custom-select" asp-items="ViewBag.Year"></select>
+    </div>
+    <div class="col-sm-1">
+        <select id="monthDropDown" class="custom-select" asp-items="ViewBag.Month"></select>
     </div>
 </div>
 
@@ -96,66 +106,67 @@
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model) {
-        <tr class="table-light" onclick="location.href = '@Url.Action("Details", "TaxBooks",new { id = item.Id})'">
-            <td>
-                @Html.DisplayFor(modelItem => item.Number)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Date)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.InvoiceNumber)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Contractor.FullName)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Contractor.NIP)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Contractor.FullAddress)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Description)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.SellValue)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.OtherIncome)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.TotalIncome)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.GoodsBuys)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.BuysSideEffects)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Salary)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.OtherCosts)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.TotalCosts)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Column15)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.CostDescription)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.ResearchCostValue)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Comments)
-            </td>
-        </tr>
-}
+        @foreach (var item in Model)
+        {
+            <tr class="table-light" onclick="location.href = '@Url.Action("Details", "TaxBooks",new { id = item.Id})'">
+                <td>
+                    @Html.DisplayFor(modelItem => item.Number)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Date)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.InvoiceNumber)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Contractor.FullName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Contractor.NIP)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Contractor.FullAddress)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Description)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.SellValue)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.OtherIncome)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.TotalIncome)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.GoodsBuys)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.BuysSideEffects)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Salary)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.OtherCosts)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.TotalCosts)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Column15)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.CostDescription)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ResearchCostValue)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Comments)
+                </td>
+            </tr>
+        }
     </tbody>
 </table>
