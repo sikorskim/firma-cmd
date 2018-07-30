@@ -20,15 +20,26 @@ namespace firma_mvc.Controllers
         }
 
         // GET: VAT7
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(int? year)
         {
             VAT7 vat7 = new VAT7();
             vat7.Year = DateTime.Now.Year;
             vat7.Month = DateTime.Now.Month - 1;
             ViewData["VAT7"] = vat7;
-            ViewData["Month"] = new SelectList(Tools.getMonthsDictionary(), "Key", "Value");
-            ViewData["Year"] = new SelectList(Tools.getYearsList());
-            return View(await _context.VAT7.ToListAsync());
+            ViewData["Month"] = new SelectList(Tools.getMonthsDictionary(), "Key", "Value", DateTime.Now.Month - 1);
+            ViewData["Year"] = new SelectList(Tools.getYearsList(), DateTime.Now.Year);
+
+            var applicationDbContext = _context.VAT7;
+
+            if (year != null)
+            {
+                var filteredResult = applicationDbContext.Where(p => p.Year == year);
+                ViewData["Year"] = new SelectList(Tools.getYearsList(), year);
+                return View(await filteredResult.ToListAsync());
+            }
+
+
+            return View(await applicationDbContext.ToListAsync());
         }
 
         // GET: VAT7/Details/5
