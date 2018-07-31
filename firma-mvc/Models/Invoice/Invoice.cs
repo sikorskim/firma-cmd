@@ -350,5 +350,10 @@ namespace firma_mvc
 
             return output;
         }
+
+        public string getDownloadFilename()
+        {
+            return "fv" + DateTime.Now.Month + DateTime.Now.Year + Contractor.Name;
+        }
     }
 }

@@ -46,22 +46,26 @@ namespace firma_mvc.Controllers
                 return View(await searchResult.ToListAsync());
             }
 
-            if (month!=null)
+            if (month != null)
             {
                 var filteredResult = applicationDbContext.Where(p => p.DateOfIssue.Month == month);
                 ViewData["Month"] = new SelectList(Tools.getMonthsDictionary(), "Key", "Value", month);
                 if (year != null)
                 {
-                    filteredResult = applicationDbContext.Where(p => p.DateOfIssue.Month == month && p.DateOfIssue.Year==year);
+                    filteredResult = applicationDbContext.Where(p => p.DateOfIssue.Month == month && p.DateOfIssue.Year == year);
                     ViewData["Year"] = new SelectList(Tools.getYearsList(), year);
                 }
                 return View(await filteredResult.ToListAsync());
             }
+            else
+            {
+                return View(await applicationDbContext.Where(p => p.DateOfIssue.Year == DateTime.Now.Year && p.DateOfIssue.Month == DateTime.Now.Month).ToListAsync());
+            }
 
-            return View(await applicationDbContext.ToListAsync());
+            //return View(await applicationDbContext.ToListAsync());
         }
 
-        public IActionResult GetPdfFile(string filename)
+        public IActionResult GetPdfFile(string filename, string downloadFilename)
         {
             const string contentType = "application/pdf";
             HttpContext.Response.ContentType = contentType;
@@ -72,7 +76,7 @@ namespace firma_mvc.Controllers
             {
                 result = new FileContentResult(System.IO.File.ReadAllBytes(filename), contentType)
                 {
-                    FileDownloadName = $"out.pdf"
+                    FileDownloadName = downloadFilename+".pdf"
                 };
                 Tools.deleteTempFiles(filename.Substring(4,64));
                 return result;
@@ -115,8 +119,9 @@ namespace firma_mvc.Controllers
             invoice.Company = _context.Company.FirstOrDefault();
 
             string pdfFilename = invoice.generate();
+            string downFilename = invoice.getDownloadFilename();
             await Task.Delay(1000);
-            return RedirectToAction("GetPdfFile", new { filename = pdfFilename });
+            return RedirectToAction("GetPdfFile", new { filename = pdfFilename, downloadFilename = downFilename });
         }
 
         // GET: Invoice/Details/5
