@@ -115,7 +115,7 @@ namespace firma_mvc.Controllers
             invoice.Company = _context.Company.FirstOrDefault();
 
             string pdfFilename = invoice.generate();
-            await Task.Delay(1000);
+            //await Task.Delay(1000);
             return RedirectToAction("GetPdfFile", new { filename = pdfFilename });
         }
 

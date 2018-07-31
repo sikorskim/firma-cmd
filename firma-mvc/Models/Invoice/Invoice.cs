@@ -339,6 +339,13 @@ namespace firma_mvc
                     output += " " + thousands[2];
                 }
             }
+
+            int i3 = i % 1000;
+            if (i3 != 0)
+            {
+                output += " " + getTriplets(i3);
+            }
+
             return output;
         }
     }
