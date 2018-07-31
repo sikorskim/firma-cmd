@@ -39,12 +39,12 @@ $('#ItemIdDropDownList').change(function () {
 });
 
 // invoiceItem/create count brutto price
-$('#invoiceItemCreatePrice').change(function () {
-    var netto = $('#invoiceItemCreatePrice').val().replace(',', '.');
-    var vat = $('#invoiceItemCreateVatValue').val().replace(',', '.');
+$('#netto').change(function () {
+    var netto = $('#netto').val().replace(',', '.');
+    var vat = $('#vat').val().replace(',', '.');
     var brutto = vat / 100 * netto + +netto;    
     brutto = brutto.toFixed(2).replace('.', ',');
-    $('#invoiceItemCreatePriceBrutto').val(brutto);
+    $('#brutto').val(brutto);
 });
 
 // invoice/index action for items months selectlist
