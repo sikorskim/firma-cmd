@@ -98,7 +98,7 @@
   </Tax>
   <TaxTableSummary>
   \hline
-  ~^\textbf~^Razem^~^~  &amp; \textbf~^100,00^~ &amp; \cellcolor[gray]~^0.9^~ &amp; \textbf~^23,00^~ &amp; \textbf~^123,00^~ \\ \hline
+  ~^\textbf~^Razem^~^~  &amp; \textbf~^{0}^~ &amp; \cellcolor[gray]~^0.9^~ &amp; \textbf~^{1}^~ &amp; \textbf~^{2}^~ \\ \hline
   \end~^tabular^~
   \end~^table^~
 </TaxTableSummary>

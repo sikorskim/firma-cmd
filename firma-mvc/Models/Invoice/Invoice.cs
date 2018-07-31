@@ -173,10 +173,12 @@ namespace firma_mvc
             invoiceItemsSummary = string.Format(invoiceItemsSummary, TotalValue.ToString("0.00"), TotalVATValue.ToString("0.00"), TotalValueInclVat.ToString("0.00"));
             invoiceItemsTable += invoiceItemsSummary;
 
-            //string taxTableHeader = root.Element("TaxTableHeader").Value;
-            //string tax = root.Element("Tax").Value;
-            //string taxTableSummary = root.Element("TaxTableSummary").Value;
-            //string taxTable = taxTableHeader + tax + taxTableSummary;
+            string taxTableHeader = root.Element("TaxTableHeader").Value;
+            string tax = root.Element("Tax").Value;
+            tax = string.Format(tax, "23", TotalValue.ToString("0.00"), TotalVATValue.ToString("0.00"), TotalValueInclVat.ToString("0.00"));
+            string taxTableSummary = root.Element("TaxTableSummary").Value;
+            taxTableSummary = string.Format(taxTableSummary, TotalValue.ToString("0.00"), TotalVATValue.ToString("0.00"), TotalValueInclVat.ToString("0.00"));
+            string taxTable = taxTableHeader + tax + taxTableSummary;
 
             string priceSummary = root.Element("PriceSummary").Value;
             priceSummary = string.Format(priceSummary, TotalValueInclVat.ToString("0.00"), getValueInWords(TotalValueInclVat));
@@ -187,8 +189,8 @@ namespace firma_mvc
             string footer = paymentMethod + issuer;
 
 
-            string output = header + invoiceItemsTable + priceSummary + footer;
-            //string output = header + invoiceItemsTable + taxTable + priceSummary + footer;
+            //string output = header + invoiceItemsTable + priceSummary + footer;
+            string output = header + invoiceItemsTable + taxTable + priceSummary + footer;
 
             output = output.Replace("~^~^", "{{");
             output = output.Replace("^~^~", "}}");
@@ -199,7 +201,7 @@ namespace firma_mvc
             string time = DateTime.Now.ToFileTime().ToString();
 
             string outputFile = Tools.getHash(sellerBuyer + time);
-            File.WriteAllText("tmp/"+outputFile + ".tex", output);
+            File.WriteAllText("tmp/" + outputFile + ".tex", output);
 
             Process process = new Process();
             process.StartInfo.WorkingDirectory = "tmp";
@@ -210,7 +212,7 @@ namespace firma_mvc
             // wait to avoid FileNotFoundException
             //Task.Delay(5000);
             process.Dispose();
-            return outputFile+".pdf";
+            return outputFile + ".pdf";
         }
 
         string getValueInWords(decimal d)
