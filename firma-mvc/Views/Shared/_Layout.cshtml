@@ -18,10 +18,10 @@
     <link href="~/webfonts/fontawesome-all.css" rel="stylesheet">
 </head>
 <body>
-    <nav class="navbar fixed-top navbar-expand-lg navbar-dark bg-dark">
+    <nav class="navbar fixed-top navbar-expand-lg navbar-dark" style="background-color: #c80e25;">
         <a class="navbar-brand" href="#">
-            <img src="~/logo.png" width="30" height="30" class="d-inline-block align-top" alt="">
-            Computerman
+            <img src="~/images/logo.png" width="30" height="30" class="d-inline-block align-top" alt="">
+            @*Computerman*@
         </a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
@@ -29,7 +29,7 @@
 
 
         <div class="collapse navbar-collapse" id="navbarText">
-            <ul class="navbar-nav mr-auto">
+            @*<ul class="navbar-nav mr-auto">
                 <li class="nav-item">@Html.ActionLink("Faktury", "Index", "Invoices", null, htmlAttributes: new { @class = "nav-link" })</li>
                 <li class="nav-item">@Html.ActionLink("Księga", "Index", "TaxBooks", null, htmlAttributes: new { @class = "nav-link" })</li>
                 <li class="nav-item">@Html.ActionLink("Środki trwałe", "Index", "FixedAssets", null, htmlAttributes: new { @class = "nav-link" })</li>
@@ -56,12 +56,12 @@
                     </div>
                 </li>
                 <li class="nav-item">@Html.ActionLink("Generator JPK", "Index", "JPK", null, htmlAttributes: new { @class = "nav-link" })</li>
-            </ul>
+            </ul>*@
 
             <div class="collapse navbar-collapse justify-content-end" id="navbarCollapse">
                 <ul class="navbar-nav">
                     <li class="nav-item dropdown navbar-right">
-                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <a class="dropdown-toggle nav-link-custom" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             <i class="fas fa-cogs"></i> Ustawienia
                         </a>
                         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
@@ -90,7 +90,7 @@
             <div class="col-2">
                 @await Html.PartialAsync("Sidebar")
             </div>
-            <div class="col">
+            <div class="col-10">
                 @RenderBody()
             </div>
         </div>

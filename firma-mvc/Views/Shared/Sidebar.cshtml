@@ -2,105 +2,96 @@
 <div class="accordion" id="accordionExample">
 
     <div class="card">
-        <a class="a-custom" href="Invoices">
+        <a class="a-custom" href="~/Invoices">
             <div class="card-header" id="headingOne" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-                <h5 class="mb-0">
+                <h6 class="mb-0">
                     Faktury
-                </h5>
+                </h6>
             </div>
             </a>
             <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordionExample">
-                <div @*class="card-body" *@>
+                <div>
                     @await Html.PartialAsync("SidebarInvoices")
                 </div>
             </div>
     </div>
 
     <div class="card">
-        <div class="card-header" id="headingTwo" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
-            <h5 class="mb-0">
-                KPiR
-            </h5>
-        </div>
-        <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionExample">
-            <div class="card-body">
-                <ul class="list-group list-group-flush">
-                    <li class="list-group-item">Cras justo odio</li>
-                    <li class="list-group-item">Dapibus ac facilisis in</li>
-                    <li class="list-group-item">Vestibulum at eros</li>
-                </ul>
+        <a class="a-custom" href="~/TaxBooks">
+            <div class="card-header" id="headingTwo" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                <h6 class="mb-0">
+                    KPiR
+                </h6>
             </div>
-        </div>
+            </a>
     </div>
 
     <div class="card">
-        <div class="card-header" id="headingThree" data-toggle="collapse" data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
-            <h5 class="mb-0">
-                Rejestr VAT
-            </h5>
-        </div>
-        <div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#accordionExample">
-            <div class="card-body">
-                Nowy
+        <a class="a-custom" href="#">
+            <div class="card-header" id="headingThree" data-toggle="collapse" data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                <h6 class="mb-0">
+                    Rejestr VAT
+                </h6>
             </div>
-        </div>
+            </a>
+            <div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#accordionExample">
+                <div>
+                    @await Html.PartialAsync("SidebarVATregister")
+                </div>
+            </div>
+</div>
+
+    <div class="card">
+        <a class="a-custom" href="~/Contractors">
+            <div class="card-header" id="headingFour" data-toggle="collapse" data-target="#collapseFour" aria-expanded="false" aria-controls="collapseFour">
+                <h6 class="mb-0">
+                    Kontrahenci
+                </h6>
+            </div>
+            </a>
     </div>
 
     <div class="card">
-        <div class="card-header" id="headingFour" data-toggle="collapse" data-target="#collapseFour" aria-expanded="false" aria-controls="collapseFour">
-            <h5 class="mb-0">
-                Kontrahenci
-            </h5>
-        </div>
-        <div id="collapseFour" class="collapse" aria-labelledby="headingFour" data-parent="#accordionExample">
-            <div class="card-body">
-                Nowy
+        <a class="a-custom" href="~/Items">
+            <div class="card-header" id="headingFive" data-toggle="collapse" data-target="#collapseFive" aria-expanded="false" aria-controls="collapseFive">
+                <h6 class="mb-0">
+                    Towary i usługi
+                </h6>
             </div>
-        </div>
+            </a>
     </div>
 
     <div class="card">
-        <div class="card-header" id="headingFive" data-toggle="collapse" data-target="#collapseFive" aria-expanded="false" aria-controls="collapseFive">
-            <h5 class="mb-0">            
-                    Towary i usługi                
-            </h5>
-        </div>
-        <div id="collapseFive" class="collapse" aria-labelledby="headingFive" data-parent="#accordionExample">
-            <div class="card-body">
-                Nowy
+        <a class="a-custom" href="#">
+            <div class="card-header" id="headingSix" data-toggle="collapse" data-target="#collapseSix" aria-expanded="false" aria-controls="collapseSix">
+                <h6 class="mb-0">
+                    Podatki
+                </h6>
             </div>
-        </div>
+            </a>
+            <div id="collapseSix" class="collapse" aria-labelledby="headingSix" data-parent="#accordionExample">
+                <div>
+                    @await Html.PartialAsync("SidebarTax")
+                </div>
+            </div>
     </div>
 
     <div class="card">
-        <div class="card-header" id="headingSix" data-toggle="collapse" data-target="#collapseSix" aria-expanded="false" aria-controls="collapseSix">
-            <h5 class="mb-0">                
-                    Podatki                
-            </h5>
-        </div>
-        <div id="collapseSix" class="collapse" aria-labelledby="headingSix" data-parent="#accordionExample">
-            <div class="card-body">
-                Nowy
-            </div>
-        </div>
-    </div>
-
-    <div class="card">
-        <a class="a-custom" href="JPK">
+        <a class="a-custom" href="~/JPK">
             <div class="card-header" id="headingSeven" data-toggle="collapse" data-target="#collapseSeven" aria-expanded="false" aria-controls="collapseSeven">
-                <h5 class="mb-0">
+                <h6 class="mb-0">
                     Generator JPK
-                </h5>
+                </h6>
             </div>
             </a>
     </div>
 
         <div class="card">
-            <a class="a-custom" href="FixedAssets">
+            <a class="a-custom" href="~/FixedAssets">
                 <div class="card-header" id="headingEight" data-toggle="collapse" data-target="#collapseEight" aria-expanded="false" aria-controls="collapseEight">
-                    <h5 class="mb-0">
+                    <h6 class="mb-0">
                         Środki trwałe
-                    </h5>
+                    </h6>
                 </div>
             </a>
         </div>

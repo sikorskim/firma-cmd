@@ -67,8 +67,19 @@
     -webkit-text-decoration-skip: objects;
 }
 
-.a-custom:hover {
-    color: #000;
-    background-color: #b6ff00;
+    .a-custom:hover {
+        color: #ffffff;
+        background-color: #c80e25;
+        text-decoration: none;
+    }
+
+.nav-link-custom {
+    display: block;
+    padding: 0.5rem 1rem;
+    color: #ffffff;
+}
+
+.nav-link-custom:hover, .nav-link-custom:focus {
     text-decoration: none;
+    color: pink;
 }
