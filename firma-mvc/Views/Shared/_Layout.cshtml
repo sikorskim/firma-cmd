@@ -99,7 +99,11 @@
             <div class="col-2"></div>
             <div class="col">
                 <hr />
-                <p>&copy; @DateTime.Now.Year - Computerman Firma</p>
+                <p>
+                    @*&copy; @DateTime.Now.Year*@ <a class="navbar-brand" href="https://computerman.pl">
+                        <img src="~/images/logo-h-2.png" @*width="30"*@ height="20" class="d-inline-block align-top" alt="">
+                    </a>
+                </p>
             </div>
         </div>
     </div>
