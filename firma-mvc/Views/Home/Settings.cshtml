@@ -30,7 +30,9 @@
     <div class="tab-pane fade show active" id="nav-myCompany" role="tabpanel" aria-labelledby="nav-myCompany-tab">
         @await Html.PartialAsync("../Companies/EditPartial.cshtml", @ViewData["Company"])
     </div>
-    <div class="tab-pane fade" id="nav-general" role="tabpanel" aria-labelledby="nav-general-tab">...</div>
+    <div class="tab-pane fade" id="nav-general" role="tabpanel" aria-labelledby="nav-general-tab">
+        @await  Html.PartialAsync("GeneralSettingsPartial")
+    </div>
     <div class="tab-pane fade" id="nav-parameters" role="tabpanel" aria-labelledby="nav-parameters-tab">
         @await Html.PartialAsync("../Parameters/IndexPartial.cshtml", @ViewData["Parameters"])
     </div>
