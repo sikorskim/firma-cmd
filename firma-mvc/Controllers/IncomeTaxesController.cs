@@ -20,7 +20,7 @@ namespace firma_mvc.Controllers
         }
 
         // GET: IncomeTaxes
-        public async Task<IActionResult> Index(int? year)
+        public async Task<IActionResult> Index(int? year, string info)
         {
             ViewData["Month"] = new SelectList(Tools.getMonthsDictionary(), "Key", "Value",DateTime.Now.Month-1);
             ViewData["Year"] = new SelectList(Tools.getYearsList(), DateTime.Now.Year);
@@ -34,6 +34,10 @@ namespace firma_mvc.Controllers
                 return View(await filteredResult.ToListAsync());
             }
 
+            if (!string.IsNullOrEmpty(info))
+            {
+                ViewBag.Info = info;
+            }
 
             return View(await applicationDbContext.ToListAsync());
         }
@@ -83,9 +87,16 @@ namespace firma_mvc.Controllers
             if (ModelState.IsValid)
             {
                 incomeTax = incomeTax.compute(_context);
-                _context.Add(incomeTax);
-                await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+                if (incomeTax.Income != 0 && incomeTax.Loss != 0)
+                {
+                    _context.Add(incomeTax);
+                    await _context.SaveChangesAsync();
+                    return RedirectToAction(nameof(Index));
+                }
+                else
+                {
+                    return RedirectToAction(nameof(Index), new { info = "Brak danych dla wybranego okresu" });
+                }
             }
             return PartialView(incomeTax);
         }

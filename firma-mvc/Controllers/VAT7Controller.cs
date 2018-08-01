@@ -20,7 +20,7 @@ namespace firma_mvc.Controllers
         }
 
         // GET: VAT7
-        public async Task<IActionResult> Index(int? year)
+        public async Task<IActionResult> Index(int? year, string info)
         {
             VAT7 vat7 = new VAT7();
             vat7.Year = DateTime.Now.Year;
@@ -38,6 +38,10 @@ namespace firma_mvc.Controllers
                 return View(await filteredResult.ToListAsync());
             }
 
+            if (!string.IsNullOrEmpty(info))
+            {
+                ViewBag.Info = info;
+            }
 
             return View(await applicationDbContext.ToListAsync());
         }
@@ -71,9 +75,16 @@ namespace firma_mvc.Controllers
             {
                 vAT7.Paid = false;
                 vAT7.Value = vAT7.compute(_context);
-                _context.Add(vAT7);
-                await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+                if (vAT7.Value != 0)
+                {
+                    _context.Add(vAT7);
+                    await _context.SaveChangesAsync();
+                    return RedirectToAction(nameof(Index));
+                }
+                else
+                {
+                    return RedirectToAction(nameof(Index), new { info = "Brak danych dla wybranego okresu" });
+                }
             }
             
             return View(vAT7);
