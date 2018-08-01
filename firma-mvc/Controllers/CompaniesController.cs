@@ -86,7 +86,7 @@ namespace firma_mvc.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("InvoiceIssuerName,InvoiceIssueCity,Id,NIP,FullName,Name,CountryCode,Voivodeship,County,Community,City,Street,BuldingNo,PostalCode,PostOffice,Email,Phone")] Company company)
+        public async Task<IActionResult> Edit(int id, [Bind("InvoiceIssuerName,InvoiceIssueCity,Id,NIP,FullName,Name,CountryCode,Voivodeship,County,Community,City,Street,BuldingNo,PostalCode,PostOffice,Email,Phone,REGON,BankName,BankAccountNumber,Website")] Company company)
         {
             if (id != company.Id)
             {
@@ -111,7 +111,42 @@ namespace firma_mvc.Controllers
                         throw;
                     }
                 }
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction(nameof(HomeController.Settings));
+            }
+            return View(company);
+        }
+
+        // POST: Companies/Edit/5
+        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
+        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> EditPartial(int id, [Bind("InvoiceIssuerName,InvoiceIssueCity,Id,NIP,FullName,Name,CountryCode,Voivodeship,County,Community,City,Street,BuldingNo,PostalCode,PostOffice,Email,Phone,REGON,BankName,BankAccountNumber,Website")] Company company)
+        {
+            if (id != company.Id)
+            {
+                return NotFound();
+            }
+
+            if (ModelState.IsValid)
+            {
+                try
+                {
+                    _context.Update(company);
+                    await _context.SaveChangesAsync();
+                }
+                catch (DbUpdateConcurrencyException)
+                {
+                    if (!CompanyExists(company.Id))
+                    {
+                        return NotFound();
+                    }
+                    else
+                    {
+                        throw;
+                    }
+                }
+                return RedirectToAction("Settings", "Home", new { info = "Zmiany zapisane" });
             }
             return View(company);
         }

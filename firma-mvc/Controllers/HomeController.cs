@@ -5,11 +5,19 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using firma_mvc.Models;
+using firma_mvc.Data;
 
 namespace firma_mvc.Controllers
 {
     public class HomeController : Controller
     {
+        private readonly ApplicationDbContext _context;
+
+        public HomeController(ApplicationDbContext context)
+        {
+            _context = context;
+        }
+
         public IActionResult Index()
         {
             return View();
@@ -32,6 +40,17 @@ namespace firma_mvc.Controllers
         public IActionResult Error()
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+        }
+
+        public IActionResult Settings(string info)
+        {
+            if (!string.IsNullOrEmpty(info))
+            {
+                ViewBag.Info = info;
+            }
+            ViewData["Company"] = _context.Company.FirstOrDefault();
+            ViewData["Parameters"] = _context.Parameter.ToList();
+            return View();
         }
     }
 }
