@@ -48,8 +48,14 @@ namespace firma_mvc.Controllers
             {
                 ViewBag.Info = info;
             }
+            
             ViewData["Company"] = _context.Company.FirstOrDefault();
             ViewData["Parameters"] = _context.Parameter.ToList();
+            ViewData["PaymentMethods"] = _context.PaymentMethod.ToList();
+            ViewData["UnitsOfMeasure"] = _context.UnitOfMeasure.ToList();
+            ViewData["InvoiceStatuses"] = _context.InvoiceStatus.ToList();
+            ViewData["VATrates"] = _context.VAT.ToList();
+
             return View();
         }
     }

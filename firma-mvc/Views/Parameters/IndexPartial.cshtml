@@ -33,7 +33,6 @@
         }
         @foreach (var item in Model)
         {
-            @*<tr class="table-light" onclick="location.href = '@Url.Action("Details", "Parameters",new { id = item.Id})'">*@
             <tr class="table-light" data-toggle="modal" data-target="#paramEdit">
                 <td>
                     @i
@@ -65,7 +64,7 @@
             </div>
             <div class="modal-body">
                 <div class="container-fluid">
-                    @await Html.PartialAsync("../Parameters/EditPartial", @ViewData["Invoice"])
+                    
                 </div>
             </div>
         </div>

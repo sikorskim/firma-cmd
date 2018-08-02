@@ -1,4 +1,4 @@
-﻿@model IEnumerable<firma_mvc.PaymentMethod>
+﻿@model IEnumerable<firma_mvc.UnitOfMeasure>
 
 <p>
     <a asp-action="Create" class="btn btn-outline-success">Dodaj</a>
@@ -9,21 +9,21 @@
             <th>
                 L.p.
             </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Name)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.DueTerm)
-            </th>        
+                <th>
+                    @Html.DisplayNameFor(model => model.Name)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.ShortName)
+                </th>            
         </tr>
     </thead>
     <tbody>
         @{
             int i=1;
         }
-
+        
 @foreach (var item in Model) {
-        <tr class="table-light" data-toggle="modal" data-target="#paramEdit">
+              <tr class="table-light" data-toggle="modal" data-target="#paramEdit">
             <td>
                 @i
             </td>
@@ -31,8 +31,8 @@
                 @Html.DisplayFor(modelItem => item.Name)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.DueTerm)
-            </td>
+                @Html.DisplayFor(modelItem => item.ShortName)
+            </td>           
         </tr>
         i++;
 }

@@ -31,7 +31,34 @@
         @await Html.PartialAsync("../Companies/EditPartial.cshtml", @ViewData["Company"])
     </div>
     <div class="tab-pane fade" id="nav-general" role="tabpanel" aria-labelledby="nav-general-tab">
-        @await  Html.PartialAsync("GeneralSettingsPartial")
+        <br/>
+
+<div class="row">
+    <div class="col-3">
+        <div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
+            <a class="nav-link active" id="v-pills-payment-tab" data-toggle="pill" href="#v-pills-payment" role="tab" aria-controls="v-pills-payment" aria-selected="true">Formy płatności</a>
+            <a class="nav-link" id="v-pills-units-tab" data-toggle="pill" href="#v-pills-units" role="tab" aria-controls="v-pills-units" aria-selected="false">Jednostki miar</a>
+            <a class="nav-link" id="v-pills-statuses-tab" data-toggle="pill" href="#v-pills-statuses" role="tab" aria-controls="v-pills-statuses" aria-selected="false">Statusy faktury</a>
+            <a class="nav-link" id="v-pills-vat-tab" data-toggle="pill" href="#v-pills-vat" role="tab" aria-controls="v-pills-vat" aria-selected="false">Stawki VAT</a>
+        </div>
+    </div>
+    <div class="col-9">
+        <div class="tab-content" id="v-pills-tabContent">
+            <div class="tab-pane fade show active" id="v-pills-payment" role="tabpanel" aria-labelledby="v-pills-payment-tab">
+                @await Html.PartialAsync("../PaymentMethods/IndexPartial.cshtml", @ViewData["PaymentMethods"])
+            </div>
+            <div class="tab-pane fade" id="v-pills-units" role="tabpanel" aria-labelledby="v-pills-units-tab">
+                @await Html.PartialAsync("../UnitOfMeasures/IndexPartial.cshtml", @ViewData["UnitsOfMeasure"])
+            </div>
+            <div class="tab-pane fade" id="v-pills-statuses" role="tabpanel" aria-labelledby="v-pills-statuses-tab">
+                @await Html.PartialAsync("../InvoiceStatus/IndexPartial.cshtml", @ViewData["InvoiceStatuses"])
+            </div>
+            <div class="tab-pane fade" id="v-pills-vat" role="tabpanel" aria-labelledby="v-pills-vat-tab">
+                @await Html.PartialAsync("../VATs/IndexPartial.cshtml", @ViewData["VATrates"])
+            </div>
+        </div>
+    </div>
+</div>
     </div>
     <div class="tab-pane fade" id="nav-parameters" role="tabpanel" aria-labelledby="nav-parameters-tab">
         @await Html.PartialAsync("../Parameters/IndexPartial.cshtml", @ViewData["Parameters"])
