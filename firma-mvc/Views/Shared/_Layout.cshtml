@@ -58,10 +58,15 @@
                 <li class="nav-item">@Html.ActionLink("Generator JPK", "Index", "JPK", null, htmlAttributes: new { @class = "nav-link" })</li>
             </ul>*@
 
-            <div class="collapse navbar-collapse justify-content-end" id="navbarCollapse">
-                <ul class="navbar-nav">
-                    <li class="nav-item">@Html.ActionLink("Ustawienia nowe", "Settings", "Home", null, htmlAttributes: new { @class = "nav-link-custom" })</li>
-                    <li class="nav-item dropdown navbar-right">
+<div class="collapse navbar-collapse justify-content-end" id="navbarCollapse">
+                <ul class="navbar-nav">                                      
+                    <li class="nav-item navbar-right">
+                    <a class="nav-link-custom" href="../Home/Settings">
+                            <i class="fas fa-cogs"></i> Ustawienia
+                            </a>                            
+                    </li>
+
+                    @*<li class="nav-item dropdown navbar-right">
                         <a class="dropdown-toggle nav-link-custom" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             <i class="fas fa-cogs"></i> Ustawienia
                         </a>
@@ -73,7 +78,7 @@
                             @Html.ActionLink("Parametry", "Index", "Parameters", null, htmlAttributes: new { @class = "dropdown-item" })
                             @Html.ActionLink("Moja firma", "Index", "Companies", null, htmlAttributes: new { @class = "dropdown-item" })
                         </div>
-                    </li>
+                    </li>*@
                 </ul>
             </div>
             @await Html.PartialAsync("_LoginPartial")
