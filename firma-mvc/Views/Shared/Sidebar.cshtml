@@ -1,19 +1,62 @@
-﻿<br />
+﻿@{
+    string controller = ViewContext.RouteData.Values["Controller"].ToString();    
+    string invoicesTab = string.Empty;
+    string invoicesExpanded = string.Empty;
+    string taxesTab = string.Empty;
+    string taxesExpanded = string.Empty;
+    string vatRegisterTab = string.Empty;
+    string vatRegisterExpanded = string.Empty;
+
+    if(controller=="Invoices")
+    {
+        invoicesTab="show";
+        invoicesExpanded="true";
+        taxesTab = string.Empty;
+        vatRegisterTab = string.Empty;
+    }
+    else if(controller == "VAT7" || controller == "IncomeTaxes")
+    {
+        invoicesTab=string.Empty;
+        taxesTab = "show";
+        vatRegisterTab = string.Empty;
+    }
+        else if(controller == "VATRegisterBuys" || controller == "VATRegisterSells")
+    {
+        invoicesTab=string.Empty;
+        taxesTab = string.Empty;
+        vatRegisterTab = "show";
+    }
+}
+<br />
+@controller
+@invoicesTab
+@invoicesExpanded
 <div class="accordion" id="accordionExample">
 
     <div class="card">
         <a class="a-custom" href="~/Invoices">
-            <div class="card-header" id="headingOne" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+            <div class="card-header" id="headingOne" data-toggle="collapse" data-target="#collapseOne" aria-expanded="false" aria-controls="collapseOne">
                 <h6 class="mb-0">
                     Faktury
                 </h6>
             </div>
             </a>
-            <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordionExample">
-                <div>
+            @if(controller=="Invoices")
+            {
+                <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordionExample">
+                                    <div>
                     @await Html.PartialAsync("SidebarInvoices")
                 </div>
             </div>
+            }
+            else
+            {
+                <div id="collapseOne" class="collapse" aria-labelledby="headingOne" data-parent="#accordionExample">
+                                    <div>
+                    @await Html.PartialAsync("SidebarInvoices")
+                </div>
+            </div>
+            }
     </div>
 
     <div class="card">
@@ -28,7 +71,7 @@
 
     <div class="card">
         <a class="a-custom" href="#">
-            <div class="card-header" id="headingThree" data-toggle="collapse" data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+            <div class="card-header" id="headingThree" data-toggle="collapse @vatRegisterTab" data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
                 <h6 class="mb-0">
                     Rejestr VAT
                 </h6>
@@ -63,7 +106,7 @@
 
     <div class="card">
         <a class="a-custom" href="#">
-            <div class="card-header" id="headingSix" data-toggle="collapse" data-target="#collapseSix" aria-expanded="false" aria-controls="collapseSix">
+            <div class="card-header" id="headingSix" data-toggle="collapse @taxesTab" data-target="#collapseSix" aria-expanded="false" aria-controls="collapseSix">
                 <h6 class="mb-0">
                     Podatki
                 </h6>
