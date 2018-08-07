@@ -1,36 +1,8 @@
 ﻿@{
     string controller = ViewContext.RouteData.Values["Controller"].ToString();    
-    string invoicesTab = string.Empty;
-    string invoicesExpanded = string.Empty;
-    string taxesTab = string.Empty;
-    string taxesExpanded = string.Empty;
-    string vatRegisterTab = string.Empty;
-    string vatRegisterExpanded = string.Empty;
-
-    if(controller=="Invoices")
-    {
-        invoicesTab="show";
-        invoicesExpanded="true";
-        taxesTab = string.Empty;
-        vatRegisterTab = string.Empty;
-    }
-    else if(controller == "VAT7" || controller == "IncomeTaxes")
-    {
-        invoicesTab=string.Empty;
-        taxesTab = "show";
-        vatRegisterTab = string.Empty;
-    }
-        else if(controller == "VATRegisterBuys" || controller == "VATRegisterSells")
-    {
-        invoicesTab=string.Empty;
-        taxesTab = string.Empty;
-        vatRegisterTab = "show";
-    }
 }
 <br />
-@controller
-@invoicesTab
-@invoicesExpanded
+
 <div class="accordion" id="accordionExample">
 
     <div class="card">
@@ -71,17 +43,28 @@
 
     <div class="card">
         <a class="a-custom" href="#">
-            <div class="card-header" id="headingThree" data-toggle="collapse @vatRegisterTab" data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+            <div class="card-header" id="headingThree" data-toggle="collapse" data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
                 <h6 class="mb-0">
                     Rejestr VAT
                 </h6>
             </div>
             </a>
+            @if(controller=="VATRegisterSells" || controller=="VATRegisterBuys")
+            {           
+            <div id="collapseThree" class="collapse show" aria-labelledby="headingThree" data-parent="#accordionExample">
+                <div>
+                    @await Html.PartialAsync("SidebarVATregister")
+                </div>
+            </div>
+            }
+            else
+            {
             <div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#accordionExample">
                 <div>
                     @await Html.PartialAsync("SidebarVATregister")
                 </div>
             </div>
+            }
 </div>
 
     <div class="card">
@@ -106,17 +89,28 @@
 
     <div class="card">
         <a class="a-custom" href="#">
-            <div class="card-header" id="headingSix" data-toggle="collapse @taxesTab" data-target="#collapseSix" aria-expanded="false" aria-controls="collapseSix">
+            <div class="card-header" id="headingSix" data-toggle="collapse" data-target="#collapseSix" aria-expanded="false" aria-controls="collapseSix">
                 <h6 class="mb-0">
                     Podatki
                 </h6>
             </div>
             </a>
-            <div id="collapseSix" class="collapse" aria-labelledby="headingSix" data-parent="#accordionExample">
+            @if(controller=="VAT7" || controller=="IncomeTaxes")
+            {
+            <div id="collapseSix" class="collapse show" aria-labelledby="headingSix" data-parent="#accordionExample">
                 <div>
                     @await Html.PartialAsync("SidebarTax")
                 </div>
             </div>
+            }
+            else
+            {
+                <div id="collapseSix" class="collapse" aria-labelledby="headingSix" data-parent="#accordionExample">
+                <div>
+                    @await Html.PartialAsync("SidebarTax")
+                </div>
+            </div>
+            }
     </div>
 
     <div class="card">
