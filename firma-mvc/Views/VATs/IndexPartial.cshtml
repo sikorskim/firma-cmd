@@ -20,7 +20,7 @@
         }
 
 @foreach (var item in Model) {
-        <tr class="table-light" data-toggle="modal" data-target="#paramEdit">
+        <tr class="table-light" data-toggle="modal" data-target="#vatRateEdit">
             <td>
                 @i
             </td>
@@ -34,11 +34,11 @@
 </table>
 
 <!-- Modal -->
-<div class="modal fade" id="paramEdit" tabindex="-1" role="dialog" aria-labelledby="newInvoiceLabel" aria-hidden="true">
+<div class="modal fade" id="vatRateEdit" tabindex="-1" role="dialog" aria-labelledby="vatRateLabel" aria-hidden="true">
     <div class="modal-dialog modal-sm" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="newInvoiceLabel">Edycja formy płatności</h5>
+                <h5 class="modal-title" id="vatRateLabel">Edycja formy płatności</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
