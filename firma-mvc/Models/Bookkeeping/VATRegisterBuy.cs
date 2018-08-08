@@ -81,7 +81,7 @@ namespace firma_mvc
             var monthDict = Tools.getMonthsDictionary();
 
             string header = root.Element ("Header").Value;
-            header = string.Format (header, company.Name, monthDict[month], year, company.FullAddress, company.NIP);
+            header = string.Format (header, company.FullName, monthDict[month], year, company.FullAddress, company.NIP);
 
             string tableHeader = root.Element ("TableHeader").Value;
             string tableSummary = root.Element ("TableSummary").Value;
