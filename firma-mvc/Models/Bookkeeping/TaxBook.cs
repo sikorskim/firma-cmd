@@ -5,6 +5,7 @@ using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Threading.Tasks;
+using firma_mvc.Data;
 
 namespace firma_mvc
 {
@@ -14,55 +15,76 @@ namespace firma_mvc
     public class TaxBook
     {
         public int Id { get; set; }
-        [DisplayName("L.p.")]
+
+        [DisplayName ("L.p.")]
         public int Number { get; set; }
-        [DisplayName("Data zdarzenia gospodarczego")]
-        [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
+
+        [DisplayName ("Data zdarzenia gospodarczego")]
+        [DisplayFormat (DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
         public DateTime Date { get; set; }
-        [DisplayName("Nr dowodu księgowego")]
+
+        [DisplayName ("Nr dowodu księgowego")]
         public string InvoiceNumber { get; set; }
         #region Contractor
-        [DisplayName("Kontrahent")]
+        [DisplayName ("Kontrahent")]
         public int ContractorId { get; set; }
         #endregion
-        [DisplayName("Opis zdarzenia gospodarczego")]
+        [DisplayName ("Opis zdarzenia gospodarczego")]
         public string Description { get; set; }
         #region Income
         public string IncomeHeader { get { return "Przychód"; } }
-        [DisplayName("Wartość sprzedanych towarów i usług")]
+
+        [DisplayName ("Wartość sprzedanych towarów i usług")]
         public decimal? SellValue { get; set; } = 0;
-        [DisplayName("Pozostałe przychody")]
+        [DisplayName ("Pozostałe przychody")]
         public decimal? OtherIncome { get; set; } = 0;
-        [DisplayName("Razem przychód")]
+        [DisplayName ("Razem przychód")]
         public decimal? TotalIncome { get { return SellValue + OtherIncome; } }
         #endregion
-        [DisplayName("Zakup towarów handlowych i materiałów wg cen zakupu")]
+        [DisplayName ("Zakup towarów handlowych i materiałów wg cen zakupu")]
         public decimal? GoodsBuys { get; set; } = 0;
-        [DisplayName("Koszty uboczne zakupu")]
+        [DisplayName ("Koszty uboczne zakupu")]
         public decimal? BuysSideEffects { get; set; } = 0;
         #region Costs
         public string CostsHeader { get { return "Wydatki"; } }
-        [DisplayName("Wynagrodzenia w gotówce i w naturze")]
+
+        [DisplayName ("Wynagrodzenia w gotówce i w naturze")]
         public decimal? Salary { get; set; } = 0;
-        [DisplayName("Pozostałe wydatki")]
+        [DisplayName ("Pozostałe wydatki")]
         public decimal? OtherCosts { get; set; } = 0;
-        [DisplayName("Razem wydatki")]
+        [DisplayName ("Razem wydatki")]
         public decimal? TotalCosts { get { return Salary + OtherCosts; } }
-        [DisplayName("")]
+
+        [DisplayName ("")]
         public decimal? Column15 { get; set; } = 0;
         #endregion
         #region Research costs
         public string ResearchCostsHeader { get { return "Koszty działalności badawczo-rozwojowej, o których mowa w art. 26c ustawy o podatku dochodowym"; } }
-        [DisplayName("Opis kosztu")]
+
+        [DisplayName ("Opis kosztu")]
         public string CostDescription { get; set; }
-        [DisplayName("Wartość")]
+
+        [DisplayName ("Wartość")]
         public decimal? ResearchCostValue { get; set; } = 0;
         #endregion
-        [DisplayName("Uwagi")]
+        [DisplayName ("Uwagi")]
         public string Comments { get; set; }
 
-        [DisplayName("Kontrahent")]
-        [ForeignKey("ContractorId")]
+        [DisplayName ("Kontrahent")]
+        [ForeignKey ("ContractorId")]
         public virtual Contractor Contractor { get; set; }
+
+        public int getOrderNumber (ApplicationDbContext _context)
+        {
+            try
+            {
+                return _context.TaxBookItem.Where (p => p.Date.Month == DateTime.Now.Month && p.Date.Year == DateTime.Now.Year).Last ().Number + 1;
+            }
+            catch (Exception)
+            {
+                return 1;
+            }
+        }
+
     }
 }

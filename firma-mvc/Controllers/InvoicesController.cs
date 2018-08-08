@@ -319,64 +319,117 @@ namespace firma_mvc.Controllers
 
         int getCompanyId ()
         {
-            return _context.Company.FirstOrDefault().Id;
+            return _context.Company.FirstOrDefault ().Id;
         }
 
         // GET: Invoice/Confirm
-        public async Task<IActionResult> Confirm (int? id)
+        public IActionResult Confirm (int? id)
         {
             if (id == null)
             {
                 return NotFound ();
             }
 
-            Invoice invoice = await _context.Invoice.Include (p => p.InvoiceItems).SingleOrDefaultAsync (m => m.Id == id);
-            invoice.InvoiceStatusId = _context.InvoiceStatus.Single (p => p.Name == "zatwierdzona").Id;
+            Invoice invoice = _context.Invoice.Include (i => i.InvoiceItems).Include (i => i.InvoiceStatus).Single (m => m.Id == id);
 
-            VATRegisterSell sell = new VATRegisterSell ();
-            // to change
-            sell.Number = 1;
-
-            sell.DeliveryDate = invoice.DateOfDelivery;
-            sell.DateOfIssue = invoice.DateOfIssue;
-            sell.Month = sell.DateOfIssue.Month;
-            sell.Year = sell.DateOfIssue.Year;
-
-            sell.DocumentNumber = invoice.Number;
-            sell.ContractorId = invoice.ContractorId;
-
-            sell.ValueBrutto = invoice.TotalValueInclVat;
-
-            // TO DO: add other VAT rates support
-            foreach (InvoiceItem item in invoice.InvoiceItems)
+            if (invoice.InvoiceStatus.Name != "zatwierdzona")
             {
-                if (item.VATValue == 23)
+                invoice.InvoiceStatusId = _context.InvoiceStatus.Single (p => p.Name == "zatwierdzona").Id;
+                VATRegisterSell sell = new VATRegisterSell ();
+                TaxBook taxBook = new TaxBook ();
+
+                try
                 {
-                    sell.ValueNetto23 += item.TotalPrice;
-                    sell.VATValue23 += item.TotalVATValue;
+                    sell = _context.VATRegisterSell.Single (p => p.DocumentNumber == invoice.Number);
+                    sell.Number = sell.getOrderNumber (_context);
+                    sell.DeliveryDate = invoice.DateOfDelivery;
+                    sell.DateOfIssue = invoice.DateOfIssue;
+                    sell.Month = sell.DateOfIssue.Month;
+                    sell.Year = sell.DateOfIssue.Year;
+                    sell.DocumentNumber = invoice.Number;
+                    sell.ContractorId = invoice.ContractorId;
+                    sell.ValueBrutto = invoice.TotalValueInclVat;
+
+                    sell.ValueNetto23 = 0;
+                    sell.VATValue23 = 0;
+                    // TO DO: add other VAT rates support
+                    foreach (InvoiceItem item in invoice.InvoiceItems)
+                    {
+                        if (item.VATValue == 23)
+                        {
+                            sell.ValueNetto23 += item.TotalPrice;
+                            sell.VATValue23 += item.TotalVATValue;
+                        }
+                    }
+
+                    _context.Update (sell);
                 }
+                catch (Exception)
+                {
+
+                    sell.Number = sell.getOrderNumber (_context);
+                    sell.DeliveryDate = invoice.DateOfDelivery;
+                    sell.DateOfIssue = invoice.DateOfIssue;
+                    sell.Month = sell.DateOfIssue.Month;
+                    sell.Year = sell.DateOfIssue.Year;
+                    sell.DocumentNumber = invoice.Number;
+                    sell.ContractorId = invoice.ContractorId;
+                    sell.ValueBrutto = invoice.TotalValueInclVat;
+
+                    // TO DO: add other VAT rates support
+                    foreach (InvoiceItem item in invoice.InvoiceItems)
+                    {
+                        if (item.VATValue == 23)
+                        {
+                            sell.ValueNetto23 += item.TotalPrice;
+                            sell.VATValue23 += item.TotalVATValue;
+                        }
+                    }
+                    _context.Add (sell);
+                }
+
+                try
+                {
+                    taxBook=_context.TaxBookItem.Single(p=>p.InvoiceNumber==invoice.Number);
+                    taxBook.Date = invoice.DateOfIssue;
+                    taxBook.ContractorId = invoice.ContractorId;
+                    taxBook.SellValue = invoice.TotalValue;
+                    taxBook.Description = "sprzedaż";
+                    _context.Update(taxBook);
+                }
+                catch (Exception)
+                {
+                    taxBook.Number = taxBook.getOrderNumber (_context);
+                    taxBook.Date = invoice.DateOfIssue;
+                    taxBook.InvoiceNumber = invoice.Number;
+                    taxBook.ContractorId = invoice.ContractorId;
+                    taxBook.SellValue = invoice.TotalValue;
+                    taxBook.Description = "sprzedaż";
+                    _context.Add (taxBook);
+                }
+
+                _context.Update (invoice);
+                _context.SaveChanges ();
+                return RedirectToAction (nameof (Index));
             }
-
-            TaxBook taxBook = new TaxBook ();
-            taxBook.Number = 1;
-            taxBook.Date = invoice.DateOfIssue;
-            taxBook.InvoiceNumber = invoice.Number;
-            taxBook.ContractorId = invoice.ContractorId;
-            taxBook.SellValue = invoice.TotalValue;
-            taxBook.Description = "sprzedaż";
-
-            _context.Add (taxBook);
-            _context.Add (sell);
-            _context.Update (invoice);
-            await _context.SaveChangesAsync ();
-
-            return RedirectToAction (nameof (Index));
+            else
+            {
+                invoice.InvoiceStatusId = _context.InvoiceStatus.Single (p => p.Name == "nowa").Id;
+                _context.Update (invoice);
+                _context.SaveChanges ();
+                return RedirectToAction (nameof (Details), new { id = id });
+            }
         }
 
-        public async Task<IActionResult> SetPaid(int invoiceId)
+        public async Task<IActionResult> SetPaid (int? invoiceId)
         {
-            var invoice = _context.Invoice.Single(p=>p.Id==invoiceId);
-            invoice.Paid=!invoice.Paid;
+            if (invoiceId == null)
+            {
+                return NotFound ();
+            }
+
+            var invoice = _context.Invoice.Single (p => p.Id == invoiceId);
+            invoice.Paid = !invoice.Paid;
             _context.Update (invoice);
             await _context.SaveChangesAsync ();
             return RedirectToAction (nameof (Details), new { id = invoiceId });
