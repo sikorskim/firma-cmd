@@ -1,4 +1,5 @@
 ﻿using firma_mvc.Data;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -6,6 +7,7 @@ using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Threading.Tasks;
+using System.Xml.Linq;
 
 namespace firma_mvc
 {
@@ -92,6 +94,6 @@ namespace firma_mvc
             {
                 return 1;
             }
-        }
+        }       
     }
 }

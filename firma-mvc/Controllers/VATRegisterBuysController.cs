@@ -1,12 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
+using firma_mvc;
+using firma_mvc.Data;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
-using firma_mvc;
-using firma_mvc.Data;
 
 namespace firma_mvc.Controllers
 {
@@ -14,71 +15,75 @@ namespace firma_mvc.Controllers
     {
         private readonly ApplicationDbContext _context;
 
-        public VATRegisterBuysController(ApplicationDbContext context)
+        public VATRegisterBuysController (ApplicationDbContext context)
         {
             _context = context;
         }
 
         // GET: VATRegisterBuys
-        public async Task<IActionResult> Index(int? year, int? month)
+        public async Task<IActionResult> Index (int? year, int? month)
         {
-            VATRegisterBuy vATRegisterBuy = new VATRegisterBuy();
+            VATRegisterBuy vATRegisterBuy = new VATRegisterBuy ();
             vATRegisterBuy.DateOfIssue = DateTime.Now.Date;
-            vATRegisterBuy.DeliveryDate = DateTime.Now.Date;            
+            vATRegisterBuy.DeliveryDate = DateTime.Now.Date;
             ViewData["VATRegisterBuy"] = vATRegisterBuy;
-            ViewData["ContractorId"] = new SelectList(_context.Contractor, "Id", "Name");
-            ViewData["Month"] = new SelectList(Tools.getMonthsDictionary(), "Key", "Value", DateTime.Now.Month);
-            ViewData["Year"] = new SelectList(Tools.getYearsList(), DateTime.Now.Year);
+            ViewData["ContractorId"] = new SelectList (_context.Contractor, "Id", "Name");
+            ViewData["Month"] = new SelectList (Tools.getMonthsDictionary (), "Key", "Value", DateTime.Now.Month);
+            ViewData["Year"] = new SelectList (Tools.getYearsList (), DateTime.Now.Year);
+            ViewData["SelectedMonth"] = DateTime.Now.Month;
+            ViewData["SelectedYear"] = DateTime.Now.Year;
 
-            var applicationDbContext = _context.VATRegisterBuy.Include(i => i.Contractor);
+            var applicationDbContext = _context.VATRegisterBuy.Include (i => i.Contractor);
 
             if (month != null)
             {
-                var filteredResult = applicationDbContext.Where(p => p.DateOfIssue.Month == month);
-                ViewData["Month"] = new SelectList(Tools.getMonthsDictionary(), "Key", "Value", month);
+                var filteredResult = applicationDbContext.Where (p => p.DateOfIssue.Month == month);
+                ViewData["Month"] = new SelectList (Tools.getMonthsDictionary (), "Key", "Value", month);
+                ViewData["SelectedMonth"] = month;
                 if (year != null)
                 {
-                    filteredResult = applicationDbContext.Where(p => p.DateOfIssue.Month == month && p.DateOfIssue.Year == year);
-                    ViewData["Year"] = new SelectList(Tools.getYearsList(), year);
+                    filteredResult = applicationDbContext.Where (p => p.DateOfIssue.Month == month && p.DateOfIssue.Year == year);
+                    ViewData["Year"] = new SelectList (Tools.getYearsList (), year);
+                    ViewData["SelectedYear"] = year;
                 }
-                return View(await filteredResult.ToListAsync());
+                return View (await filteredResult.ToListAsync ());
             }
             else
             {
-                return View(await applicationDbContext.Where(p=>p.Month==DateTime.Now.Month && p.Year==DateTime.Now.Year).ToListAsync());
+                return View (await applicationDbContext.Where (p => p.Month == DateTime.Now.Month && p.Year == DateTime.Now.Year).ToListAsync ());
             }
         }
 
         // GET: VATRegisterBuys/Details/5
-        public async Task<IActionResult> Details(int? id)
+        public async Task<IActionResult> Details (int? id)
         {
             if (id == null)
             {
-                return NotFound();
+                return NotFound ();
             }
 
             var vATRegisterBuy = await _context.VATRegisterBuy
-                .SingleOrDefaultAsync(m => m.Id == id);
+                .SingleOrDefaultAsync (m => m.Id == id);
             if (vATRegisterBuy == null)
             {
-                return NotFound();
+                return NotFound ();
             }
 
-            return View(vATRegisterBuy);
+            return View (vATRegisterBuy);
         }
 
         // GET: VATRegisterBuys/Create
-        public IActionResult Create()
+        public IActionResult Create ()
         {
-            ViewData["ContractorId"] = new SelectList(_context.Contractor, "Id", "Name");
-            VATRegisterBuy vATRegisterBuy = new VATRegisterBuy();
+            ViewData["ContractorId"] = new SelectList (_context.Contractor, "Id", "Name");
+            VATRegisterBuy vATRegisterBuy = new VATRegisterBuy ();
             DateTime currDate = DateTime.Now;
             vATRegisterBuy.DateOfIssue = currDate;
             vATRegisterBuy.DeliveryDate = currDate;
             vATRegisterBuy.Month = currDate.Month;
             vATRegisterBuy.Year = currDate.Year;
 
-            return View(vATRegisterBuy);
+            return View (vATRegisterBuy);
         }
 
         // POST: VATRegisterBuys/Create
@@ -86,36 +91,36 @@ namespace firma_mvc.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,DeliveryDate,DateOfIssue,DocumentNumber,ContractorId,ValueBrutto,ValueNetto,TaxDeductibleValue,TaxFreeBuysValue,NoTaxDeductibleBuysValue")] VATRegisterBuy vATRegisterBuy)
+        public async Task<IActionResult> Create ([Bind ("Id,DeliveryDate,DateOfIssue,DocumentNumber,ContractorId,ValueBrutto,ValueNetto,TaxDeductibleValue,TaxFreeBuysValue,NoTaxDeductibleBuysValue")] VATRegisterBuy vATRegisterBuy)
         {
-            ViewData["ContractorId"] = new SelectList(_context.Contractor, "Id", "Name");
+            ViewData["ContractorId"] = new SelectList (_context.Contractor, "Id", "Name");
             if (ModelState.IsValid)
             {
                 vATRegisterBuy.Month = vATRegisterBuy.DateOfIssue.Month;
                 vATRegisterBuy.Year = vATRegisterBuy.DateOfIssue.Year;
-                vATRegisterBuy.Number = vATRegisterBuy.getOrderNumber(_context);
-                _context.Add(vATRegisterBuy);
-                await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+                vATRegisterBuy.Number = vATRegisterBuy.getOrderNumber (_context);
+                _context.Add (vATRegisterBuy);
+                await _context.SaveChangesAsync ();
+                return RedirectToAction (nameof (Index));
             }
-            return View(vATRegisterBuy);
+            return View (vATRegisterBuy);
         }
 
         // GET: VATRegisterBuys/Edit/5
-        public async Task<IActionResult> Edit(int? id)
+        public async Task<IActionResult> Edit (int? id)
         {
-            ViewData["ContractorId"] = new SelectList(_context.Contractor, "Id", "Name");
+            ViewData["ContractorId"] = new SelectList (_context.Contractor, "Id", "Name");
             if (id == null)
             {
-                return NotFound();
+                return NotFound ();
             }
 
-            var vATRegisterBuy = await _context.VATRegisterBuy.SingleOrDefaultAsync(m => m.Id == id);
+            var vATRegisterBuy = await _context.VATRegisterBuy.SingleOrDefaultAsync (m => m.Id == id);
             if (vATRegisterBuy == null)
             {
-                return NotFound();
+                return NotFound ();
             }
-            return View(vATRegisterBuy);
+            return View (vATRegisterBuy);
         }
 
         // POST: VATRegisterBuys/Edit/5
@@ -123,70 +128,108 @@ namespace firma_mvc.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Number,DeliveryDate,DateOfIssue,DocumentNumber,Contractor,ValueBrutto,ValueNetto,TaxDeductibleValue,TaxFreeBuysValue,NoTaxDeductibleBuysValue")] VATRegisterBuy vATRegisterBuy)
+        public async Task<IActionResult> Edit (int id, [Bind ("Id,Number,DeliveryDate,DateOfIssue,DocumentNumber,Contractor,ValueBrutto,ValueNetto,TaxDeductibleValue,TaxFreeBuysValue,NoTaxDeductibleBuysValue")] VATRegisterBuy vATRegisterBuy)
         {
-            ViewData["ContractorId"] = new SelectList(_context.Contractor, "Id", "Name");
+            ViewData["ContractorId"] = new SelectList (_context.Contractor, "Id", "Name");
 
             if (id != vATRegisterBuy.Id)
             {
-                return NotFound();
+                return NotFound ();
             }
 
             if (ModelState.IsValid)
             {
                 try
                 {
-                    _context.Update(vATRegisterBuy);
-                    await _context.SaveChangesAsync();
+                    _context.Update (vATRegisterBuy);
+                    await _context.SaveChangesAsync ();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!VATRegisterBuyExists(vATRegisterBuy.Id))
+                    if (!VATRegisterBuyExists (vATRegisterBuy.Id))
                     {
-                        return NotFound();
+                        return NotFound ();
                     }
                     else
                     {
                         throw;
                     }
                 }
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction (nameof (Index));
             }
-            return View(vATRegisterBuy);
+            return View (vATRegisterBuy);
         }
 
         // GET: VATRegisterBuys/Delete/5
-        public async Task<IActionResult> Delete(int? id)
+        public async Task<IActionResult> Delete (int? id)
         {
             if (id == null)
             {
-                return NotFound();
+                return NotFound ();
             }
 
             var vATRegisterBuy = await _context.VATRegisterBuy
-                .SingleOrDefaultAsync(m => m.Id == id);
+                .SingleOrDefaultAsync (m => m.Id == id);
             if (vATRegisterBuy == null)
             {
-                return NotFound();
+                return NotFound ();
             }
 
-            return View(vATRegisterBuy);
+            return View (vATRegisterBuy);
         }
 
         // POST: VATRegisterBuys/Delete/5
-        [HttpPost, ActionName("Delete")]
+        [HttpPost, ActionName ("Delete")]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed(int id)
+        public async Task<IActionResult> DeleteConfirmed (int id)
         {
-            var vATRegisterBuy = await _context.VATRegisterBuy.SingleOrDefaultAsync(m => m.Id == id);
-            _context.VATRegisterBuy.Remove(vATRegisterBuy);
-            await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
+            var vATRegisterBuy = await _context.VATRegisterBuy.SingleOrDefaultAsync (m => m.Id == id);
+            _context.VATRegisterBuy.Remove (vATRegisterBuy);
+            await _context.SaveChangesAsync ();
+            return RedirectToAction (nameof (Index));
         }
 
-        private bool VATRegisterBuyExists(int id)
+        private bool VATRegisterBuyExists (int id)
         {
-            return _context.VATRegisterBuy.Any(e => e.Id == id);
+            return _context.VATRegisterBuy.Any (e => e.Id == id);
+        }
+
+        public IActionResult GetPdfFile (string filename, string downloadFilename)
+        {
+            const string contentType = "application/pdf";
+            HttpContext.Response.ContentType = contentType;
+            FileContentResult result = null;
+            filename = "tmp/" + filename;
+
+            try
+            {
+                result = new FileContentResult (System.IO.File.ReadAllBytes (filename), contentType)
+                {
+                    FileDownloadName = downloadFilename + ".pdf"
+                };
+                Tools.deleteTempFiles (filename.Substring (4, 64));
+                return result;
+            }
+            catch (FileNotFoundException e)
+            {
+                Console.WriteLine (e.Message);
+                return NotFound ();
+            }
+        }
+
+        // GET: GenerateInvoice        
+        public async Task<IActionResult> GenerateVATRegister (int? year, int? month)
+        {
+            if (year == null || month == null)
+            {
+                return NotFound ();
+            }
+
+            var vATRegisterBuy = new VATRegisterBuy ();
+            string pdfFilename = vATRegisterBuy.generate (_context, (int) year, (int) month);
+            string downFilename = vATRegisterBuy.getDownloadFilename ((int) year, (int) month);
+            await Task.Delay (1000);
+            return RedirectToAction ("GetPdfFile", new { filename = pdfFilename, downloadFilename = downFilename });
         }
     }
 }

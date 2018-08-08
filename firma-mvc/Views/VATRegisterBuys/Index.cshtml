@@ -40,6 +40,8 @@
     <div class="col-sm-1">
         <select id="monthDropDown" class="custom-select" asp-items="ViewBag.Month"></select>
     </div>
+
+    @Html.ActionLink("Drukuj", "GenerateVATRegister", new { year = ViewBag.SelectedYear, month=ViewBag.SelectedMonth }, htmlAttributes: new { @class = "btn btn-outline-dark" })
 </div>
 
     <table class="table table-responsive table-hover table-bordered">
