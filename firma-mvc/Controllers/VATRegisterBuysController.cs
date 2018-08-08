@@ -43,8 +43,10 @@ namespace firma_mvc.Controllers
                 }
                 return View(await filteredResult.ToListAsync());
             }
-
-            return View(await applicationDbContext.ToListAsync());
+            else
+            {
+                return View(await applicationDbContext.Where(p=>p.Month==DateTime.Now.Month && p.Year==DateTime.Now.Year).ToListAsync());
+            }
         }
 
         // GET: VATRegisterBuys/Details/5
