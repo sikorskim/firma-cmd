@@ -38,7 +38,7 @@
 </Header>
 <TableHeader>
 	\scriptsize
-	\begin~^longtable^~~^|p~^0,3cm^~ | p~^1,35cm^~  | p~^1,35cm^~ | p~^2cm^~| p~^2cm^~ | p~^1cm^~ | p~^0,9cm^~ | p~^0,9cm^~ | p~^0,9cm^~ | p~^0,9cm^~ | p~^0,9cm^~ | p~^0,9cm^~ | p~^0,9cm^~ | p~^0,9cm^~ | p~^0,9cm^~ | p~^0,9cm^~ |^~	
+	\begin~^longtable^~~^|p~^0,3cm^~ | p~^1,35cm^~  | p~^1,35cm^~ | p~^3cm^~| p~^4cm^~ | p~^1cm^~ | p~^0,9cm^~ | p~^0,9cm^~ | p~^0,9cm^~ | p~^0,9cm^~ | p~^0,9cm^~ | p~^0,9cm^~ | p~^0,9cm^~ | p~^0,9cm^~ | p~^0,9cm^~ | p~^0,9cm^~ |^~	
 			\hline
 			L.p. &amp; 
 			Data dostawy &amp;  
