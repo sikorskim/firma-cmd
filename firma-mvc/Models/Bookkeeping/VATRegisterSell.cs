@@ -5,6 +5,8 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Diagnostics;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Xml.Linq;
@@ -94,6 +96,101 @@ namespace firma_mvc
             {
                 return 1;
             }
+        }
+
+        public string generate (ApplicationDbContext _context, int year, int month)
+        {
+            string path = "templates/vatRegisterSell.xml";
+            XDocument doc = XDocument.Load (path);
+            XElement root = doc.Element ("Template");
+
+            Company company = _context.Company.FirstOrDefault ();
+            var vatRegisterSellItems = _context.VATRegisterSell.Include (i => i.Contractor).Where (p => p.Year == year && p.Month == month).ToList ();
+
+            var monthDict = Tools.getMonthsDictionary ();
+
+            string header = root.Element ("Header").Value;
+            header = string.Format (header, monthDict[month], year, company.FullName, company.FullAddress, company.NIP);
+
+            string tableHeader = root.Element ("TableHeader").Value;
+            string tableSummary = root.Element ("TableSummary").Value;
+            string tableRow = root.Element ("TableRow").Value;
+
+            decimal totalBrutto = 0;
+            decimal totalNetto23 = 0;
+            decimal totalVat23 = 0;
+            decimal totalNetto7_8 = 0;
+            decimal totalVat7_8 = 0;
+            decimal totalNetto3_5 = 0;
+            decimal totalVat3_5 = 0;
+            decimal totalNetto0 = 0;
+            decimal totalTaxFree= 0;
+            decimal totalNoTax = 0;
+            decimal totalVat =0;
+
+            foreach (VATRegisterSell item in vatRegisterSellItems)
+            {
+                string documentNo = Tools.handleLatexSpecialChars (item.DocumentNumber);
+
+                decimal bruttoVal = (decimal) item.ValueBrutto;
+                decimal netto23Val = (decimal) item.ValueNetto23;
+                decimal vat23Val = (decimal) item.VATValue23;
+                decimal netto7_8Val = (decimal) item.VATValue7_8;
+                decimal vat7_8Val = (decimal) item.VATValue7_8;
+                decimal netto3_5Val = (decimal) item.ValueNetto3_5;
+                decimal vat3_5Val = (decimal) item.VATValue3_5;
+                decimal netto0Val = (decimal) item.ValueNetto0;
+                decimal taxFreeVal = (decimal) item.ValueTaxFree;
+                decimal noTaxVal = (decimal) item.ValueNoTax;
+
+                string newItem = string.Format (tableRow, item.Number, item.DeliveryDate.ToShortDateString (), item.DateOfIssue.ToShortDateString(), documentNo, item.Contractor.FullName, bruttoVal.ToString ("0.00"), netto23Val.ToString ("0.00"), vat23Val.ToString ("0.00"), netto7_8Val.ToString ("0.00"), vat7_8Val.ToString ("0.00"), netto3_5Val.ToString ("0.00"), vat3_5Val.ToString ("0.00"), netto0Val.ToString ("0.00"), taxFreeVal.ToString ("0.00"), noTaxVal.ToString ("0.00"), item.VATSummary.ToString ("0.00"));
+
+                tableHeader += newItem;
+
+                totalBrutto+=bruttoVal;
+                totalNetto23+=netto23Val;
+                totalVat23+=vat23Val;
+                totalNetto7_8+=netto7_8Val;
+                totalVat7_8+=vat7_8Val;
+                totalNetto3_5+=netto3_5Val;
+                totalVat3_5+=vat3_5Val;
+                totalNetto0+=netto0Val;
+                totalTaxFree+=taxFreeVal;
+                totalNoTax+=noTaxVal;
+                totalVat+=item.VATSummary;
+            }
+
+            tableSummary = string.Format (tableSummary, totalBrutto.ToString ("0.00"), totalNetto23.ToString ("0.00"), totalVat23.ToString ("0.00"), totalNetto7_8.ToString ("0.00"), totalVat7_8.ToString ("0.00"), totalNetto3_5.ToString ("0.00"), totalVat3_5.ToString ("0.00"), totalNetto0.ToString ("0.00"), totalTaxFree.ToString ("0.00"), totalNoTax.ToString ("0.00"), totalVat.ToString ("0.00"));
+            tableHeader += tableSummary;
+
+            string footer = root.Element ("Footer").Value;
+            string output = header + tableHeader + footer;
+
+            output = output.Replace ("~^~^~^", "{{{");
+            output = output.Replace ("^~^~^~", "}}}");
+            output = output.Replace ("~^~^", "{{");
+            output = output.Replace ("^~^~", "}}");
+            output = output.Replace ("~^", "{");
+            output = output.Replace ("^~", "}");
+
+            string time = DateTime.Now.ToFileTime ().ToString ();
+
+            string outputFile = Tools.getHash (header + time);
+            File.WriteAllText ("tmp/" + outputFile + ".tex", output);
+
+            Process process = new Process ();
+            process.StartInfo.WorkingDirectory = "tmp";
+            process.StartInfo.FileName = "pdflatex";
+            process.StartInfo.Arguments = outputFile + ".tex";
+            process.Start ();
+
+            process.Dispose ();
+            return outputFile + ".pdf";
+        }
+
+        public string getDownloadFilename (int year, int month)
+        {
+            return "rejestrVAT" + year + month;
         }       
     }
 }

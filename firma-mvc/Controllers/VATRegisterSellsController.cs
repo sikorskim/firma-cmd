@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using firma_mvc;
 using firma_mvc.Data;
+using System.IO;
 
 namespace firma_mvc.Controllers
 {
@@ -24,6 +25,8 @@ namespace firma_mvc.Controllers
         {
             ViewData["Month"] = new SelectList(Tools.getMonthsDictionary(), "Key", "Value", DateTime.Now.Month);
             ViewData["Year"] = new SelectList(Tools.getYearsList(), DateTime.Now.Year);
+            ViewData["SelectedMonth"] = DateTime.Now.Month;
+            ViewData["SelectedYear"] = DateTime.Now.Year;            
             ViewData["ContractorId"] = new SelectList(_context.Contractor, "Id", "Name");
             VATRegisterSell vATRegisterSell = new VATRegisterSell(DateTime.Now);
             ViewData["VATRegisterSell"] = vATRegisterSell;
@@ -34,10 +37,12 @@ namespace firma_mvc.Controllers
             {
                 var filteredResult = applicationDbContext.Where(p => p.DateOfIssue.Month == month);
                 ViewData["Month"] = new SelectList(Tools.getMonthsDictionary(), "Key", "Value", month);
+                ViewData["SelectedMonth"] = month;
                 if (year != null)
                 {
                     filteredResult = applicationDbContext.Where(p => p.DateOfIssue.Month == month && p.DateOfIssue.Year == year);
                     ViewData["Year"] = new SelectList(Tools.getYearsList(), year);
+                    ViewData["SelectedYear"] = year;
                 }
                 return View(await filteredResult.ToListAsync());
             }
@@ -175,6 +180,43 @@ namespace firma_mvc.Controllers
         private bool VATRegisterSellExists(int id)
         {
             return _context.VATRegisterSell.Any(e => e.Id == id);
+        }
+
+        public IActionResult GetPdfFile (string filename, string downloadFilename)
+        {
+            const string contentType = "application/pdf";
+            HttpContext.Response.ContentType = contentType;
+            FileContentResult result = null;
+            filename = "tmp/" + filename;
+
+            try
+            {
+                result = new FileContentResult (System.IO.File.ReadAllBytes (filename), contentType)
+                {
+                    FileDownloadName = downloadFilename + ".pdf"
+                };
+                Tools.deleteTempFiles (filename.Substring (4, 64));
+                return result;
+            }
+            catch (FileNotFoundException e)
+            {                
+                return NotFound ();
+            }
+        }
+
+        // GET: GenerateInvoice        
+        public async Task<IActionResult> GenerateVATRegister (int? year, int? month)
+        {
+            if (year == null || month == null)
+            {
+                return NotFound ();
+            }
+
+            var vATRegisterSell = new VATRegisterSell ();
+            string pdfFilename = vATRegisterSell.generate (_context, (int) year, (int) month);
+            string downFilename = vATRegisterSell.getDownloadFilename ((int) year, (int) month);
+            await Task.Delay (1000);
+            return RedirectToAction ("GetPdfFile", new { filename = pdfFilename, downloadFilename = downFilename });
         }
     }
 }

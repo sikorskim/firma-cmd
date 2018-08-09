@@ -1,0 +1,78 @@
+\documentclass[a4paper,10pt,landscape]{article}
+\usepackage{latexsym}
+\usepackage[polish]{babel}
+\usepackage[utf8]{inputenc} 
+\usepackage[MeX]{polski}
+\usepackage{float}
+\usepackage{geometry}
+\usepackage[table]{xcolor}
+\usepackage{blindtext,titlefoot}
+\usepackage{graphicx}
+\graphicspath{ {../img/} }
+\usepackage{wrapfig}
+\usepackage{multirow}
+\usepackage{array}
+\usepackage{longtable}
+
+\geometry{
+	a4paper,
+	total={257mm, 170mm},
+	left=10mm,
+	top=15mm,
+}
+
+\date{}
+
+\begin{document}
+	
+	\noindent
+	\textbf{\huge{Rejestr VAT sprzedaży}} \hfill czerwiec 2018\\
+	
+	\noindent
+		COMPUTERMAN Maciej Sikorski\\
+		ul. Leśna 15, 63-100 Psarskie\\							
+		NIP 7851769827\\	
+	
+	
+	\scriptsize
+	\begin{longtable}{|p{0,3cm} | p{1,35cm}  | p{1,35cm} | p{2cm}| p{2cm} | p{1cm} | p{0,9cm} | p{0,9cm} | p{0,9cm} | p{0,9cm} | p{0,9cm} | p{0,9cm} | p{0,9cm} | p{0,9cm} | p{0,9cm} | p{0,9cm} |}	
+			\hline
+			L.p. & 
+			Data dostawy &  
+			Data wystawienia & 
+			Numer dokumentu & 
+			Kontrahent & 
+			\multicolumn{8}{ c |}{Sprzedaż opodatkowana} &
+			\multirow{3}{*}{\parbox[t]{1cm}{Sprzedaż zwolniona z opodatkowania}} & 
+			\multirow{3}{*}{\parbox[t]{1cm}{Sprzedaż niepodlegająca opodatkowaniu}} &
+			Suma VAT \\ \cline{6-13}
+
+			 & & & & & & 
+			 \multicolumn{2}{ c |}{Stawka 23\%}	&
+			 \multicolumn{2}{ c |}{Stawka 7/8\%} &
+			 \multicolumn{2}{ c |}{Stawka 3/5\%} &
+			 Stawka 0 \% &
+			 & & \\ \cline{6-13}
+			
+			 & & & & & 
+			 Brutto & 
+			 Netto & 
+			 VAT & 
+			 Netto & 
+			 VAT & 
+			 Netto & 
+			 VAT &
+			 Netto & 
+			 & & \\	\cline{6-16}
+			
+			& & & & & & \centering{zł gr} & \centering{zł gr} & \centering{zł gr} & \centering{zł gr} & \centering{zł gr} & \centering{zł gr} & \centering{zł gr} & \centering{zł gr} & \centering{zł gr} & zł gr \\ \hline
+			
+			\centering{1} & \centering{2} & \centering{3} & \centering{4} & \centering{5} & \centering{6} & \centering{7} & \centering{8} & \centering{9} & \centering{10} & \centering{11} & \centering{12} & \centering{13} & \centering{14} & \centering{15} & 16 \\ \hline
+			\endhead
+	
+			 & & & & & & & & & & & & & & & \\ \hline
+			 \end{longtable}
+	
+	
+	\unmarkedfntext{Wygenerowano za pomocą programu Computerman Firma.}
+\end{document}

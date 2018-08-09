@@ -36,11 +36,7 @@
         </div>
     </div>
 
-    <div class="col-sm-1">
-        <button type="button" class="btn btn-outline-dark">
-            <i class="fas fa-print"></i> Drukuj
-        </button>
-    </div>
+@Html.ActionLink("Drukuj", "GenerateVATRegister", new { year = ViewBag.SelectedYear, month=ViewBag.SelectedMonth }, htmlAttributes: new { @class = "btn btn-outline-dark" })
 
     <div class="col-sm-1">
         <select id="yearDropDown" class="custom-select" asp-items="ViewBag.Year"></select>
