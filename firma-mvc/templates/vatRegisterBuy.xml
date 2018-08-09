@@ -32,7 +32,7 @@
 NIP {4}\\		
 </Header>
 <TableHeader>
-\begin~^longtable^~~^| p~^0,5cm^~ | p~^2cm^~  | p~^2cm^~ | p~^3cm^~| p~^4cm^~ | p~^1,3cm^~ | p~^1,3cm^~ | p~^2cm^~ | p~^2cm^~ |p~^3cm^~ |^~
+\begin~^longtable^~~^| p~^0,5cm^~ | p~^1,7cm^~  | p~^1,7cm^~ | p~^3,6cm^~| p~^4cm^~ | p~^1,3cm^~ | p~^1,3cm^~ | p~^2cm^~ | p~^2cm^~ |p~^3cm^~ |^~
 		\hline
 		\textbf~^L.p.^~ &amp; \textbf~^Data dostawy^~ &amp; \textbf~^Data wystawienia^~ &amp; \textbf~^Nr dokumentu^~ &amp; \textbf~^Kontrahent^~ &amp; \textbf~^Wartość brutto^~ &amp; \textbf~^Wartość netto^~ &amp; \textbf~^Kwota podatku podlegająca odliczeniu^~ &amp; \textbf~^Wartość zakupów nieopodatkowanych^~ &amp; \textbf~^Wartość zakupów, od których podatek VAT nie podlega odliczeniu^~ \\ \hline
 		\endhead
@@ -41,7 +41,7 @@ NIP {4}\\
     	{0} &amp; {1} &amp; {2} &amp; {3} &amp; {4} &amp; {5} &amp; {6} &amp; {7} &amp; {8} &amp; {9} \\ \hline
 </TableRow>
 <TableSummary>
-		\multicolumn~^5^~~^|r|^~~^\textbf~^Razem^~^~ &amp; {0} &amp; {1} &amp; {2} &amp; {3} &amp; {4} \\ \hline
+		\multicolumn~^5^~~^|r|^~~^\textbf~^Razem^~^~ &amp; \textbf~^{0}^~ &amp; \textbf~^{1}^~ &amp; \textbf~^{2}^~ &amp; \textbf~^{3}^~ &amp; \textbf~^{4}^~ \\ \hline
 	\end~^longtable^~
 </TableSummary>
 <Footer>

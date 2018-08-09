@@ -85,5 +85,12 @@ namespace firma_mvc
 
             return jpkTypes;
         }
+
+        public static string handleLatexSpecialChars(string input)
+        {
+            input = input.Replace(@"\", @"\textbackslash");
+            input = input.Replace("#", @"\#");            
+            return input;
+        }
     }
 }

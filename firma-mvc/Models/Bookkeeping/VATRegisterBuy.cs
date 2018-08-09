@@ -98,8 +98,10 @@ namespace firma_mvc
                 decimal taxDeductibleVal = (decimal) item.TaxDeductibleValue;
                 decimal taxFreeBuysVal = (decimal) item.TaxFreeBuysValue;
                 decimal noTaxDeductibleVal = (decimal) item.NoTaxDeductibleBuysValue;
+                
+                string documentNo = Tools.handleLatexSpecialChars(item.DocumentNumber);
 
-                string newItem = string.Format (tableRow, item.Number, item.DeliveryDate, item.DateOfIssue, item.DocumentNumber, item.Contractor.FullName, item.ValueBrutto.ToString ("0.00"), item.ValueNetto.ToString ("0.00"), taxDeductibleVal.ToString ("0.00"), taxFreeBuysVal.ToString ("0.00"), noTaxDeductibleVal.ToString ("0.00"));
+                string newItem = string.Format (tableRow, item.Number, item.DeliveryDate.ToShortDateString(), item.DateOfIssue.ToShortDateString(), documentNo, item.Contractor.FullName, item.ValueBrutto.ToString ("0.00"), item.ValueNetto.ToString ("0.00"), taxDeductibleVal.ToString ("0.00"), taxFreeBuysVal.ToString ("0.00"), noTaxDeductibleVal.ToString ("0.00"));
 
                 tableHeader += newItem;
                 totalValueBrutto += item.ValueBrutto;
