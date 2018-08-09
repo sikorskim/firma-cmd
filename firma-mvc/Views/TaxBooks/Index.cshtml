@@ -34,6 +34,7 @@
         </div>
     </div>
 
+    @Html.ActionLink("Drukuj", "GenerateTaxBook", new { year = ViewBag.SelectedYear, month=ViewBag.SelectedMonth }, htmlAttributes: new { @class = "btn btn-outline-dark" })
 
     <div class="col-sm-1">
         <select id="yearDropDown" class="custom-select" asp-items="ViewBag.Year"></select>

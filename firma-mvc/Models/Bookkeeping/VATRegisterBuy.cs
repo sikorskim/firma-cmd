@@ -66,9 +66,7 @@ namespace firma_mvc
                 return 1;
             }
         }
-
-        // TODO:
-        // fix slash in tex file rendering 
+        
         public string generate (ApplicationDbContext _context, int year, int month)
         {
             string path = "templates/vatRegisterBuy.xml";

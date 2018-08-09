@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Template>
+<Header>
+\documentclass[a4paper,10pt,landscape]~^article^~
+\usepackage~^latexsym^~
+\usepackage[polish]~^babel^~
+\usepackage[utf8]~^inputenc^~ 
+\usepackage[MeX]~^polski^~
+\usepackage~^float^~
+\usepackage~^geometry^~
+\usepackage[table]~^xcolor^~
+\usepackage~^blindtext,titlefoot^~
+\usepackage~^graphicx^~
+\graphicspath~^ ~^../img/^~ ^~
+\usepackage~^wrapfig^~
+\usepackage~^multirow^~
+\usepackage~^array^~
+\usepackage~^longtable^~
+
+\geometry~^
+	a4paper,
+	total=~^257mm, 170mm^~,
+	left=10mm,
+	top=15mm,
+^~
+
+\pagenumbering~^gobble^~
+\date~^^~
+
+\begin~^document^~
+	
+	\noindent
+	\textbf~^\huge~^Podatkowa księga przychodów i rozchodów^~^~ \hfill {0} {1} \\
+	
+	\noindent
+	{2}\\
+	{3}\\							
+	NIP {4}\\
+</Header>
+<TableHeader>
+	\scriptsize
+	\begin~^longtable^~~^|p~^0,3cm^~ | p~^1,35cm^~  | p~^2cm^~ | p~^2cm^~| p~^2cm^~ | p~^1cm^~ | p~^0,9cm^~ | p~^0,9cm^~ | p~^0,9cm^~ | p~^0,9cm^~ | p~^0,9cm^~ | p~^0,9cm^~ | p~^0,9cm^~ | p~^0,9cm^~ | p~^0,9cm^~ | p~^0,9cm^~ | p~^0,9cm^~ | p~^0,9cm^~ |^~	
+			\hline
+			Lp. &amp; 
+			Data zdarzenia gospodarczego &amp;  
+			Nr dowodu księgowego &amp; 
+			\multicolumn~^2^~~^ c |^~~^Kontrahent^~ &amp; 
+			\multirow~^2^~~^*^~~^\parbox[t]~^1,2cm^~~^Opis zdarzenia gospodarczego^~^~ &amp; 
+			\multicolumn~^3^~~^ c |^~~^Przychód^~ &amp;
+			\multirow~^2^~~^*^~~^\parbox[t]~^1cm^~~^Zakup towarów handlowych i materiałów wg cen zakupu^~^~ &amp;
+			\multirow~^2^~~^*^~~^\parbox[t]~^0,9cm^~~^Koszty uboczne zakupu^~^~ &amp;
+			\multicolumn~^4^~~^ c |^~~^Wydatki (koszty)^~ &amp;
+			 \multicolumn~^2^~~^ c |^~~^\parbox[t]~^2,7cm^~~^Koszty działalności badawczo-rozwojowej, o których mowa w art. 26e ustawy o podatku dochodowym^~^~ &amp;
+			Uwagi \\ \cline~^4-5^~ \cline~^7-9^~ \cline~^12-17^~
+			
+			 &amp; &amp; &amp; ~^\parbox[t]~^2cm^~~^\centering~^imię i nazwisko (firma)^~^~^~ &amp; \centering~^adres^~ &amp; &amp; \parbox[t]~^1,1cm^~~^wartość sprzedanych towarów i usług^~ &amp; \parbox[t]~^1cm^~~^pozo-\\stałe przychody^~ &amp; \parbox[t]~^1,2cm^~~^razem przychód (7+8)^~ &amp; &amp; &amp; \parbox[t]~^1,1cm^~~^wynagro-dzenia w gotówce i w naturze^~ &amp; \parbox[t]~^1cm^~~^pozo-\\stałe wydatki^~ &amp; razem wydatki 12+13 &amp; &amp; opis kosztu &amp; wartość &amp; \\ \cline~^7-15^~ \cline~^17-17^~
+			&amp; &amp; &amp; &amp; &amp; &amp; \centering~^zł gr^~ &amp; \centering~^zł gr^~ &amp; \centering~^zł gr^~ &amp; \centering~^zł gr^~ &amp; \centering~^zł gr^~ &amp; \centering~^zł gr^~ &amp; \centering~^zł gr^~ &amp; \centering~^zł gr^~ &amp; \centering~^zł gr^~ &amp; &amp; \centering~^zł gr^~ &amp;\\ 
+			\hline
+			\centering~^1^~ &amp; \centering~^2^~ &amp; \centering~^3^~ &amp; \centering~^4^~ &amp; \centering~^5^~ &amp; \centering~^6^~ &amp; \centering~^7^~ &amp; \centering~^8^~ &amp; \centering~^9^~ &amp; \centering~^10^~ &amp; \centering~^11^~ &amp; \centering~^12^~ &amp; \centering~^13^~ &amp; \centering~^14^~ &amp; \centering~^15^~ &amp; \multicolumn~^2^~~^ c |^~~^16^~ &amp; 17 \\ \hline
+			\endhead
+</TableHeader>
+<TableRow>
+\centering~^{0}^~ &amp; {1} &amp;  \parbox[t]~^2cm^~~^{2}^~ &amp; {3} &amp; {4} &amp; {5} &amp; {6} &amp; {7} &amp; {8} &amp; {9} &amp; {10} &amp; {11} &amp; {12} &amp; {13} &amp; {14} &amp; {15} &amp; {16}  &amp; {17} \\ \hline
+</TableRow>
+<TableSummary>
+         \multicolumn~^6^~~^|r|^~~^\textbf~^Razem^~^~ &amp; \textbf~^{0}^~ &amp; \textbf~^{1}^~ &amp; \textbf~^{2}^~ &amp; \textbf~^{3}^~ &amp; \textbf~^{4}^~ &amp; \textbf~^{5}^~ &amp; \textbf~^{6}^~ &amp; \textbf~^{7}^~ &amp; \textbf~^{8}^~ &amp; &amp;\textbf~^{9}^~  &amp; \\ \hline
+	\end~^longtable^~
+</TableSummary>
+<Footer>
+\unmarkedfntext~^Wygenerowano za pomocą programu Computerman Firma.^~
+\end~^document^~
+</Footer>
+</Template>

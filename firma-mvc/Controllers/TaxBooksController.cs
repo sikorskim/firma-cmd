@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using firma_mvc;
@@ -24,6 +25,9 @@ namespace firma_mvc.Controllers
         {
             ViewData["Month"] = new SelectList (Tools.getMonthsDictionary (), "Key", "Value", DateTime.Now.Month);
             ViewData["Year"] = new SelectList (Tools.getYearsList (), DateTime.Now.Year);
+            ViewData["SelectedMonth"] = DateTime.Now.Month;
+            ViewData["SelectedYear"] = DateTime.Now.Year;
+
             ViewData["ContractorId"] = new SelectList (_context.Contractor, "Id", "Name");
             TaxBook taxBook = new TaxBook ();
             taxBook.Number = 2;
@@ -36,10 +40,13 @@ namespace firma_mvc.Controllers
             {
                 var filteredResult = applicationDbContext.Where (p => p.Date.Month == month);
                 ViewData["Month"] = new SelectList (Tools.getMonthsDictionary (), "Key", "Value", month);
+                ViewData["SelectedMonth"] = month;
+
                 if (year != null)
                 {
                     filteredResult = applicationDbContext.Where (p => p.Date.Month == month && p.Date.Year == year);
                     ViewData["Year"] = new SelectList (Tools.getYearsList (), year);
+                    ViewData["SelectedYear"] = year;
                 }
                 return View (await filteredResult.ToListAsync ());
             }
@@ -179,6 +186,43 @@ namespace firma_mvc.Controllers
         private bool TaxBookExists (int id)
         {
             return _context.TaxBookItem.Any (e => e.Id == id);
+        }
+
+        public IActionResult GetPdfFile (string filename, string downloadFilename)
+        {
+            const string contentType = "application/pdf";
+            HttpContext.Response.ContentType = contentType;
+            FileContentResult result = null;
+            filename = "tmp/" + filename;
+
+            try
+            {
+                result = new FileContentResult (System.IO.File.ReadAllBytes (filename), contentType)
+                {
+                    FileDownloadName = downloadFilename + ".pdf"
+                };
+                Tools.deleteTempFiles (filename.Substring (4, 64));
+                return result;
+            }
+            catch (FileNotFoundException e)
+            {
+                Console.WriteLine (e.Message);
+                return NotFound ();
+            }
+        }
+
+        public async Task<IActionResult> GenerateTaxBook (int? year, int? month)
+        {
+            if (year == null || month == null)
+            {
+                return NotFound ();
+            }
+
+            var taxBook = new TaxBook ();
+            string pdfFilename = taxBook.generate (_context, (int) year, (int) month);
+            string downFilename = taxBook.getDownloadFilename ((int) year, (int) month);
+            await Task.Delay (1000);
+            return RedirectToAction ("GetPdfFile", new { filename = pdfFilename, downloadFilename = downFilename });
         }
     }
 }

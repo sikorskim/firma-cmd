@@ -27,7 +27,10 @@
 \begin~^document^~
 	
 \noindent
-\textbf~^{0}^~ \hfill \textbf~^\huge~^Rejestr zakupu VAT za {1} {2}^~^~\\
+\textbf~^\huge~^Rejestr zakupu VAT^~^~ \hfill {1} {2}\\
+
+\noindent
+{0}\\
 {3}\\							
 NIP {4}\\		
 </Header>

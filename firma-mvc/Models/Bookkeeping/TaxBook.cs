@@ -3,9 +3,13 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Diagnostics;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
+using System.Xml.Linq;
 using firma_mvc.Data;
+using Microsoft.EntityFrameworkCore;
 
 namespace firma_mvc
 {
@@ -84,6 +88,99 @@ namespace firma_mvc
             {
                 return 1;
             }
+        }
+
+        public string generate (ApplicationDbContext _context, int year, int month)
+        {
+            string path = "templates/taxBook.xml";
+            XDocument doc = XDocument.Load (path);
+            XElement root = doc.Element ("Template");
+
+            Company company = _context.Company.FirstOrDefault ();
+            var taxBookItems = _context.TaxBookItem.Include (i => i.Contractor).Where (p => p.Date.Year == year && p.Date.Month == month).ToList ();
+
+            var monthDict = Tools.getMonthsDictionary ();
+
+            string header = root.Element ("Header").Value;
+            header = string.Format (header, monthDict[month], year, company.FullName, company.FullAddress, company.NIP);
+
+            string tableHeader = root.Element ("TableHeader").Value;
+            string tableSummary = root.Element ("TableSummary").Value;
+            string tableRow = root.Element ("TableRow").Value;
+
+            decimal totalSellVall = 0;
+            decimal totalOtherInc = 0;
+            decimal totalTotalInc = 0;
+            decimal totalGoodsBuy = 0;
+            decimal totalBuysSideEff = 0;
+            decimal totalSalary = 0;
+            decimal totalOtherCos = 0;
+            decimal totalTotalCos = 0;
+            decimal totalCol15 = 0;
+            decimal totalResearchCos = 0;
+
+            foreach (TaxBook item in taxBookItems)
+            {
+                string documentNo = Tools.handleLatexSpecialChars (item.InvoiceNumber);
+
+                decimal sellVal = (decimal) item.SellValue;
+                decimal otherInc = (decimal) item.OtherIncome;
+                decimal totalInc = (decimal) item.TotalIncome;
+                decimal goodsBuy = (decimal) item.GoodsBuys;
+                decimal buysSideEff = (decimal) item.BuysSideEffects;
+                decimal salary = (decimal) item.Salary;
+                decimal otherCos = (decimal) item.OtherCosts;
+                decimal totalCos = (decimal) item.TotalCosts;
+                decimal col15 = (decimal) item.Column15;
+                decimal researchCos = (decimal) item.ResearchCostValue;
+
+                string newItem = string.Format (tableRow, item.Number, item.Date.ToShortDateString (), documentNo, item.Contractor.FullName, item.Contractor.FullAddress, item.Description, sellVal.ToString ("0.00"), otherInc.ToString ("0.00"), totalInc.ToString ("0.00"), goodsBuy.ToString ("0.00"), buysSideEff.ToString ("0.00"), salary.ToString ("0.00"), otherCos.ToString ("0.00"), totalCos.ToString ("0.00"), col15.ToString ("0.00"), item.CostDescription, researchCos.ToString ("0.00"), item.Comments);
+
+                tableHeader += newItem;
+
+                totalSellVall += sellVal;
+                totalOtherInc += otherInc;
+                totalTotalInc += totalInc;
+                totalGoodsBuy += goodsBuy;
+                totalBuysSideEff += buysSideEff;
+                totalSalary += salary;
+                totalOtherCos += otherCos;
+                totalTotalCos += totalCos;
+                totalCol15 += col15;
+                totalResearchCos += researchCos;
+            }
+
+            tableSummary = string.Format (tableSummary, totalSellVall.ToString ("0.00"), totalOtherInc.ToString ("0.00"), totalTotalInc.ToString ("0.00"), totalGoodsBuy.ToString ("0.00"), totalBuysSideEff.ToString ("0.00"), totalSalary.ToString ("0.00"), totalOtherCos.ToString ("0.00"), totalTotalCos.ToString ("0.00"), totalCol15.ToString ("0.00"), totalResearchCos.ToString ("0.00"));
+            tableHeader += tableSummary;
+
+            string footer = root.Element ("Footer").Value;
+            string output = header + tableHeader + footer;
+
+            output = output.Replace ("~^~^~^", "{{{");
+            output = output.Replace ("^~^~^~", "}}}");
+            output = output.Replace ("~^~^", "{{");
+            output = output.Replace ("^~^~", "}}");
+            output = output.Replace ("~^", "{");
+            output = output.Replace ("^~", "}");
+
+            string time = DateTime.Now.ToFileTime ().ToString ();
+
+            string outputFile = Tools.getHash (header + time);
+            File.WriteAllText ("tmp/" + outputFile + ".tex", output);
+
+            Process process = new Process ();
+            process.StartInfo.WorkingDirectory = "tmp";
+            process.StartInfo.FileName = "pdflatex";
+            process.StartInfo.Arguments = outputFile + ".tex";
+            process.Start ();
+
+            process.Dispose ();
+            return outputFile + ".pdf";
+        }
+
+        public string getDownloadFilename (int year, int month)
+        {
+            return "ksiega" + year + month;
         }
 
     }
