@@ -66,3 +66,21 @@ $('#yearTaxDropDown').change(function () {
     var year = $('#yearTaxDropDown').val();
     window.location.href = '?year=' + year;
 });
+
+// index action for calculator type change
+$('#calcTypeSelect').change(function () {
+    var selected = $('#calcTypeSelect').val();
+
+    if(selected==0)
+    {        
+        $('#calcNettoVal').prop('disabled', false);
+        $('#calcBruttoVal').prop('disabled', true);
+    }
+    else
+    {
+        $('#calcNettoVal').prop('disabled', true);
+        $('#calcBruttoVal').prop('disabled', false);
+    }
+});
+
+
