@@ -143,12 +143,14 @@ namespace firma_mvc
             XDocument doc = XDocument.Load(path);
             XElement root = doc.Element("Template");
 
+            string dateTimeFormat = "yyyy-MM-dd";
+
             string header = root.Element("Header").Value;
             header = string.Format(header, Company.Name, Company.FullAddress, Company.Phone, Company.Email, Company.Website, Company.BankName, Company.BankAccountNumber);
 
             string cityOfIssue = root.Element("DatePlace").Value;
-            string dateOfIssue = DateOfIssue.ToShortDateString();
-            string dateOfDelivery = DateOfDelivery.ToShortDateString();
+            string dateOfIssue = DateOfIssue.ToString(dateTimeFormat);
+            string dateOfDelivery = DateOfDelivery.ToString(dateTimeFormat);
             cityOfIssue = string.Format(cityOfIssue, dateOfIssue, Company.InvoiceIssueCity, dateOfDelivery);
 
             string title = root.Element("Title").Value;
@@ -183,7 +185,7 @@ namespace firma_mvc
             string priceSummary = root.Element("PriceSummary").Value;
             priceSummary = string.Format(priceSummary, TotalValueInclVat.ToString("0.00"), getValueInWords(TotalValueInclVat));
             string paymentMethod = root.Element("PaymentMethod").Value;
-            paymentMethod = string.Format(paymentMethod, PaymentMethod.Name, DateOfIssue.AddDays(PaymentMethod.DueTerm).ToShortDateString());
+            paymentMethod = string.Format(paymentMethod, PaymentMethod.Name, DateOfIssue.AddDays(PaymentMethod.DueTerm).ToString(dateTimeFormat));
             string issuer = root.Element("Issuer").Value;
             issuer = string.Format(issuer, Company.InvoiceIssuerName);
             string footer = paymentMethod + issuer;
