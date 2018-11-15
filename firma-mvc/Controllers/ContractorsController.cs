@@ -78,7 +78,9 @@ namespace firma_mvc.Controllers
         // GET: Contractors/Create
         public IActionResult CreatePopup()
         {
-            return View();
+            Contractor contractor = new Contractor();
+            contractor.Name="test";
+            return View(contractor);
         }
 
         // POST: Contractors/Create
@@ -92,7 +94,7 @@ namespace firma_mvc.Controllers
             {
                 _context.Add(contractor);
                 await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Create), "Invoices", null );
+                return RedirectToAction(nameof(Index), "Contractor", null );
             }
             return View(contractor);
         }
