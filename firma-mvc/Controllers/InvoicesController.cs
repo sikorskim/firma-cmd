@@ -59,6 +59,7 @@ namespace firma_mvc.Controllers
             else
             {
                 return View (await applicationDbContext.Where (p => p.DateOfIssue.Year == DateTime.Now.Year && p.DateOfIssue.Month == DateTime.Now.Month).ToListAsync ());
+                // return View (await applicationDbContext.OrderByDescending(p=>p.DateOfIssue).ToListAsync ());
             }
 
             //return View(await applicationDbContext.ToListAsync());
