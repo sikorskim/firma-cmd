@@ -137,7 +137,9 @@ namespace firma_mvc
             }
         }
 
-        public string generate()
+        // typeCode = 0 - generate invoice
+        // typeCode = 1 - generate invoice duplicate eith current date
+        public string generate(int typeCode)
         {
             string path = "templates/invoice.xml";
             XDocument doc = XDocument.Load(path);
@@ -148,13 +150,21 @@ namespace firma_mvc
             string header = root.Element("Header").Value;
             header = string.Format(header, Company.Name, Company.FullAddress, Company.Phone, Company.Email, Company.Website, Company.BankName, Company.BankAccountNumber);
 
-            string cityOfIssue = root.Element("DatePlace").Value;
+            string title = root.Element("Title").Value;   
             string dateOfIssue = DateOfIssue.ToString(dateTimeFormat);
+
+            if(typeCode==1)
+            {
+                string duplicateTitle=" - DUPLIKAT";
+                title = string.Format(title, Number+duplicateTitle);
+                dateOfIssue = DateTime.Now.ToString(dateTimeFormat);
+            }  
+
+            string cityOfIssue = root.Element("DatePlace").Value;
             string dateOfDelivery = DateOfDelivery.ToString(dateTimeFormat);
             cityOfIssue = string.Format(cityOfIssue, dateOfIssue, Company.InvoiceIssueCity, dateOfDelivery);
 
-            string title = root.Element("Title").Value;
-            title = string.Format(title, Number);
+       
 
             string sellerBuyer = root.Element("SellerBuyer").Value;
             sellerBuyer = string.Format(sellerBuyer, Company.FullName, Company.FullAddress, Company.NIP, Contractor.FullName, Contractor.FullAddress, Contractor.NIP);

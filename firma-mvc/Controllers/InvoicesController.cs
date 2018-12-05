@@ -88,7 +88,7 @@ namespace firma_mvc.Controllers
         }
 
         // GET: GenerateInvoice        
-        public async Task<IActionResult> GenerateInvoice (int? id)
+        public async Task<IActionResult> GenerateInvoice (int? id, int typeCode)
         {
             if (id == null)
             {
@@ -117,7 +117,7 @@ namespace firma_mvc.Controllers
             // to change
             invoice.Company = _context.Company.FirstOrDefault ();
 
-            string pdfFilename = invoice.generate ();
+            string pdfFilename = invoice.generate (typeCode);
             string downFilename = invoice.getDownloadFilename ();
             await Task.Delay (1000);
             return RedirectToAction ("GetPdfFile", new { filename = pdfFilename, downloadFilename = downFilename });
