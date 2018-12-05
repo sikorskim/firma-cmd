@@ -19,8 +19,10 @@
         <div class="col">
             <br />
             <p>
+                @Html.ActionLink("Dodaj pozycję", "Create", "InvoiceItems",  new { invoiceId = Model.Id }, htmlAttributes: new { @class = "btn btn-outline-info" })
+
                 <button type="button" class="btn btn-outline-success @btnDisabled" data-toggle=@addBtnToggle data-target="#addInvoiceItem">
-                    Dodaj pozycję
+                    Dodaj pozycję popup
                 </button>
 
                 @{
