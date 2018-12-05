@@ -77,7 +77,7 @@ namespace firma_mvc.Controllers
                 {
                     FileDownloadName = downloadFilename + ".pdf"
                 };
-                Tools.deleteTempFiles (filename.Substring (4, 64));
+                //Tools.deleteTempFiles (filename.Substring (4, 64));
                 return result;
             }
             catch (FileNotFoundException e)

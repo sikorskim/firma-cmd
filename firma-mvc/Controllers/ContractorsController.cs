@@ -30,6 +30,15 @@ namespace firma_mvc.Controllers
                 return View(await searchResult.ToListAsync());
             }
 
+            //             FixedAssets fixedAssets = new FixedAssets();
+            // fixedAssets.DateOfBuy = DateTime.Now.Date;
+            // fixedAssets.DateOfUseStart = DateTime.Now.Date;
+            // fixedAssets.Identfier = fixedAssets.getNumber(_context);
+            // ViewData["FixedAssets"] = fixedAssets;
+
+            Contractor contractor = new Contractor();
+            contractor.Name="test";
+            ViewData["Contractor"]=contractor;
             return View(await applicationDbContext.ToListAsync());
         }
 
@@ -54,8 +63,8 @@ namespace firma_mvc.Controllers
         // GET: Contractors/Create
         public IActionResult Create()
         {
-            List<string> voivodeships = new List<string>() {"kujawsko-pomorskie", "lubuskie", "małopolskie","mazowieckie", "pomorskie", "śląskie", "warmińsko-mazurskie", "wielkopolskie", "zachodniopomorskie"};
-            ViewData["Voivodeships"] = new SelectList(voivodeships);
+            // List<string> voivodeships = new List<string>() {"kujawsko-pomorskie", "lubuskie", "małopolskie","mazowieckie", "pomorskie", "śląskie", "warmińsko-mazurskie", "wielkopolskie", "zachodniopomorskie"};
+            // ViewData["Voivodeships"] = new SelectList(voivodeships);
             return View();
         }
 
@@ -66,35 +75,13 @@ namespace firma_mvc.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("Id,NIP,FullName,Name,CountryCode,Voivodeship,County,Community,City,Street,BuldingNo,PostalCode,PostOffice,Email,Phone")] Contractor contractor)
         {
+            Console.WriteLine("test");
+
             if (ModelState.IsValid)
             {
                 _context.Add(contractor);
                 await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
-            }
-            return View(contractor);
-        }
-
-        // GET: Contractors/Create
-        public IActionResult CreatePopup()
-        {
-            Contractor contractor = new Contractor();
-            contractor.Name="test";
-            return View(contractor);
-        }
-
-        // POST: Contractors/Create
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> CreatePopup([Bind("Id,NIP,FullName,Name,CountryCode,Voivodeship,County,Community,City,Street,BuldingNo,PostalCode,PostOffice,Email,Phone")] Contractor contractor)
-        {
-            if (ModelState.IsValid)
-            {
-                _context.Add(contractor);
-                await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index), "Contractor", null );
+                return RedirectToAction(nameof(Index), new { searchQuery = string.Empty });
             }
             return View(contractor);
         }
