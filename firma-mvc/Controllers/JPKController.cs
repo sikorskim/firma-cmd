@@ -28,7 +28,7 @@ namespace firma_mvc.Controllers
             ViewData["Year"] = new SelectList(Tools.getYearsList());
             ViewData["JPKType"] = new SelectList(Tools.getJPKtypes(), "Key", "Value");
             JPKViewModel jpkViewModel = new JPKViewModel();
-            jpkViewModel.Month = DateTime.Now.Month - 1;
+            jpkViewModel.Month = DateTime.Now.Month - 1; 
             jpkViewModel.Year = DateTime.Now.Year;
             return View(jpkViewModel);
         }

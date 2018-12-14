@@ -150,7 +150,8 @@ namespace firma_mvc
             string header = root.Element("Header").Value;
             header = string.Format(header, Company.Name, Company.FullAddress, Company.Phone, Company.Email, Company.Website, Company.BankName, Company.BankAccountNumber);
 
-            string title = root.Element("Title").Value;   
+            string title = root.Element("Title").Value;
+            title = string.Format(title, Number);   
             string dateOfIssue = DateOfIssue.ToString(dateTimeFormat);
 
             if(typeCode==1)
