@@ -55,16 +55,18 @@
     \textbf~^\huge~^FAKTURA {0}^~^~
     \end~^center^~
     \vspace~^2cm^~
+    \noindent
   </Title>
   <SellerBuyer>
-    \noindent
     \begin~^table^~[H]
-    \raggedleft
-    \begin~^tabular^~~^ b~^8cm^~  b~^8cm^~^~
-    \textbf~^SPRZEDAWCA^~ &amp; \hfill \textbf~^NABYWCA^~\\
-    {0} &amp; {3} \\
-    {1} &amp; {4} \\
-    NIP {2} &amp; NIP {5}\\
+    \begin~^tabular^~~^ p~^8cm^~ p~^8cm^~^~             
+    ~^\parbox[t]~^8cm^~~^\begin~^flushleft^~
+    \textbf~^SPRZEDAWCA^~\\
+    {0} \\ {1} \\  NIP {2}
+    \end~^flushleft^~ ^~^~ &amp; ~^\parbox[t]~^8cm^~~^\begin~^flushright^~
+    \textbf~^NABYWCA^~\\
+    {3} \\ {4} \\ NIP {5} 
+    \end~^flushright^~ ^~^~
     \end~^tabular^~
     \end~^table^~
   </SellerBuyer>
