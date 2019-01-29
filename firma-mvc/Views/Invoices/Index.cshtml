@@ -56,6 +56,7 @@
                 <tbody>
                     @{
                         int i = 1;
+                        decimal totalValue=0;
                     }
                     @foreach (var item in Model)
                     {
@@ -101,6 +102,20 @@
                             </td>
                         </tr>
                         i++;
+                        totalValue+=item.TotalValue;
                     }
+                    <tr>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td>
+                            Razem
+                        </td>
+                        <td>
+                            @totalValue.ToString("0.00")
+                        </td>
+                        <td></td>
+                    </tr>
                 </tbody>
             </table>
