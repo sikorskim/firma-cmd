@@ -308,6 +308,10 @@ namespace firma_mvc
             int i1 = i % 100;
             if (i1 != 0)
             {
+                if (i1 >= 1 && i1 <= 9)
+                {
+                    output += " " + getOnes(i1);
+                }
                 if (i1 >= 10 && i1 <= 19)
                 {
                     output += " " + getTeens(i1);
