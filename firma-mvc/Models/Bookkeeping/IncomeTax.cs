@@ -60,6 +60,23 @@ namespace firma_mvc
 
             Value = (IncomeIncr - SocialSecContrIncr) * taxRate - taxRelief - HealthSecIncr-paidTax;
             Value = Math.Round(Value);
+            
+            Console.WriteLine("ulga podatkowa "+taxRelief);
+            Console.WriteLine("skladka ubezpieczniowa "+SocialSecContr);
+            Console.WriteLine("skladka ubezp. narastajaco "+SocialSecContrIncr);
+            Console.WriteLine("skladka zdrowotna "+HealthSec);
+            Console.WriteLine("skladka zdrowotna narastajaco "+HealthSecIncr);
+            Console.WriteLine("zaplacony podatek "+paidTax);
+            Console.WriteLine("przychod "+Income);
+            Console.WriteLine("koszty " + Loss );
+            Console.WriteLine("przychod narastajaco "+IncomeIncr);
+            Console.WriteLine("podatek "+Value);
+
+            if(Value<0)
+            {
+                Value=0;
+            }
+
             return this;
         }
 
