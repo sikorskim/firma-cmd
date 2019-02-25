@@ -46,7 +46,7 @@ namespace firma_mvc.Controllers
                     ViewData["Year"] = new SelectList (Tools.getYearsList (), year);
                     ViewData["SelectedYear"] = year;
                 }
-                return View (await filteredResult.ToListAsync ());
+                return View (await filteredResult.OrderBy(p=>p.DateOfIssue).ToListAsync ());
             }
             else
             {
