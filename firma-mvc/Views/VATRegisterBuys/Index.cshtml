@@ -84,12 +84,13 @@
             decimal totalValueBrutto = 0;
             decimal totalValueNetto = 0;
             decimal totalTaxDeductibleValue = 0;
+            int i = 1;
         }
             @foreach (var item in Model)
             {
                 <tr class="table-light" onclick="location.href = '@Url.Action("Details", "VATRegisterBuys",new { id = item.Id})'">
                     <td>
-                        @Html.DisplayFor(modelItem => item.Number)
+                        @i
                     </td>
                     <td>
                         @Html.DisplayFor(modelItem => item.DeliveryDate)
@@ -123,6 +124,7 @@
                 totalValueBrutto+=item.ValueBrutto;
                 totalValueNetto+=item.ValueNetto;
                 totalTaxDeductibleValue+=(decimal)item.TaxDeductibleValue;
+                i++;
             }
             <tr class="table-active">
             <td></td>

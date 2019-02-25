@@ -125,6 +125,7 @@
     </thead>
     <tbody>
         @{
+            int i = 1;
             int count = 0;
             decimal totalVATSummary = 0;
             decimal totalValueBrutto = 0;
@@ -135,7 +136,7 @@
         {
             <tr class="table-light" onclick="location.href = '@Url.Action("Details", "VATRegisterSells",new { id = item.Id})'">
                 <td>
-                    @Html.DisplayFor(modelItem => item.Number)
+                    @i
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.DeliveryDate)
@@ -183,6 +184,7 @@
                     @Html.DisplayFor(modelItem => item.VATSummary)
                 </td>
             </tr>
+            i++;
             count++;
             totalValueBrutto += (decimal)item.ValueBrutto;
             totalValueNetto23 += (decimal)item.ValueNetto23;
