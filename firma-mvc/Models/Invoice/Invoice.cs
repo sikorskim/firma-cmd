@@ -150,16 +150,17 @@ namespace firma_mvc
             string header = root.Element("Header").Value;
             header = string.Format(header, Company.Name, Company.FullAddress, Company.Phone, Company.Email, Company.Website, Company.BankName, Company.BankAccountNumber);
 
-            string title = root.Element("Title").Value;
-            title = string.Format(title, Number);   
+            string title = root.Element("Title").Value; 
             string dateOfIssue = DateOfIssue.ToString(dateTimeFormat);
 
             if(typeCode==1)
             {
                 string duplicateTitle=" - DUPLIKAT";
-                title = string.Format(title, Number+duplicateTitle);
+                Number = Number + duplicateTitle;
                 dateOfIssue = DateTime.Now.ToString(dateTimeFormat);
-            }  
+            }
+
+            title = string.Format(title, Number);   
 
             string cityOfIssue = root.Element("DatePlace").Value;
             string dateOfDelivery = DateOfDelivery.ToString(dateTimeFormat);

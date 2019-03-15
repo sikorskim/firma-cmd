@@ -27,6 +27,12 @@ namespace firma_mvc.Controllers
             vATRegisterBuy.DateOfIssue = DateTime.Now.Date;
             vATRegisterBuy.DeliveryDate = DateTime.Now.Date;
             ViewData["VATRegisterBuy"] = vATRegisterBuy;
+
+            //test
+            VATRegisterBuyViewModel vATRegisterBuyViewModel = new VATRegisterBuyViewModel(vATRegisterBuy);
+            ViewData["VATRegisterBuyViewModel"] = vATRegisterBuyViewModel;
+            //test end
+
             ViewData["ContractorId"] = new SelectList (_context.Contractor, "Id", "Name");
             ViewData["Month"] = new SelectList (Tools.getMonthsDictionary (), "Key", "Value", DateTime.Now.Month);
             ViewData["Year"] = new SelectList (Tools.getYearsList (), DateTime.Now.Year);
@@ -105,6 +111,28 @@ namespace firma_mvc.Controllers
             }
             return View (vATRegisterBuy);
         }
+
+        //         // GET: VATRegisterBuys/Create
+        // public IActionResult CreateTest ()
+        // {
+        //     ViewData["ContractorId"] = new SelectList (_context.Contractor, "Id", "Name");
+        //     VATRegisterBuy vATRegisterBuy = new VATRegisterBuy ();
+        //     DateTime currDate = DateTime.Now;
+        //     vATRegisterBuy.DateOfIssue = currDate;
+        //     vATRegisterBuy.DeliveryDate = currDate;
+        //     vATRegisterBuy.Month = currDate.Month;
+        //     vATRegisterBuy.Year = currDate.Year;
+
+        //     VATRegisterBuyViewModel vATRegisterBuyViewModel = new VATRegisterBuyViewModel(vATRegisterBuy);
+
+        //     return View (vATRegisterBuyViewModel);
+        // }
+
+ 
+
+
+
+
 
         // GET: VATRegisterBuys/Edit/5
         public async Task<IActionResult> Edit (int? id)
