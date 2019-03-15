@@ -29,7 +29,9 @@ namespace firma_mvc.Controllers
             ViewData["VATRegisterBuy"] = vATRegisterBuy;
 
             //test
-            VATRegisterBuyViewModel vATRegisterBuyViewModel = new VATRegisterBuyViewModel(vATRegisterBuy);
+            VATRegisterBuyViewModel vATRegisterBuyViewModel = new VATRegisterBuyViewModel();
+            vATRegisterBuyViewModel.DateOfIssue = DateTime.Now.Date;
+            vATRegisterBuyViewModel.DeliveryDate = DateTime.Now.Date;
             ViewData["VATRegisterBuyViewModel"] = vATRegisterBuyViewModel;
             //test end
 
@@ -112,23 +114,61 @@ namespace firma_mvc.Controllers
             return View (vATRegisterBuy);
         }
 
-        //         // GET: VATRegisterBuys/Create
-        // public IActionResult CreateTest ()
-        // {
-        //     ViewData["ContractorId"] = new SelectList (_context.Contractor, "Id", "Name");
-        //     VATRegisterBuy vATRegisterBuy = new VATRegisterBuy ();
-        //     DateTime currDate = DateTime.Now;
-        //     vATRegisterBuy.DateOfIssue = currDate;
-        //     vATRegisterBuy.DeliveryDate = currDate;
-        //     vATRegisterBuy.Month = currDate.Month;
-        //     vATRegisterBuy.Year = currDate.Year;
 
-        //     VATRegisterBuyViewModel vATRegisterBuyViewModel = new VATRegisterBuyViewModel(vATRegisterBuy);
+        // GET: VATRegisterBuys/CreateTest
+        public IActionResult CreateTest ()
+        {
+            ViewData["ContractorId"] = new SelectList (_context.Contractor, "Id", "Name");
+            VATRegisterBuyViewModel vATRegisterBuy = new VATRegisterBuyViewModel ();
+            DateTime currDate = DateTime.Now;
+            vATRegisterBuy.DateOfIssue = currDate;
+            vATRegisterBuy.DeliveryDate = currDate;
+            vATRegisterBuy.Month = currDate.Month;
+            vATRegisterBuy.Year = currDate.Year;
 
-        //     return View (vATRegisterBuyViewModel);
-        // }
+            return View (vATRegisterBuy);
+        }
 
- 
+        // POST: VATRegisterBuys/CreateTest
+        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
+        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> CreateTest ([Bind ("Id,DeliveryDate,DateOfIssue,DocumentNumber,ContractorId,ValueBrutto,ValueNetto,TaxDeductibleValue,TaxFreeBuysValue,NoTaxDeductibleBuysValue,CarCost,BuyForTrade,OtherCost,DescriptionForTaxBook")] VATRegisterBuyViewModel vATRegisterBuyViewModel)
+        {
+            ViewData["ContractorId"] = new SelectList (_context.Contractor, "Id", "Name");
+            if (ModelState.IsValid)
+            {
+                vATRegisterBuyViewModel.Month = vATRegisterBuyViewModel.DateOfIssue.Month;
+                vATRegisterBuyViewModel.Year = vATRegisterBuyViewModel.DateOfIssue.Year;
+                vATRegisterBuyViewModel.Number = vATRegisterBuyViewModel.getOrderNumber (_context);
+                
+                VATRegisterBuy vATRegisterBuy = vATRegisterBuyViewModel.getVATRegisterBuy();
+           
+                TaxBook taxBook = new TaxBook();
+                taxBook.Number = taxBook.getOrderNumber(_context);
+                taxBook.Date = vATRegisterBuyViewModel.DateOfIssue;
+                taxBook.InvoiceNumber=vATRegisterBuyViewModel.DocumentNumber;
+                taxBook.ContractorId=vATRegisterBuyViewModel.ContractorId;
+                taxBook.Description=vATRegisterBuyViewModel.DescriptionForTaxBook;
+                
+                if(vATRegisterBuyViewModel.BuyForTrade)
+                {
+                    taxBook.GoodsBuys=vATRegisterBuyViewModel.ValueNetto;
+                }
+                else if(vATRegisterBuyViewModel.OtherCost)
+                {
+                    taxBook.OtherCosts=vATRegisterBuyViewModel.ValueNetto;
+                }
+
+
+                _context.Add(taxBook);
+                _context.Add (vATRegisterBuy);
+                await _context.SaveChangesAsync ();
+                return RedirectToAction (nameof (Index));
+            }
+            return View (vATRegisterBuyViewModel);
+        }
 
 
 

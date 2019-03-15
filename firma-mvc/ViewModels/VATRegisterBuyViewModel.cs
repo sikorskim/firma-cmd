@@ -5,17 +5,32 @@ using System.Threading.Tasks;
 
 namespace firma_mvc
 {
-    public class VATRegisterBuyViewModel
+    public class VATRegisterBuyViewModel : VATRegisterBuy
     {
-        public VATRegisterBuy VATRegisterBuy { get; set; }
         public bool CarCost { get; set; }
         public bool BuyForTrade { get; set; }
         public bool OtherCost { get; set; }
         public string DescriptionForTaxBook { get; set; }
 
-        public VATRegisterBuyViewModel(VATRegisterBuy vATRegisterBuy)
+        public VATRegisterBuy getVATRegisterBuy()
         {
-            VATRegisterBuy = vATRegisterBuy;
+            VATRegisterBuy vATRegisterBuy = new VATRegisterBuy();
+            vATRegisterBuy.Id=this.Id;
+            vATRegisterBuy.Number=this.Number;
+            vATRegisterBuy.DeliveryDate=this.DeliveryDate;
+            vATRegisterBuy.DateOfIssue=this.DateOfIssue;
+            vATRegisterBuy.DocumentNumber=this.DocumentNumber;
+            vATRegisterBuy.ContractorId=this.ContractorId;
+            vATRegisterBuy.ValueBrutto=this.ValueBrutto;
+            vATRegisterBuy.ValueNetto=this.ValueNetto;
+            vATRegisterBuy.TaxDeductibleValue=this.TaxDeductibleValue;
+            vATRegisterBuy.TaxFreeBuysValue=this.TaxFreeBuysValue;
+            vATRegisterBuy.NoTaxDeductibleBuysValue=this.NoTaxDeductibleBuysValue;
+            vATRegisterBuy.Contractor=this.Contractor;
+            vATRegisterBuy.Month=this.Month;
+            vATRegisterBuy.Year=this.Year;
+
+            return vATRegisterBuy;
         }
     }
 }
