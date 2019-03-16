@@ -160,6 +160,11 @@ namespace firma_mvc.Controllers
                 {
                     taxBook.OtherCosts=vATRegisterBuyViewModel.ValueNetto;
                 }
+                else if (vATRegisterBuyViewModel.CarCost)
+                { 
+                    taxBook.OtherCosts=vATRegisterBuyViewModel.ValueNetto;
+                    vATRegisterBuy.TaxDeductibleValue = vATRegisterBuy.TaxDeductibleValue / 2;
+                }
 
 
                 _context.Add(taxBook);
