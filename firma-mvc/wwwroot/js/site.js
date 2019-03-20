@@ -9,11 +9,11 @@ $('#btnVat50').click(function () {
 
 // count VAT value in VATRegisterBuy create view
 $('#valNetto').change(function () {
-    var netto = $('#valNetto').val().replace(',', '.');
-    var brutto = $('#valBrutto').val().replace(',', '.');
+    var netto = $('#valNetto').val()//.replace(',', '.');
+    var brutto = $('#valBrutto').val()//.replace(',', '.');
     var vat = brutto - netto;
     vat = vat.toFixed(2);
-    vat = vat.replace('.', ',')
+    //vat = vat.replace('.', ',')
     $('#TaxDeductibleValue').val(vat);
 });
 

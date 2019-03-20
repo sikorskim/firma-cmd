@@ -96,7 +96,12 @@ namespace firma_mvc
         decimal getCosts(ApplicationDbContext _context)
         {
             //return _context.VATRegisterBuy.Where(p => p.Month == Month && p.Year == Year).Sum(p => p.ValueNetto);
-            return (decimal)_context.TaxBookItem.Where(p => p.Date.Year == Year && p.Date.Month == Month).Sum(p => p.TotalCosts);
+            var items = _context.TaxBookItem.Where(p => p.Date.Year == Year && p.Date.Month == Month);
+            decimal costs = (decimal)items.Sum(p => p.TotalCosts);
+            costs += (decimal)items.Sum(p => p.GoodsBuys);
+            costs += (decimal)items.Sum(p => p.BuysSideEffects);
+            costs += (decimal)items.Sum(p => p.ResearchCostValue);        
+            return costs;
         }
 
         decimal getIncome(ApplicationDbContext _context)
