@@ -182,8 +182,9 @@ namespace firma_mvc.Controllers
                     taxBook.OtherCosts=vATRegisterBuyViewModel.ValueNetto;
                 }
                 else if (vATRegisterBuyViewModel.CarCost)
-                { 
-                    taxBook.OtherCosts=vATRegisterBuyViewModel.ValueNetto;
+                {
+                    decimal carCostDeductibleValue = Decimal.Parse(_context.Parameter.Single(p => p.Name == "odl_koszty_pojazd").Value);
+                    taxBook.OtherCosts=vATRegisterBuyViewModel.ValueNetto*carCostDeductibleValue;
                     vATRegisterBuy.TaxDeductibleValue = vATRegisterBuy.TaxDeductibleValue / 2;
                 }
 
