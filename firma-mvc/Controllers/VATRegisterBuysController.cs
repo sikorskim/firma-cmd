@@ -5,6 +5,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using firma_mvc;
 using firma_mvc.Data;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -14,6 +15,8 @@ namespace firma_mvc.Controllers
     public class VATRegisterBuysController : Controller
     {
         private readonly ApplicationDbContext _context;
+        string SelectedMonth = "month";
+        string SelectedYear = "year";
 
         public VATRegisterBuysController (ApplicationDbContext context)
         {
@@ -38,22 +41,40 @@ namespace firma_mvc.Controllers
             ViewData["ContractorId"] = new SelectList (_context.Contractor, "Id", "Name");
             ViewData["Month"] = new SelectList (Tools.getMonthsDictionary (), "Key", "Value", DateTime.Now.Month);
             ViewData["Year"] = new SelectList (Tools.getYearsList (), DateTime.Now.Year);
-            ViewData["SelectedMonth"] = DateTime.Now.Month;
-            ViewData["SelectedYear"] = DateTime.Now.Year;
+
+            if(HttpContext.Session.GetString(SelectedMonth)=="month" && HttpContext.Session.GetString(SelectedYear)=="year")
+            {
+                HttpContext.Session.SetInt32(SelectedMonth, DateTime.Now.Month);
+                HttpContext.Session.SetInt32(SelectedYear, DateTime.Now.Year);
+                // year = HttpContext.Session.GetInt32(SelectedYear);
+                // month = HttpContext.Session.GetInt32(SelectedMonth);
+            }            
+            
+            if(year is null && month is null)
+            {
+                year = HttpContext.Session.GetInt32(SelectedYear);
+                month = HttpContext.Session.GetInt32(SelectedMonth);
+
+                ViewData["Month"] = new SelectList (Tools.getMonthsDictionary (), "Key", "Value", month);
+                ViewData["SelectedMonth"] = month;
+                ViewData["Year"] = new SelectList (Tools.getYearsList (), year);
+                ViewData["SelectedYear"] = year;
+            }
 
             var applicationDbContext = _context.VATRegisterBuy.Include (i => i.Contractor);
 
-            if (month != null)
+            if (month != null && year != null)
             {
-                var filteredResult = applicationDbContext.Where (p => p.DateOfIssue.Month == month);
+                HttpContext.Session.SetInt32(SelectedMonth, (int)month);
+                HttpContext.Session.SetInt32(SelectedYear, (int)year);
+
                 ViewData["Month"] = new SelectList (Tools.getMonthsDictionary (), "Key", "Value", month);
                 ViewData["SelectedMonth"] = month;
-                if (year != null)
-                {
-                    filteredResult = applicationDbContext.Where (p => p.DateOfIssue.Month == month && p.DateOfIssue.Year == year);
-                    ViewData["Year"] = new SelectList (Tools.getYearsList (), year);
-                    ViewData["SelectedYear"] = year;
-                }
+                ViewData["Year"] = new SelectList (Tools.getYearsList (), year);
+                ViewData["SelectedYear"] = year;
+
+                var filteredResult = applicationDbContext.Where (p => p.DateOfIssue.Month == month && p.DateOfIssue.Year == year);
+
                 return View (await filteredResult.OrderBy(p=>p.DateOfIssue).ToListAsync ());
             }
             else

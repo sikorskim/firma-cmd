@@ -39,6 +39,12 @@ namespace firma_mvc
             // Add application services.
             services.AddTransient<IEmailSender, EmailSender>();
 
+            // Session support
+                services.AddDistributedMemoryCache();  
+                services.AddSession(options => {  
+                options.IdleTimeout = TimeSpan.FromMinutes(15);//You can set Time   
+    });  
+
             services.AddMvc();
         }
 
@@ -59,6 +65,8 @@ namespace firma_mvc
             app.UseStaticFiles();
 
             app.UseAuthentication();
+
+            app.UseSession();  
 
             app.UseMvc(routes =>
             {
