@@ -16,6 +16,8 @@
 \usepackage~^multirow^~
 \usepackage~^array^~
 \usepackage~^longtable^~
+\usepackage~^seqsplit^~
+
 
 \geometry~^
 	a4paper,
@@ -60,7 +62,7 @@
 			\endhead
 </TableHeader>
 <TableRow>
-\centering~^{0}^~ &amp; {1} &amp;  \parbox[t]~^2cm^~~^{2}^~ &amp; {3} &amp; {4} &amp; {5} &amp; {6} &amp; {7} &amp; {8} &amp; {9} &amp; {10} &amp; {11} &amp; {12} &amp; {13} &amp; {14} &amp; {15} &amp; {16}  &amp; {17} \\ \hline
+\centering~^{0}^~ &amp; {1} &amp;  \seqsplit~^{2}^~ &amp; {3} &amp; {4} &amp; {5} &amp; {6} &amp; {7} &amp; {8} &amp; {9} &amp; {10} &amp; {11} &amp; {12} &amp; {13} &amp; {14} &amp; {15} &amp; {16}  &amp; {17} \\ \hline
 </TableRow>
 <TableSummary>
          \multicolumn~^6^~~^|r|^~~^\textbf~^Razem^~^~ &amp; \textbf~^{0}^~ &amp; \textbf~^{1}^~ &amp; \textbf~^{2}^~ &amp; \textbf~^{3}^~ &amp; \textbf~^{4}^~ &amp; \textbf~^{5}^~ &amp; \textbf~^{6}^~ &amp; \textbf~^{7}^~ &amp; \textbf~^{8}^~ &amp; &amp;\textbf~^{9}^~  &amp; \\ \hline

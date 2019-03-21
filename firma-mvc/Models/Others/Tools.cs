@@ -33,14 +33,14 @@ namespace firma_mvc
 
         public static void deleteTempFiles(string filename)
         {
-            DirectoryInfo dir = new DirectoryInfo("tmp");
-            foreach (FileInfo file in dir.GetFiles())
-            {
-                if (file.Name.Contains(filename))
-                {
-                    file.Delete();
-                }
-            }
+            // DirectoryInfo dir = new DirectoryInfo("tmp");
+            // foreach (FileInfo file in dir.GetFiles())
+            // {
+            //     if (file.Name.Contains(filename))
+            //     {
+            //         file.Delete();
+            //     }
+            // }
         }
 
         public static Dictionary<int, string> getMonthsDictionary()
@@ -89,7 +89,8 @@ namespace firma_mvc
         public static string handleLatexSpecialChars(string input)
         {
             input = input.Replace(@"\", @"\textbackslash");
-            input = input.Replace("#", @"\#");            
+            input = input.Replace("#", @"\#");
+            input = input.Replace("_", @"\_");            
             return input;
         }
     }
