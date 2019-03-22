@@ -96,13 +96,12 @@ namespace firma_mvc
             XDocument doc = XDocument.Load (path);
             XElement root = doc.Element ("Template");
 
-            Company company = _context.Company.FirstOrDefault ();
-            var taxBookItems = _context.TaxBookItem.Include (i => i.Contractor).Where (p => p.Date.Year == year && p.Date.Month == month).ToList ();
+            var taxBookItems = _context.TaxBookItem.Include (p => p.Contractor).Where (p => p.Date.Year == year && p.Date.Month == month).OrderBy(p=>p.Date).ToList ();
 
             var monthDict = Tools.getMonthsDictionary ();
 
             string header = root.Element ("Header").Value;
-            header = string.Format (header, monthDict[month], year, company.FullName, company.FullAddress, company.NIP);
+            header = string.Format (header, monthDict[month], year);
 
             string tableHeader = root.Element ("TableHeader").Value;
             string tableSummary = root.Element ("TableSummary").Value;
@@ -119,6 +118,7 @@ namespace firma_mvc
             decimal totalCol15 = 0;
             decimal totalResearchCos = 0;
 
+            int i = 1;
             foreach (TaxBook item in taxBookItems)
             {
                 string documentNo = Tools.handleLatexSpecialChars (item.InvoiceNumber);
@@ -134,7 +134,7 @@ namespace firma_mvc
                 decimal col15 = (decimal) item.Column15;
                 decimal researchCos = (decimal) item.ResearchCostValue;
 
-                string newItem = string.Format (tableRow, item.Number, item.Date.ToShortDateString (), documentNo, item.Contractor.FullName, item.Contractor.FullAddress, item.Description, sellVal.ToString ("0.00"), otherInc.ToString ("0.00"), totalInc.ToString ("0.00"), goodsBuy.ToString ("0.00"), buysSideEff.ToString ("0.00"), salary.ToString ("0.00"), otherCos.ToString ("0.00"), totalCos.ToString ("0.00"), col15.ToString ("0.00"), item.CostDescription, researchCos.ToString ("0.00"), item.Comments);
+                string newItem = string.Format (tableRow, i, item.Date.ToShortDateString (), documentNo, item.Contractor.FullName, item.Contractor.FullAddress, item.Description, sellVal.ToString ("0.00"), otherInc.ToString ("0.00"), totalInc.ToString ("0.00"), goodsBuy.ToString ("0.00"), buysSideEff.ToString ("0.00"), salary.ToString ("0.00"), otherCos.ToString ("0.00"), totalCos.ToString ("0.00"), col15.ToString ("0.00"), item.CostDescription, researchCos.ToString ("0.00"), item.Comments);
 
                 tableHeader += newItem;
 
@@ -148,13 +148,14 @@ namespace firma_mvc
                 totalTotalCos += totalCos;
                 totalCol15 += col15;
                 totalResearchCos += researchCos;
+
+                i++;
             }
 
             tableSummary = string.Format (tableSummary, totalSellVall.ToString ("0.00"), totalOtherInc.ToString ("0.00"), totalTotalInc.ToString ("0.00"), totalGoodsBuy.ToString ("0.00"), totalBuysSideEff.ToString ("0.00"), totalSalary.ToString ("0.00"), totalOtherCos.ToString ("0.00"), totalTotalCos.ToString ("0.00"), totalCol15.ToString ("0.00"), totalResearchCos.ToString ("0.00"));
             tableHeader += tableSummary;
 
-            string footer = root.Element ("Footer").Value;
-            string output = header + tableHeader + footer;
+            string output = header + tableHeader;
 
             output = output.Replace ("~^~^~^", "{{{");
             output = output.Replace ("^~^~^~", "}}}");
@@ -171,10 +172,10 @@ namespace firma_mvc
             Process process = new Process ();
             process.StartInfo.WorkingDirectory = "tmp";
             process.StartInfo.FileName = "pdflatex";
-            process.StartInfo.Arguments = outputFile + ".tex";
-            process.Start ();
-
+            process.StartInfo.Arguments = "-synctex=1 -interaction=nonstopmode "+ outputFile + ".tex";
+            process.Start ();      
             process.Dispose ();
+
             return outputFile + ".pdf";
         }
 
