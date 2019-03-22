@@ -20,8 +20,8 @@ namespace firma_mvc
     {
         public int Id { get; set; }
 
-        [DisplayName ("L.p.")]
-        public int Number { get; set; }
+        // [DisplayName ("L.p.")]
+        // public int Number { get; set; }
 
         [DisplayName ("Data zdarzenia gospodarczego")]
         [DisplayFormat (DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
@@ -78,17 +78,17 @@ namespace firma_mvc
         [ForeignKey ("ContractorId")]
         public virtual Contractor Contractor { get; set; }
 
-        public int getOrderNumber (ApplicationDbContext _context)
-        {
-            try
-            {
-                return _context.TaxBookItem.Where (p => p.Date.Month == DateTime.Now.Month && p.Date.Year == DateTime.Now.Year).Last ().Number + 1;
-            }
-            catch (Exception)
-            {
-                return 1;
-            }
-        }
+        // public int getOrderNumber (ApplicationDbContext _context)
+        // {
+        //     try
+        //     {
+        //         return _context.TaxBookItem.Where (p => p.Date.Month == DateTime.Now.Month && p.Date.Year == DateTime.Now.Year).Last ().Number + 1;
+        //     }
+        //     catch (Exception)
+        //     {
+        //         return 1;
+        //     }
+        // }
 
         public string generate (ApplicationDbContext _context, int year, int month)
         {

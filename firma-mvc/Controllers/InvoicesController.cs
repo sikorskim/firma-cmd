@@ -400,7 +400,6 @@ namespace firma_mvc.Controllers
                 }
                 catch (Exception)
                 {
-                    taxBook.Number = taxBook.getOrderNumber (_context);
                     taxBook.Date = invoice.DateOfIssue;
                     taxBook.InvoiceNumber = invoice.Number;
                     taxBook.ContractorId = invoice.ContractorId;

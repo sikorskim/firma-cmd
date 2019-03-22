@@ -30,7 +30,6 @@ namespace firma_mvc.Controllers
 
             ViewData["ContractorId"] = new SelectList (_context.Contractor, "Id", "Name");
             TaxBook taxBook = new TaxBook ();
-            taxBook.Number = 2;
             taxBook.Date = DateTime.Now.Date;
             ViewData["TaxBook"] = taxBook;
 
@@ -86,7 +85,7 @@ namespace firma_mvc.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create ([Bind ("Id,Number,Date,InvoiceNumber,ContractorId,Description,SellValue,OtherIncome,GoodsBuys,BuysSideEffects,Salary,OtherCosts,Column15,CostDescription,ResearchCostValue,Comments")] TaxBook taxBook)
+        public async Task<IActionResult> Create ([Bind ("Id,Date,InvoiceNumber,ContractorId,Description,SellValue,OtherIncome,GoodsBuys,BuysSideEffects,Salary,OtherCosts,Column15,CostDescription,ResearchCostValue,Comments")] TaxBook taxBook)
         {
             ViewData["ContractorId"] = new SelectList (_context.Contractor, "Id", "Name");
 
@@ -122,7 +121,7 @@ namespace firma_mvc.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit (int id, [Bind ("Id,Number,Date,InvoiceNumber,ContractorId,Description,SellValue,OtherIncome,GoodsBuys,BuysSideEffects,Salary,OtherCosts,Column15,CostDescription,ResearchCostValue,Comments")] TaxBook taxBook)
+        public async Task<IActionResult> Edit (int id, [Bind ("Id,Date,InvoiceNumber,ContractorId,Description,SellValue,OtherIncome,GoodsBuys,BuysSideEffects,Salary,OtherCosts,Column15,CostDescription,ResearchCostValue,Comments")] TaxBook taxBook)
         {
             ViewData["ContractorId"] = new SelectList (_context.Contractor, "Id", "Name");
 

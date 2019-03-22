@@ -167,7 +167,6 @@ namespace firma_mvc.Controllers
                 VATRegisterBuy vATRegisterBuy = vATRegisterBuyViewModel.getVATRegisterBuy();
            
                 TaxBook taxBook = new TaxBook();
-                taxBook.Number = taxBook.getOrderNumber(_context);
                 taxBook.Date = vATRegisterBuyViewModel.DateOfIssue;
                 taxBook.InvoiceNumber=vATRegisterBuyViewModel.DocumentNumber;
                 taxBook.ContractorId=vATRegisterBuyViewModel.ContractorId;

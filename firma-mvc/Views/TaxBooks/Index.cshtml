@@ -48,7 +48,7 @@
     <thead class="thead-light">
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.Number)
+                L.p.
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.Date)
@@ -107,11 +107,14 @@
         </tr>
     </thead>
     <tbody>
+        @{
+            int i = 1;
+        }
         @foreach (var item in Model)
         {
             <tr class="table-light" onclick="location.href = '@Url.Action("Details", "TaxBooks",new { id = item.Id})'">
                 <td>
-                    @Html.DisplayFor(modelItem => item.Number)
+                    @i  
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.Date)
@@ -168,6 +171,7 @@
                     @Html.DisplayFor(modelItem => item.Comments)
                 </td>*@
             </tr>
+            i++;
         }
     </tbody>
 </table>
