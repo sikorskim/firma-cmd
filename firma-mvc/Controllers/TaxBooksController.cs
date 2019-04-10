@@ -47,11 +47,11 @@ namespace firma_mvc.Controllers
                     ViewData["Year"] = new SelectList (Tools.getYearsList (), year);
                     ViewData["SelectedYear"] = year;
                 }
-                return View (await filteredResult.ToListAsync ());
+                return View (await filteredResult.OrderBy(p=>p.Date).ToListAsync ());
             }
             else
             {
-                return View (await applicationDbContext.Where (p => p.Date.Year == DateTime.Now.Year && p.Date.Month == DateTime.Now.Month).ToListAsync ());
+                return View (await applicationDbContext.Where (p => p.Date.Year == DateTime.Now.Year && p.Date.Month == DateTime.Now.Month).OrderBy(p=>p.Date).ToListAsync ());
             }
         }
 

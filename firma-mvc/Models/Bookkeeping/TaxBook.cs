@@ -173,7 +173,7 @@ namespace firma_mvc
             process.StartInfo.WorkingDirectory = "tmp";
             process.StartInfo.FileName = "pdflatex";
             process.StartInfo.Arguments = "-synctex=1 -interaction=nonstopmode "+ outputFile + ".tex";
-            process.Start ();      
+            process.Start ();             
             process.Dispose ();
 
             return outputFile + ".pdf";
