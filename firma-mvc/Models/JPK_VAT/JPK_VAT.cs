@@ -36,7 +36,7 @@ namespace firma_mvc
             ZakupWierszList = new List<ZakupWiersz>();
 
             int i = 1;
-            var sprzedaz = _context.VATRegisterSell.Include(j => j.Contractor).Where(p => p.Month == month && p.Year == year);
+            var sprzedaz = _context.VATRegisterSell.Include(j => j.Contractor).Where(p => p.Month == month && p.Year == year).OrderBy(p=>p.DateOfIssue);
             foreach (VATRegisterSell s in sprzedaz)
             {
                 SprzedazWiersz sprzedazWiersz = new SprzedazWiersz()
@@ -60,7 +60,7 @@ namespace firma_mvc
             SprzedazCtrl.LiczbaWierszySprzedazy = sprzedaz.Count();
 
             i = 1;
-            var zakupy = _context.VATRegisterBuy.Include(j => j.Contractor).Where(p => p.Month == month && p.Year == year);
+            var zakupy = _context.VATRegisterBuy.Include(j => j.Contractor).Where(p => p.Month == month && p.Year == year).OrderBy(p=>p.DateOfIssue);
             foreach (VATRegisterBuy z in zakupy)
             {
                 ZakupWiersz zakupWiersz = new ZakupWiersz()
