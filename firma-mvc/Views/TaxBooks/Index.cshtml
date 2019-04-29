@@ -113,7 +113,7 @@
         }
         @foreach (var item in Model)
         {
-            <tr class="table-light" onclick="location.href = '@Url.Action("Details", "TaxBooks",new { id = item.Id})'">
+            <tr class="table-light" onclick="location.href = '@Url.Action("Edit", "TaxBooks",new { id = item.Id})'">
                 <td>
                     @i  
                 </td>

@@ -96,6 +96,8 @@ namespace firma_mvc
             XDocument doc = XDocument.Load (path);
             XElement root = doc.Element ("Template");
 
+            string dateTimeFormat = "yyyy-MM-dd";
+
             var taxBookItems = _context.TaxBookItem.Include (p => p.Contractor).Where (p => p.Date.Year == year && p.Date.Month == month).OrderBy(p=>p.Date).ToList ();
 
             var monthDict = Tools.getMonthsDictionary ();
@@ -134,7 +136,7 @@ namespace firma_mvc
                 decimal col15 = (decimal) item.Column15;
                 decimal researchCos = (decimal) item.ResearchCostValue;
 
-                string newItem = string.Format (tableRow, i, item.Date.ToShortDateString (), documentNo, item.Contractor.FullName, item.Contractor.FullAddress, item.Description, sellVal.ToString ("0.00"), otherInc.ToString ("0.00"), totalInc.ToString ("0.00"), goodsBuy.ToString ("0.00"), buysSideEff.ToString ("0.00"), salary.ToString ("0.00"), otherCos.ToString ("0.00"), totalCos.ToString ("0.00"), col15.ToString ("0.00"), item.CostDescription, researchCos.ToString ("0.00"), item.Comments);
+                string newItem = string.Format (tableRow, i, item.Date.ToString(dateTimeFormat), documentNo, item.Contractor.FullName, item.Contractor.FullAddress, item.Description, sellVal.ToString ("0.00"), otherInc.ToString ("0.00"), totalInc.ToString ("0.00"), goodsBuy.ToString ("0.00"), buysSideEff.ToString ("0.00"), salary.ToString ("0.00"), otherCos.ToString ("0.00"), totalCos.ToString ("0.00"), col15.ToString ("0.00"), item.CostDescription, researchCos.ToString ("0.00"), item.Comments);
 
                 tableHeader += newItem;
 

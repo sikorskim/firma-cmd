@@ -148,7 +148,7 @@ namespace firma_mvc.Controllers
                         throw;
                     }
                 }
-                return RedirectToAction (nameof (Index));
+                return RedirectToAction (nameof (Index), "TaxBooks", new { month = taxBook.Date.Month, year = taxBook.Date.Year });
             }
             return View (taxBook);
         }

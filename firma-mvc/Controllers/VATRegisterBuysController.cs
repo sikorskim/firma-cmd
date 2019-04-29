@@ -178,13 +178,23 @@ namespace firma_mvc.Controllers
                 }
                 else if(vATRegisterBuyViewModel.OtherCost)
                 {
-                    taxBook.OtherCosts=vATRegisterBuyViewModel.ValueNetto;
+                    taxBook.OtherCosts=vATRegisterBuyViewModel.ValueNetto; 
                 }
                 else if (vATRegisterBuyViewModel.CarCost)
                 {
                     decimal carCostDeductibleValue = Decimal.Parse(_context.Parameter.Single(p => p.Name == "odl_koszty_pojazd").Value);
                     taxBook.OtherCosts=vATRegisterBuyViewModel.ValueNetto*carCostDeductibleValue;
                     vATRegisterBuy.TaxDeductibleValue = vATRegisterBuy.TaxDeductibleValue / 2;
+
+                    CarCost carCost = new CarCost();
+                    carCost.Date = vATRegisterBuyViewModel.DateOfIssue;
+                    carCost.Price = vATRegisterBuyViewModel.ValueBrutto;
+                    carCost.Description = vATRegisterBuyViewModel.DescriptionForTaxBook;
+
+                    // if (_context.CarCostType.Single(p=>p.Contains(carCost.Description))=!null)
+                    // {
+                    //     carCost.CarCostTypeId = _context.CarCostType.Single(p=>p.Contains());
+                    // }
                 }
 
 
@@ -324,6 +334,31 @@ namespace firma_mvc.Controllers
             string downFilename = vATRegisterBuy.getDownloadFilename ((int) year, (int) month);
             await Task.Delay (1000);
             return RedirectToAction ("GetPdfFile", new { filename = pdfFilename, downloadFilename = downFilename });
+        }
+
+        // GET: GenerateInvoice        
+        public async Task<IActionResult> AddToTaxBook (int? year, int? month)
+        {
+            var VATRegisterBuyItems = _context.VATRegisterBuy.Where(p=>p.Month==month && p.Year==year);
+            List<TaxBook> taxBookItems = new List<TaxBook>();
+
+
+            foreach (VATRegisterBuy v in VATRegisterBuyItems)
+            {
+                TaxBook taxBook = new TaxBook();
+                taxBook.Date = v.DateOfIssue;
+                taxBook.InvoiceNumber = v.DocumentNumber;
+                taxBook.ContractorId = v.ContractorId;
+                //taxBook.Description = v.DescriptionForTaxBook;
+                taxBook.OtherCosts = v.ValueNetto;
+
+                taxBookItems.Add(taxBook);
+            }
+
+            
+            _context.AddRange(taxBookItems);
+                await _context.SaveChangesAsync ();
+            return null;
         }
     }
 }
