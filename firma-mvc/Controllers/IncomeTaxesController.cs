@@ -25,11 +25,11 @@ namespace firma_mvc.Controllers
             ViewData["Month"] = new SelectList(Tools.getMonthsDictionary(), "Key", "Value",DateTime.Now.Month-1);
             ViewData["Year"] = new SelectList(Tools.getYearsList(), DateTime.Now.Year);
 
-            var applicationDbContext = _context.IncomeTax;
+            var applicationDbContext = _context.IncomeTax.Where(p=>p.Year==DateTime.Now.Year);
 
             if (year != null)
             {
-                var filteredResult = applicationDbContext.Where(p => p.Year == year);
+                var filteredResult = _context.IncomeTax.Where(p => p.Year == year);
                 ViewData["Year"] = new SelectList(Tools.getYearsList(), year);
                 return View(await filteredResult.ToListAsync());
             }

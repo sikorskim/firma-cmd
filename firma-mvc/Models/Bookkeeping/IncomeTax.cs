@@ -20,6 +20,8 @@ namespace firma_mvc
         public decimal Value { get; set; }
         [DisplayName("Przychód")]
         public decimal Income { get; set; }
+        [DisplayName("Dochód")]
+        public decimal NettIncome {get {return getNettIncome();}}
         [DisplayName("Koszty")]
         public decimal Loss { get; set; }
         [DisplayName("Dochód narastająco")]
@@ -78,6 +80,11 @@ namespace firma_mvc
             }
 
             return this;
+        }
+
+        decimal getNettIncome()
+        {
+            return Income - Loss;
         }
 
         decimal getPaidTax(ApplicationDbContext _context)

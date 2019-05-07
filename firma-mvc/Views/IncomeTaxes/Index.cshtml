@@ -64,6 +64,9 @@
                 @Html.DisplayNameFor(model => model.Loss)
             </th>
             <th>
+                @Html.DisplayNameFor(model => model.NettIncome)
+            </th>
+            <th>
                 @Html.DisplayNameFor(model => model.IncomeIncr)
             </th>
             <th>
@@ -105,6 +108,9 @@
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.Loss)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.NettIncome)
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.IncomeIncr)
@@ -149,6 +155,7 @@
             <td>
                 @Tools.decimalRound(totalLoss)
             </td>
+            <td></td>
             <td></td>
             <td>
                 @Tools.decimalRound(totalSocialSecContr)
