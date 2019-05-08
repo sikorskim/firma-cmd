@@ -90,7 +90,8 @@ namespace firma_mvc
         {
             input = input.Replace(@"\", @"\textbackslash");
             input = input.Replace("#", @"\#");
-            input = input.Replace("_", @"\_");            
+            input = input.Replace("_", @"\_");
+            input = input.Replace('"', '\'');            
             return input;
         }
     }
