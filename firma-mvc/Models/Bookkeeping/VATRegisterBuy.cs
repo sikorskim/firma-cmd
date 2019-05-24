@@ -55,6 +55,17 @@ namespace firma_mvc
         [DisplayName ("Rok")]
         public int Year { get; set; }
 
+
+        private readonly ApplicationDbContext AppDbContext;
+
+        public VATRegisterBuy()
+        { }
+
+        public VATRegisterBuy(ApplicationDbContext _context)
+        {
+            AppDbContext=_context;
+        }
+
         public int getOrderNumber (ApplicationDbContext _context)
         {
             try
@@ -139,5 +150,14 @@ namespace firma_mvc
         {
             return "vatRejZakupu" + year + month;
         }
+
+        public decimal getNettBuyValueByMonth(int month, int year)
+        {
+            return (decimal)AppDbContext.VATRegisterBuy.Where(p=>p.DateOfIssue.Year==year && p.DateOfIssue.Month==month).Sum(p=>p.ValueNetto);
+        }
+        public decimal getBuyWithTaxValueByMonth(int month, int year)
+        {
+            return (decimal)AppDbContext.VATRegisterBuy.Where(p=>p.DateOfIssue.Year==year && p.DateOfIssue.Month==month).Sum(p=>p.ValueBrutto);
+        } 
     }
 }

@@ -71,9 +71,15 @@ namespace firma_mvc
         [DisplayName("Kontrahent")]
         [ForeignKey("ContractorId")]
         public virtual Contractor Contractor { get; set; }
+        private readonly ApplicationDbContext AppDbContext;
 
         public VATRegisterSell()
         { }
+
+        public VATRegisterSell(ApplicationDbContext _context)
+        {
+            AppDbContext=_context;
+        }
 
         public VATRegisterSell(DateTime dt)
         {
@@ -191,6 +197,16 @@ namespace firma_mvc
         public string getDownloadFilename (int year, int month)
         {
             return "rejestrVAT" + year + month;
-        }       
+        }
+
+        public decimal getNettSellValueByMonth(int month, int year)
+        {
+            return (decimal)AppDbContext.VATRegisterSell.Where(p=>p.DateOfIssue.Year==year && p.DateOfIssue.Month==month).Sum(p=>p.ValueNetto23);
+        }
+        public decimal getSellWithTaxValueByMonth(int month, int year)
+        {
+            decimal nettValue = getNettSellValueByMonth(month, year);
+            return (decimal)AppDbContext.VATRegisterSell.Where(p=>p.DateOfIssue.Year==year && p.DateOfIssue.Month==month).Sum(p=>p.VATValue23)+nettValue;
+        }        
     }
 }

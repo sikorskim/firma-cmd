@@ -20,6 +20,20 @@ namespace firma_mvc.Controllers
 
         public IActionResult Index()
         {
+            int currMonth = DateTime.Now.Month;
+            int currYear = DateTime.Now.Year;
+            VATRegisterSell vATRegisterSell = new VATRegisterSell(_context);
+            VATRegisterBuy vATRegisterBuy = new VATRegisterBuy(_context);
+            IncomeTax incomeTax=new IncomeTax(currYear,currMonth);
+            VAT7 vat7 = new VAT7(currYear,currMonth);
+
+            ViewData["SellNettValue"]= vATRegisterSell.getNettSellValueByMonth(currMonth,currYear).ToString ("0.00");
+            ViewData["SellWithTaxValue"]= vATRegisterSell.getSellWithTaxValueByMonth(currMonth,currYear).ToString ("0.00");
+            ViewData["BuyNettValue"]= vATRegisterBuy.getNettBuyValueByMonth(currMonth,currYear).ToString ("0.00");
+            ViewData["BuyWithTaxValue"]= vATRegisterBuy.getBuyWithTaxValueByMonth(currMonth,currYear).ToString ("0.00");
+            ViewData["IncomeTaxValue"] = incomeTax.compute(_context).Value;
+            ViewData["VATValue"] = vat7.compute(_context);
+
             return View();
         }
 

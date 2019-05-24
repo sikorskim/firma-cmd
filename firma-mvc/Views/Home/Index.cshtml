@@ -2,7 +2,42 @@
     ViewData["Title"] = "Home Page";
 }
 
-<div id="carouselExampleIndicators" class="carousel slide carousel-fade" data-ride="carousel">
+<br>
+
+<div class="row">
+
+<div class="col">
+<div class="card text-white bg-success mb-3" style="max-width: 18rem;">
+  <div class="card-header">Sprzedaż</div>
+  <div class="card-body">
+    <h5 class="card-title">@ViewBag.SellNettValue</h5>
+    <p class="card-text">@ViewBag.SellWithTaxValue brutto</p>
+  </div>
+</div>
+</div>
+
+<div class="col">
+<div class="card text-white bg-danger mb-3" style="max-width: 18rem;">
+  <div class="card-header">Koszty</div>
+  <div class="card-body">
+    <h5 class="card-title">@ViewBag.BuyNettValue</h5>
+    <p class="card-text">@ViewBag.BuyWithTaxValue brutto</p>
+  </div>
+</div>
+</div>
+
+<div class="col">
+<div class="card text-white bg-warning mb-3" style="max-width: 18rem;">
+  <div class="card-header">Podatki</div>
+  <div class="card-body">
+    <h5 class="card-title">PIT-5 @ViewBag.IncomeTaxValue</h5>
+    <h5 class="card-title">VAT-7 @ViewBag.VATValue</h5>    
+  </div>
+</div>
+</div>
+
+</div>
+<!-- <div id="carouselExampleIndicators" class="carousel slide carousel-fade" data-ride="carousel">
     <ol class="carousel-indicators">
         <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
         <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
@@ -63,7 +98,7 @@
         <span class="carousel-control-next-icon" aria-hidden="true"></span>
         <span class="sr-only">Next</span>
     </a>
-</div>
+</div> -->
 
 <div class="row">
     <div class="col-md-3">

@@ -18,7 +18,15 @@ namespace firma_mvc
         public bool Paid { get; set; }
         [DisplayName("Wartość")]
         public decimal Value { get; set; }
+        
+        public VAT7()
+        {}
 
+        public VAT7(int year, int month)
+        {
+            this.Year=year;
+            this.Month=month;
+        }
         public decimal compute(ApplicationDbContext _context)
         {
             decimal owing = (decimal)_context.VATRegisterSell.Where(p => p.Month == Month && p.Year == Year).Sum(p => p.VATValue23 + p.VATValue7_8 + p.VATValue3_5);
