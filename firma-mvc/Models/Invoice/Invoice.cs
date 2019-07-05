@@ -305,6 +305,8 @@ namespace firma_mvc
         string getTriplets(int i)
         {
             string[] triplets = { "sto", "dwieście", "trzysta", "czterysta", "pięćset", "sześćset", "siedemset", "osiemset", "dziewięćset" };
+
+
             string output = triplets[i / 100 - 1];
             int i1 = i % 100;
             if (i1 != 0)
@@ -361,9 +363,25 @@ namespace firma_mvc
             }
 
             int i3 = i % 1000;
+
             if (i3 != 0)
             {
-                output += " " + getTriplets(i3);
+                if (i3 >= 1 && i3 <= 9)
+                {
+                    output += " " + getOnes(i3);
+                }
+                if (i3 >= 10 && i3 <= 19)
+                {
+                    output += " " + getTeens(i3);
+                }
+                if (i3 >= 20 && i3 <= 99)
+                {
+                    output += " " + getDoubles(i3);
+                }
+                if (i3 >= 100 && i3 <= 999)
+                {
+                    output += " " + getTriplets(i3);
+                }
             }
 
             return output;
