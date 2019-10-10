@@ -25,13 +25,13 @@
         <div class="row">
             <div class="form-group col-6">
                 <label asp-for="ContractorId" class="control-label"></label>
-                <select asp-for="ContractorId" class="form-control" asp-items="ViewBag.ContractorId"></select>
+                <select asp-for="ContractorId" class="form-control" asp-items="ViewBag.ContractorId" id="selectlist"></select>
             </div>
         </div>
 
 <div class="row">
     <div class="col-6 my-1">
-            <input class="form-control" type="text" name="searchQuery" placeholder="nazwa lub NIP" aria-label="Search">
+            <input class="form-control" type="text" name="searchQuery" placeholder="nazwa lub NIP" aria-label="Search" id="search" >
         </div>
         <div class="my-1">
             <button class="btn btn-outline-primary" type="submit"><i class="fas fa-search"></i> Szukaj</button>
@@ -58,3 +58,7 @@
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
 }
+
+<script>
+
+</script>

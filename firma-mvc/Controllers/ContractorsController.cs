@@ -170,5 +170,13 @@ namespace firma_mvc.Controllers
         {
             return _context.Contractor.Any(e => e.Id == id);
         }
+
+        // GET: Contractors/SearchContractor
+        public async Task<IActionResult> SearchContractor(string query)
+        {
+            var item = _context.Contractor.Where(p=>p.Name.Contains(query));
+            
+            return Json(item);
+        }
     }
 }

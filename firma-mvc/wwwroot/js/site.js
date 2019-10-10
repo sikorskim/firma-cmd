@@ -84,3 +84,11 @@ $('#calcTypeSelect').change(function () {
 });
 
 
+$('#search').keyup(function () {
+    var searchQuery = $('#search').val();
+    $.get('/Contractors/SearchContractor', { query: searchQuery }, function (data) {
+        console.log('test')
+    console.log(data);     
+
+    });
+});
