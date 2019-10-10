@@ -20,9 +20,16 @@ namespace firma_mvc.Controllers
         }
 
         // GET: Items
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(string searchQuery)
         {
             var applicationDbContext = _context.Item.Include(i => i.UnitOfMeasure).Include(i => i.VAT);
+
+            if (!String.IsNullOrEmpty (searchQuery))
+            {
+                var searchResult = applicationDbContext.Where (p => p.Name.Contains (searchQuery));
+                return View (await searchResult.ToListAsync ());
+            }
+
             return View(await applicationDbContext.ToListAsync());
         }
 

@@ -1,7 +1,7 @@
 ﻿@model IEnumerable<firma_mvc.Item>
 
 @{
-    ViewData["Title"] = "Przedmioty";
+    ViewData["Title"] = "Towary i usługi";
 }
 
 <p>
@@ -11,11 +11,18 @@
     @Html.ActionLink("Dodaj", "Create", null, htmlAttributes: new { @class = "btn btn-outline-success" })
 </p>*@
 
-<p>
+<form>
+<div class="form-row align-items-center">
     <button type="button" class="btn btn-outline-success" data-toggle="modal" data-target="#exampleModal">
         Dodaj
     </button>
-</p>
+            <div class="col-sm-3 my-1">
+            <input class="form-control" type="text" name="searchQuery" placeholder="nazwa" aria-label="Search">
+        </div>
+        <div class="my-1">
+            <button class="btn btn-outline-primary" type="submit"><i class="fas fa-search"></i> Szukaj</button>
+        </div>
+</form>        
 
 <!-- Modal -->
 <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -33,6 +40,8 @@
         </div>
     </div>
 </div>
+</div>
+
 
 @*<ul class="nav nav-tabs" id="myTab" role="tablist">
     <li class="nav-item">
