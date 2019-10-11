@@ -84,11 +84,20 @@ $('#calcTypeSelect').change(function () {
 });
 
 
+// Invoices/CreatePartial
 $('#search').keyup(function () {
     var searchQuery = $('#search').val();
+    //clear table
+    $('#searchResult').empty();
+
     $.get('/Contractors/SearchContractor', { query: searchQuery }, function (data) {
-        console.log('test')
-    console.log(data);     
+//   console.log(data);     
+   $.each(data, function(key,value){
+       var obj = "$('#contractorid').val("+value.id+")";
+       var str = '<tr class="table-light" onclick="'+obj+'"><td>'+value.name+'</td><td>'+value.nip+'</td></tr>';
+       $('#searchResult').append($(str))
+   });
 
     });
 });
+
