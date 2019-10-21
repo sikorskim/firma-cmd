@@ -4,6 +4,7 @@
     ViewData["Title"] = "Create";
 }
 
+<br>
 <h4>Rejestr VAT zakupu - nowa pozycja</h4>
 <hr />
 <div class="row">
@@ -26,14 +27,14 @@
                 <span asp-validation-for="Year" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="DeliveryDate" class="control-label"></label>
-                <input asp-for="DeliveryDate" class="form-control" />
-                <span asp-validation-for="DeliveryDate" class="text-danger"></span>
+                <label asp-for="DateOfIssue" class="control-label"></label>
+                <input asp-for="DateOfIssue" class="form-control" id="vatRegBuyCreateDtOfIssue"/>
+                <span asp-validation-for="DateOfIssue" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="DateOfIssue" class="control-label"></label>
-                <input asp-for="DateOfIssue" class="form-control" />
-                <span asp-validation-for="DateOfIssue" class="text-danger"></span>
+                <label asp-for="DeliveryDate" class="control-label"></label>
+                <input asp-for="DeliveryDate" class="form-control" id="vatRegBuyCreateDelDt"/>
+                <span asp-validation-for="DeliveryDate" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="DocumentNumber" class="control-label"></label>
@@ -45,14 +46,14 @@
                 <select asp-for="ContractorId" class="form-control" asp-items="ViewBag.ContractorId"></select>
             </div>
             <div class="form-group">
-                <label asp-for="ValueBrutto" class="control-label"></label>
-                <input id="valBrutto" asp-for="ValueBrutto" class="form-control" />
-                <span asp-validation-for="ValueBrutto" class="text-danger"></span>
-            </div>
-            <div class="form-group">
                 <label asp-for="ValueNetto" class="control-label"></label>
                 <input id="valNetto" asp-for="ValueNetto" class="form-control" />
                 <span asp-validation-for="ValueNetto" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ValueBrutto" class="control-label"></label>
+                <input id="valBrutto" asp-for="ValueBrutto" class="form-control" />
+                <span asp-validation-for="ValueBrutto" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <div class="row form-group">

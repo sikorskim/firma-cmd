@@ -75,8 +75,6 @@ namespace firma_mvc.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("Id,NIP,FullName,Name,CountryCode,Voivodeship,County,Community,City,Street,BuldingNo,PostalCode,PostOffice,Email,Phone")] Contractor contractor)
         {
-            Console.WriteLine("test");
-
             if (ModelState.IsValid)
             {
                 _context.Add(contractor);

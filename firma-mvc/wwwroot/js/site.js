@@ -8,9 +8,11 @@ $('#btnVat50').click(function () {
 });
 
 // count VAT value in VATRegisterBuy create view
-$('#valNetto').change(function () {
-    var netto = $('#valNetto').val()//.replace(',', '.');
-    var brutto = $('#valBrutto').val()//.replace(',', '.');
+$('#valNetto').keyup(function () {
+    var netto = $('#valNetto').val();    
+    var brutto = netto*1.23;
+    brutto=brutto.toFixed(2);
+    $('#valBrutto').val(brutto);
     var vat = brutto - netto;
     vat = vat.toFixed(2);
     //vat = vat.replace('.', ',')
@@ -87,6 +89,8 @@ $('#calcTypeSelect').change(function () {
 // Invoices/CreatePartial
 $('#search').keyup(function () {
     var searchQuery = $('#search').val();
+    console.log(searchQuery);
+
     //clear table
     $('#searchResult').empty();
 
@@ -94,10 +98,22 @@ $('#search').keyup(function () {
 //   console.log(data);     
    $.each(data, function(key,value){
        var obj = "$('#contractorid').val("+value.id+")";
-       var str = '<tr class="table-light" onclick="'+obj+'"><td>'+value.name+'</td><td>'+value.nip+'</td></tr>';
+       var str = '<tr class="table-light result" onclick="'+obj+'"><td>'+value.name+'</td><td>'+value.nip+'</td></tr>';
+    //    var str = '<tr onclick="'+obj+'"><td>'+value.name+'</td><td>'+value.nip+'</td></tr>';
+    //    var str = '<tr class="table-light result" onclick="searchResultClick()"><td>'+value.name+'</td><td>'+value.nip+'</td></tr>';
        $('#searchResult').append($(str))
+
    });
 
     });
 });
 
+$('table tr').click(function () {
+    $('.bg-primary').removeClass('bg-primary');
+    $(this).addClass('bg-primary');
+});
+
+$('#vatRegBuyCreateDtOfIssue').keyup(function () {
+    var date = $('#vatRegBuyCreateDtOfIssue').val();
+    $('#vatRegBuyCreateDelDt').val(date);
+});

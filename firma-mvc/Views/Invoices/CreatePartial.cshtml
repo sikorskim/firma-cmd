@@ -9,8 +9,6 @@
                 <input asp-for="Number" class="form-control" />
                 <span asp-validation-for="Number" class="text-danger"></span>
             </div>
-        </div>
-        <div class="row">
             <div class="form-group col">
                 <label asp-for="DateOfIssue" class="control-label"></label>
                 <input asp-for="DateOfIssue" class="form-control" />
@@ -21,25 +19,22 @@
                 <input asp-for="DateOfDelivery" class="form-control" />
                 <span asp-validation-for="DateOfDelivery" class="text-danger"></span>
             </div>
-        </div>
-        <div class="row">
-            <!-- <div class="form-group col-6">
-                <label asp-for="ContractorId" class="control-label"></label>
-                <select asp-for="ContractorId" class="form-control" asp-items="ViewBag.ContractorId" id="selectlist"></select>
-            </div> -->
+
         </div>
 
 <div class="row">
     <div class="col-6 my-1">
-            <input class="form-control" type="text" name="searchQuery" placeholder="nazwa lub NIP" aria-label="Search" id="search" >
-            <input hidden asp-for="ContractorId" class="form-control" id="contractorid">
+            <input class="form-control" type="text" name="searchQuery" placeholder="nazwa kontrahenta" aria-label="Search" id="search" >
+            <input hidden asp-for="ContractorId" class="form-control" id="contractorid">            
+        </div>
+        <div class="col">
+            <button type="button" class="btn btn-outline-success" data-dismiss="modal">Dodaj kontrahenta</button>
         </div>
         <div class="col-12">
- <table class="table table-hover table-bordered" id="searchResult">
-                <tbody>
-                </tbody>
+            <table class="table table-hover" id="searchResult">
+                <tbody></tbody>
             </table>
-            </div>
+        </div>
 </div>
 
         <div class="row">
