@@ -34,6 +34,10 @@ namespace firma_mvc.Controllers
             ViewData["IncomeTaxValue"] = incomeTax.compute(_context).Value;
             ViewData["VATValue"] = vat7.compute(_context);
 
+            TaxBook taxBook = new TaxBook();
+            ViewData["IncomeLast12m"] = taxBook.getLast12mIncome(_context);
+            ViewData["NettIncomeLast12m"] = taxBook.getLast12mNettIncome(_context);
+            ViewData["CostsLast12m"] = taxBook.getLast12mCosts(_context);
             return View();
         }
 

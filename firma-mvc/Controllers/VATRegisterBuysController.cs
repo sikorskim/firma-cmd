@@ -174,7 +174,9 @@ namespace firma_mvc.Controllers
                 
                 if(vATRegisterBuyViewModel.BuyForTrade)
                 {
+                    string description="zakup handlowy";
                     taxBook.GoodsBuys=vATRegisterBuyViewModel.ValueNetto;
+                    taxBook.Description=description;
                 }
                 else if(vATRegisterBuyViewModel.OtherCost)
                 {

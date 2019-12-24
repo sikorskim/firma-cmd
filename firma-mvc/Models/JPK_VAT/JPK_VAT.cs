@@ -54,9 +54,9 @@ namespace firma_mvc
 
                 SprzedazWierszList.Add(sprzedazWiersz);
                 SprzedazCtrl.PodatekNalezny += s.VATSummary;
-                SprzedazCtrl.PodatekNalezny = Tools.decimalRound(SprzedazCtrl.PodatekNalezny);
                 i++;
             }
+            SprzedazCtrl.PodatekNalezny = Tools.decimalRound(SprzedazCtrl.PodatekNalezny);
             SprzedazCtrl.LiczbaWierszySprzedazy = sprzedaz.Count();
 
             i = 1;
@@ -78,9 +78,9 @@ namespace firma_mvc
 
                 ZakupWierszList.Add(zakupWiersz);
                 ZakupCtrl.PodatekNaliczony += (decimal)z.TaxDeductibleValue;
-                ZakupCtrl.PodatekNaliczony = Tools.decimalRound(ZakupCtrl.PodatekNaliczony);
                 i++;
             }
+            ZakupCtrl.PodatekNaliczony = Tools.decimalRound(ZakupCtrl.PodatekNaliczony);
             ZakupCtrl.LiczbaWierszyZakupow = zakupy.Count();
         }
 

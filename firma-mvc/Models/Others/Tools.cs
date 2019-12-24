@@ -88,10 +88,16 @@ namespace firma_mvc
 
         public static string handleLatexSpecialChars(string input)
         {
+            char[] specChars = new char[] {'#', '_', '$', '&'};
             input = input.Replace(@"\", @"\textbackslash");
-            input = input.Replace("#", @"\#");
-            input = input.Replace("_", @"\_");
-            input = input.Replace('"', '\'');            
+            input = input.Replace('"', '\'');       
+            
+            foreach(char c in specChars)
+            {
+                string str = @"\"+c.ToString();
+                input=input.Replace(c.ToString(), str);
+            }
+     
             return input;
         }
     }

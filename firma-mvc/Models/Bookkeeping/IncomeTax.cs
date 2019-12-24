@@ -53,7 +53,7 @@ namespace firma_mvc
             SocialSecContrIncr = getSocialSecContrIncr(_context);
             HealthSec = getHealthSec(_context);
             HealthSecIncr = getHealthSecIncr(_context);
-            decimal taxRate = 0.18M;
+            decimal taxRate = 0.1775M;
             decimal paidTax = getPaidTax(_context);
 
             Income = getIncome(_context);

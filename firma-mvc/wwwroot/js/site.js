@@ -1,11 +1,11 @@
 ﻿// count 50% of VAT tax on VATRegisterBuy create view
-$('#btnVat50').click(function () {
-    var vat = $('#TaxDeductibleValue').val().replace(',', '.');
-    vat = vat / 2;
-    vat = vat.toFixed(2);
-    vat = vat.replace('.', ',')
-    $('#TaxDeductibleValue').val(vat);
-});
+// $('#btnVat50').click(function () {
+//     var vat = $('#TaxDeductibleValue').val().replace(',', '.');
+//     vat = vat / 2;
+//     vat = vat.toFixed(2);
+//     vat = vat.replace('.', ',')
+//     $('#TaxDeductibleValue').val(vat);
+// });
 
 // count VAT value in VATRegisterBuy create view
 $('#valNetto').keyup(function () {
@@ -30,9 +30,9 @@ $('#ItemIdDropDownList').change(function () {
         var netto = data.price.toFixed(2);
         var vat = data.vat.value.toFixed(2);
         var brutto = vat / 100 * netto + +netto;
-        brutto = brutto.toFixed(2).replace('.', ',');
-        netto = netto.replace('.', ',');
-        vat = vat.replace('.', ',');
+        brutto = brutto.toFixed(2);//.replace('.', ',');
+        // netto = netto.replace('.', ',');
+        // vat = vat.replace('.', ',');
 
         $('#invoiceItemCreateVatValue').val(vat);
         $('#invoiceItemCreatePrice').val(netto);
@@ -95,7 +95,7 @@ $('#search').keyup(function () {
     $('#searchResult').empty();
 
     $.get('/Contractors/SearchContractor', { query: searchQuery }, function (data) {
-//   console.log(data);     
+   console.log(data);     
    $.each(data, function(key,value){
        var obj = "$('#contractorid').val("+value.id+")";
        var str = '<tr class="table-light result" onclick="'+obj+'"><td>'+value.name+'</td><td>'+value.nip+'</td></tr>';
