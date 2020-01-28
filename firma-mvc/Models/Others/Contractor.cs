@@ -14,7 +14,7 @@ namespace firma_mvc
         public string NIP { get; set; }
         [DisplayName("Pełna nazwa")]
         public string FullName { get; set; }
-        [DisplayName("Nazwa")]
+        [DisplayName("Nazwa skrócona")]
         public string Name { get; set; }
         [DisplayName("Kod kraju")]
         public string CountryCode { get; set; }
