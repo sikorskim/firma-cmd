@@ -36,9 +36,9 @@ namespace firma_mvc.Controllers
             // fixedAssets.Identfier = fixedAssets.getNumber(_context);
             // ViewData["FixedAssets"] = fixedAssets;
 
-            Contractor contractor = new Contractor();
-            contractor.Name="test";
-            ViewData["Contractor"]=contractor;
+            // Contractor contractor = new Contractor();
+            // contractor.Name="test";
+            // ViewData["Contractor"]=contractor;
             return View(await applicationDbContext.ToListAsync());
         }
 

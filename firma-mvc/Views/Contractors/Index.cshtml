@@ -8,7 +8,7 @@
     <h2>Kontrahenci</h2>
 </p>
 
-<!-- <form> -->
+<form>
     <div class="form-row align-items-center">
         <div class="my-2">
             <button type="button" class="btn btn-outline-success" data-toggle="modal" data-target="#exampleModal">
@@ -18,10 +18,10 @@
         <div class="col-sm-3 my-1">
             <input class="form-control" type="text" name="searchQuery" placeholder="NIP lub nazwa kontrahenta" aria-label="Search">
         </div>
-        <!-- <div class="my-1">
+        <div class="my-1">
             <button class="btn btn-outline-primary" type="submit"><i class="fas fa-search"></i> Szukaj</button>
-        </div> -->
-
+        </div>
+</form>
             <!-- Modal -->
             <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                 <div class="modal-dialog modal-lg" role="document">
@@ -34,15 +34,14 @@
                         </div>
                         <div class="modal-body">
                             <div class="container-fluid">
-                                @await Html.PartialAsync("CreatePartial", @ViewData["Contractor"])
+                                @* @await Html.PartialAsync("CreatePartial", @ViewData["Contractor"]) *@
+                                @await Component.InvokeAsync("ContractorCreate", new Contractor())
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-
-<!-- </form> -->
 
 <table class="table table-bordered table-hover">
     <thead class="thead-light">
@@ -51,7 +50,7 @@
                 #
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Name)
+                @Html.DisplayNameFor(model => model.FullName)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.NIP)
@@ -75,7 +74,7 @@
                     @i
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.Name)
+                    @Html.DisplayFor(modelItem => item.FullName)
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.NIP)
