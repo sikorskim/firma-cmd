@@ -72,7 +72,7 @@ namespace firma_mvc
             Console.WriteLine("przychod "+Income);
             Console.WriteLine("koszty " + Loss );
             Console.WriteLine("przychod narastajaco "+IncomeIncr);
-            Console.WriteLine("podatek "+Value);
+            Console.WriteLine("podatek " + Value);
 
             if(Value<0)
             {

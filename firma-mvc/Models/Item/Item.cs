@@ -35,7 +35,8 @@ namespace firma_mvc
         {
             try
             {
-                return Price + VAT.Value * Price / 100;
+                //return Price + VAT.Value * Price / 100;
+                return 0;
             }
             catch (Exception e)
             {

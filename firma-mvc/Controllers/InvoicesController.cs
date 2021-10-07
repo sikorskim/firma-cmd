@@ -175,9 +175,9 @@ namespace firma_mvc.Controllers
             invoice.CompanyId = getCompanyId ();
 
             if (ModelState.IsValid)
-            {
-                _context.Add (invoice);
-                await _context.SaveChangesAsync ();
+            {               
+                _context.Invoice.Add (invoice);
+                await _context.SaveChangesAsync();
                 return RedirectToAction ("Details", "Invoices", new { id = invoice.Id });
             }
             ViewData["ContractorId"] = new SelectList (_context.Contractor, "Id", "Name", invoice.ContractorId);

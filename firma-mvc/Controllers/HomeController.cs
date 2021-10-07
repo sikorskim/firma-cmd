@@ -22,22 +22,22 @@ namespace firma_mvc.Controllers
         {
             int currMonth = DateTime.Now.Month;
             int currYear = DateTime.Now.Year;
-            VATRegisterSell vATRegisterSell = new VATRegisterSell(_context);
-            VATRegisterBuy vATRegisterBuy = new VATRegisterBuy(_context);
-            IncomeTax incomeTax=new IncomeTax(currYear,currMonth);
-            VAT7 vat7 = new VAT7(currYear,currMonth);
+            //VATRegisterSell vATRegisterSell = new VATRegisterSell(_context);
+            //VATRegisterBuy vATRegisterBuy = new VATRegisterBuy(_context);
+            //IncomeTax incomeTax = new IncomeTax(currYear, currMonth);
+            //VAT7 vat7 = new VAT7(currYear, currMonth);
 
-            ViewData["SellNettValue"]= vATRegisterSell.getNettSellValueByMonth(currMonth,currYear).ToString ("0.00");
-            ViewData["SellWithTaxValue"]= vATRegisterSell.getSellWithTaxValueByMonth(currMonth,currYear).ToString ("0.00");
-            ViewData["BuyNettValue"]= vATRegisterBuy.getNettBuyValueByMonth(currMonth,currYear).ToString ("0.00");
-            ViewData["BuyWithTaxValue"]= vATRegisterBuy.getBuyWithTaxValueByMonth(currMonth,currYear).ToString ("0.00");
-            ViewData["IncomeTaxValue"] = incomeTax.compute(_context).Value;
-            ViewData["VATValue"] = vat7.compute(_context);
+            //ViewData["SellNettValue"] = vATRegisterSell.getNettSellValueByMonth(currMonth, currYear).ToString("0.00");
+            //ViewData["SellWithTaxValue"] = vATRegisterSell.getSellWithTaxValueByMonth(currMonth, currYear).ToString("0.00");
+            //ViewData["BuyNettValue"] = vATRegisterBuy.getNettBuyValueByMonth(currMonth, currYear).ToString("0.00");
+            //ViewData["BuyWithTaxValue"] = vATRegisterBuy.getBuyWithTaxValueByMonth(currMonth, currYear).ToString("0.00");
+            //ViewData["IncomeTaxValue"] = incomeTax.compute(_context).Value;
+            //ViewData["VATValue"] = vat7.compute(_context);
 
-            TaxBook taxBook = new TaxBook();
-            ViewData["IncomeLast12m"] = taxBook.getLast12mIncome(_context);
-            ViewData["NettIncomeLast12m"] = taxBook.getLast12mNettIncome(_context);
-            ViewData["CostsLast12m"] = taxBook.getLast12mCosts(_context);
+            //TaxBook taxBook = new TaxBook();
+            //ViewData["IncomeLast12m"] = taxBook.getLast12mIncome(_context);
+            //ViewData["NettIncomeLast12m"] = taxBook.getLast12mNettIncome(_context);
+            //ViewData["CostsLast12m"] = taxBook.getLast12mCosts(_context);
             return View();
         }
 

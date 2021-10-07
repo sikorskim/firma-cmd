@@ -70,7 +70,8 @@ namespace firma_mvc
             {
                 2018,
                 2019,
-                2020
+                2020,
+                2021
             };
             return years;
         }
